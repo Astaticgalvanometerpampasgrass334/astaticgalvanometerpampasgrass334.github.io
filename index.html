@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Radiah Khan — Statistics & Data Science</title>
+<meta name="description" content="Radiah Khan — Statistical & Data Sciences, Smith College. Research, applied data science, and software projects.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ===== Top bar ===== -->
+<header class="topbar">
+  <div class="wrap topbar__inner">
+    <a class="topbar__mark" href="#top">RK</a>
+    <nav class="topbar__contact" aria-label="Contact links">
+      <a href="https://www.linkedin.com/in/radiah-khan" target="_blank" rel="noopener" class="iconbtn" aria-label="LinkedIn">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12zM7.12 20.45H3.56V9h3.56v11.45z"/></svg>
+        <span>LinkedIn</span>
+      </a>
+      <a href="https://github.com/radiah23" target="_blank" rel="noopener" class="iconbtn" aria-label="GitHub">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49 0-.24-.01-1.04-.01-1.89-2.78.62-3.37-1.21-3.37-1.21-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.63.07-.63 1 .07 1.53 1.05 1.53 1.05.89 1.57 2.34 1.11 2.91.85.09-.67.35-1.11.63-1.37-2.22-.26-4.56-1.14-4.56-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.31.1-2.72 0 0 .84-.28 2.75 1.05a9.36 9.36 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.41.2 2.46.1 2.72.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.79-4.57 5.05.36.32.68.94.68 1.9 0 1.37-.01 2.47-.01 2.81 0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg>
+        <span>GitHub</span>
+      </a>
+      <a href="mailto:rkhan@smith.edu" class="iconbtn" aria-label="Email">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18v12H3z"/><path d="M3 7l9 6 9-6"/></svg>
+        <span>Email</span>
+      </a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- ===== Hero / Intro ===== -->
+  <section class="hero wrap">
+    <img class="hero__avatar" src="headshot.jpeg" alt="Radiah Khan">
+    <div class="hero__body">
+      <p class="eyebrow">Northampton, MA &middot; Statistical &amp; Data Sciences, Smith College</p>
+      <h1 class="hero__name">Radiah Khan</h1>
+      <p class="hero__bio">
+        I work at the intersection of statistics, software, and public-interest data —
+        from FDA-compliant clinical trial pipelines at Memorial Sloan Kettering, to NLP research
+        on digital communities, to civic datasets on elections, wages, and school funding.
+        I like problems where the data is messy and the answer actually matters to someone.
+      </p>
+      <div class="hero__tools" aria-label="Languages and tools">
+        <div class="tool-group">
+          <span class="tool-group__label">Languages</span>
+          <ul class="chips">
+            <li class="chip chip--strong">Python</li>
+            <li class="chip chip--strong">R</li>
+            <li class="chip chip--strong">SQL</li>
+            <li class="chip">Java</li>
+          </ul>
+        </div>
+        <div class="tool-group">
+          <span class="tool-group__label">Tools &amp; Platforms</span>
+          <ul class="chips">
+            <li class="chip">Git / GitHub</li>
+            <li class="chip">Snowflake</li>
+            <li class="chip">Tableau</li>
+            <li class="chip">Docker</li>
+            <li class="chip">Power BI</li>
+            <li class="chip">Linux</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== Tab nav ===== -->
+  <nav class="tabnav wrap" aria-label="Section navigation">
+    <button class="tabnav__btn is-active" data-tab="experience">Experience</button>
+    <button class="tabnav__btn" data-tab="projects">Projects</button>
+    <button class="tabnav__btn" data-tab="honors">Honors</button>
+    <button class="tabnav__btn" data-tab="involvement">Involvement</button>
+  </nav>
+
+  <!-- ===== Experience (timeline) ===== -->
+  <section class="tabpanel is-active wrap" id="panel-experience">
+    <div class="section-head">
+      <h2>Experience</h2>
+      <p class="section-head__sub">Industry, research, and teaching roles, most recent first.</p>
+    </div>
+
+    <ol class="timeline">
+
+      <li class="tl-item" data-tag="industry">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Jun 2026 — Aug 2026</div>
+        <div class="tl-item__card">
+          <span class="tag tag--industry">Industry</span>
+          <h3>PCCTC Data Science Intern</h3>
+          <p class="tl-item__org">Memorial Sloan Kettering Cancer Center</p>
+          <ul>
+            <li>Build dataset derivations and FDA-compliant Tables, Listings, and Figures (TLFs) in R (tidyverse, gtsummary, gtreg) for a Phase 2 (n=12) and Phase 4 (n=5,000+) prostate cancer trial, following CDISC standards.</li>
+            <li>Contribute to two internal R packages (withr, testthat, cli) with 30+ unit tests standardizing endpoint derivation for SAP review; use Claude, GitHub Copilot, and OpenAI Codex to accelerate development.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="tl-item" data-tag="research">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Jan 2026 — May 2026</div>
+        <div class="tl-item__card">
+          <span class="tag tag--research">Research</span>
+          <h3>Research Assistant, Tinker Lab</h3>
+          <p class="tl-item__org">Computer Science Dept., Smith College &middot; Advisor: Prof. Katherine Kinnaird</p>
+          <ul>
+            <li>Built a two-way automated survey system in Python (FastAPI, Twilio, Google APIs) for rapid hypothesis testing on user intent; applied spaCy NER to structure qualitative responses.</li>
+            <li>Built an NLP-based food recommendation pipeline (InstaFoodRoBERTa-NER) translating population-health constraints into personalized recommendations for a food-insecure patient population.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="tl-item" data-tag="teaching">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Jan 2026 — May 2026</div>
+        <div class="tl-item__card">
+          <span class="tag tag--teaching">Teaching</span>
+          <h3>In-Class Assistant &amp; Tutor</h3>
+          <p class="tl-item__org">Spinelli Center for Quantitative Learning, Smith College</p>
+          <ul>
+            <li>Teach and debug Python/R and statistics coursework for 85+ students weekly across five sections.</li>
+            <li>Hold office hours for 200-level Advanced Data Science, Multiple Regression, and Research Methods.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="tl-item" data-tag="industry">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Jan 2026 — May 2026</div>
+        <div class="tl-item__card">
+          <span class="tag tag--industry">Industry</span>
+          <h3>Assessment Intern</h3>
+          <p class="tl-item__org">Conway Center for Innovation and Entrepreneurship</p>
+          <ul>
+            <li>Sole analytics lead for an 18-team commercialization competition; built a real-time scoring pipeline in JavaScript synthesizing 65+ applicant variables into live, judge-facing outputs.</li>
+            <li>Built an automated leaderboard (Google Apps Script, Forms, Sheets) for the Elevator Pitch competition, reducing manual scoring across 3 judges and 25+ participants to near zero.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="tl-item" data-tag="research">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Sep 2025 — May 2026</div>
+        <div class="tl-item__card">
+          <span class="tag tag--research">Research</span>
+          <h3>Technical Researcher, Data Infrastructure Group Lab</h3>
+          <p class="tl-item__org">Smith College &middot; Advisor: Dr. Nikko Stevens</p>
+          <ul>
+            <li>Built an NLP sentiment/topic-modeling pipeline (PyTorch, NLTK, PRAW) on 1,000 Reddit posts, using k-means clustering and Deep Embedding Clustering with a VAE, validated with silhouette scores and HDBSCAN.</li>
+            <li>Built an interactive storymap from geospatial data-center infrastructure data with the Spatial Analysis Lab, using GeoPandas and GDAL.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="tl-item" data-tag="research">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">May 2025 — Jul 2025</div>
+        <div class="tl-item__card">
+          <span class="tag tag--research">Research</span>
+          <h3>Summer Research Fellow</h3>
+          <p class="tl-item__org">Data Science Dept., Smith College &middot; Advisor: Dr. Kementari Whitcher</p>
+          <ul>
+            <li>Designed a database of 400 U.S. college dining-procurement records (STARS/AASHE framework); ran ANOVA, chi-square, and t-tests, and built a validated logistic regression model to forecast procurement behavior.</li>
+            <li>Authored a 40-page report and presented findings at ACM MAGICC 2025 (Talk &amp; Poster).</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="tl-item" data-tag="industry">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Jan 2025 — Jul 2025</div>
+        <div class="tl-item__card">
+          <span class="tag tag--industry">Industry</span>
+          <h3>Data Management Intern</h3>
+          <p class="tl-item__org">Solidago Foundation</p>
+          <ul>
+            <li>Led a 3-person team to redesign fragmented data infrastructure supporting a $50K+ annual grant portfolio; cut project delivery time 67% (3 months → 1 month).</li>
+            <li>Built 3 relational analytics databases spanning 200+ projects; developed 5 interactive dashboards and co-authored a 40-slide executive briefing informing environmental-justice and equity funding decisions.</li>
+          </ul>
+        </div>
+      </li>
+
+      <li class="tl-item" data-tag="research">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Oct 2024 — May 2025</div>
+        <div class="tl-item__card">
+          <span class="tag tag--research">Research</span>
+          <h3>Independent Researcher, Digital Public Infrastructure Lab</h3>
+          <p class="tl-item__org">UMass Amherst &middot; Advisor: Prof. Ethan Zuckerman</p>
+          <ul>
+            <li>Analyzed 200+ TikTok samples from Bangladesh and the U.S., applying thematic segmentation and engagement metrics to identify cross-regional consumer-behavior differences.</li>
+            <li>Collaborated with PhD students on literature reviews of South Asian media and cross-country video analysis.</li>
+          </ul>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- ===== Projects ===== -->
+  <section class="tabpanel wrap" id="panel-projects">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <p class="section-head__sub">Filter by type. Every card links to the repo.</p>
+    </div>
+
+    <div class="filterbar" role="tablist" aria-label="Project filters">
+      <button class="filterbar__btn is-active" data-filter="all">All</button>
+      <button class="filterbar__btn" data-filter="research">Research &amp; Analysis</button>
+      <button class="filterbar__btn" data-filter="tools">Applied Tools &amp; Systems</button>
+      <button class="filterbar__btn" data-filter="fundamentals">CS Fundamentals</button>
+    </div>
+
+    <div class="projects-grid">
+
+      <article class="project-card" data-cat="research">
+        <h3>Reddit Text Analysis — r/MyBoyfriendIsAI</h3>
+        <p>Sentiment analysis and topic modeling on 1,000 Reddit posts using PyTorch and k-means clustering to understand emotional expression in AI-companion discussions.</p>
+        <ul class="chips chips--sm"><li class="chip">Python</li><li class="chip">PyTorch</li><li class="chip">NLP</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Reddit-Text-Analysis" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="research">
+        <h3>OkCupid Data Analysis</h3>
+        <p>Statistical modeling, hypothesis testing, and Isolation Forest anomaly detection across 54K+ dating profiles to understand identity and behavior patterns.</p>
+        <ul class="chips chips--sm"><li class="chip">Python</li><li class="chip">scikit-learn</li><li class="chip">Stats</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/OkCupid-Data-Analysis" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="research">
+        <h3>Predicting Ratings from Student Demographics</h3>
+        <p>Regression analysis of whether Texas schools with more economically disadvantaged students receive lower state accountability ratings, tied to real district-takeover policy.</p>
+        <ul class="chips chips--sm"><li class="chip">R</li><li class="chip">Quarto</li><li class="chip">Regression</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Predicting-ratings-based-on-student-demographics" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="research">
+        <h3>Election Anomaly Case Study — Palm Beach</h3>
+        <p>Regression analysis of Florida 2000 election data identifying Palm Beach County as a statistical outlier, estimating miscast Buchanan votes.</p>
+        <ul class="chips chips--sm"><li class="chip">R</li><li class="chip">Regression</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Election-Anomaly-Case-Study--Palm-Beach" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="research">
+        <h3>Race, Wage &amp; Region Across the US</h3>
+        <p>Nested F-test analysis of CPS labor data testing whether Black men are paid less than non-Black men with equivalent education, experience, and region.</p>
+        <ul class="chips chips--sm"><li class="chip">R</li><li class="chip">Nested F-test</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Race-and-Wage-across-Regions-in-the-US" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="research">
+        <h3>Dining Procurement Trends in US Colleges</h3>
+        <p>Smith College SURF research on sustainable and locally-sourced food procurement trends across 400 U.S. college dining programs. Presented at ACM MAGICC 2025.</p>
+        <ul class="chips chips--sm"><li class="chip">R</li><li class="chip">Logistic Regression</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Dining-Procurement-Trends-in-US-Colleges" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="research">
+        <h3>Bechdel Test Analysis</h3>
+        <p>Inferential analysis of 1,000 films using chi-square, ANOVA, and regression to visualize multi-decade gender-representation trends in film.</p>
+        <ul class="chips chips--sm"><li class="chip">R</li><li class="chip">Chi-square</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Bechdel-Test-Analysis" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="tools">
+        <h3>MassMedicaidPy</h3>
+        <p>A modular Python package that cleans and standardizes MassHealth/Medicaid data and validates income-eligibility logic for households of 8+ earning up to $162K.</p>
+        <ul class="chips chips--sm"><li class="chip">Python</li><li class="chip">pandas</li><li class="chip">Package</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/MassMedicaidPy" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="tools">
+        <h3>NGOReportR</h3>
+        <p>An R package for EDA and reporting on NGO funding datasets — data validation, visualizations, regression diagnostics, and automated thematic tagging of grant narratives.</p>
+        <ul class="chips chips--sm"><li class="chip">R</li><li class="chip">Package</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/NGOReportR" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="tools">
+        <h3>Which Ads Actually Deserve the Credit?</h3>
+        <p>Streamlit dashboard comparing Markov chain multi-touch attribution against a last-touch baseline for ad campaign data, with interactive Plotly visualizations.</p>
+        <ul class="chips chips--sm"><li class="chip">Python</li><li class="chip">Streamlit</li><li class="chip">Plotly</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/campaign-analytics-criteo" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="tools">
+        <h3>Systemic Risk: India Stocks</h3>
+        <p>A Java engine builds a stock correlation graph and ranks systemic risk via PageRank; Python then tests whether that score predicts real market beta using live Nifty 50 data.</p>
+        <ul class="chips chips--sm"><li class="chip">Java</li><li class="chip">Python</li><li class="chip">PageRank</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/SystematicRiskIndiaStocks-" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="fundamentals">
+        <h3>Turn-Based Combat System</h3>
+        <p>An OOP course project modeling turn-based combat mechanics in Java, demonstrating encapsulation, inheritance, and polymorphism through player/enemy class design.</p>
+        <ul class="chips chips--sm"><li class="chip">Java</li><li class="chip">OOP</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Turn-Based-Combat-System-" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="fundamentals">
+        <h3>Collision Detector</h3>
+        <p>A two-player PyGame collision-detection system with modular OOP class design and 15+ hand-written edge-case unit tests.</p>
+        <ul class="chips chips--sm"><li class="chip">Python</li><li class="chip">PyGame</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Collision-Detector-using-OOP-" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="fundamentals">
+        <h3>Event Timeline</h3>
+        <p>A Python timeline manager built on a custom doubly-linked list, with chronological insertion, bidirectional search and removal, and in-place sorting.</p>
+        <ul class="chips chips--sm"><li class="chip">Python</li><li class="chip">Data Structures</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Event-Timeline" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="fundamentals">
+        <h3>Maze</h3>
+        <p>A Java maze game with keyboard-driven movement, wall-collision logic, and a defined win condition on reaching the exit.</p>
+        <ul class="chips chips--sm"><li class="chip">Java</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Maze-" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="fundamentals">
+        <h3>Calculator</h3>
+        <p>A Java calculator implemented with an explicit stack data structure for expression evaluation.</p>
+        <ul class="chips chips--sm"><li class="chip">Java</li><li class="chip">Stacks</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/Calculator-" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+      <article class="project-card" data-cat="fundamentals">
+        <h3>SpellChecker</h3>
+        <p>A dictionary-based spell-validation tool in Java using a custom hash-set-backed dictionary structure.</p>
+        <ul class="chips chips--sm"><li class="chip">Java</li></ul>
+        <a class="project-card__link" href="https://github.com/radiah23/SpellChecker-" target="_blank" rel="noopener">View on GitHub →</a>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ===== Honors ===== -->
+  <section class="tabpanel wrap" id="panel-honors">
+    <div class="section-head">
+      <h2>Honors &amp; Recognition</h2>
+    </div>
+    <ul class="honors-list">
+      <li class="honors-item">
+        <span class="honors-item__seal">✦</span>
+        <div>
+          <h3>Dean's List</h3>
+          <p>Smith College, 2024–2025</p>
+        </div>
+      </li>
+      <li class="honors-item">
+        <span class="honors-item__seal">✦</span>
+        <div>
+          <h3>Selected, DAAD RISE Fellowship</h3>
+          <p>2026 — did not participate in favor of another opportunity</p>
+        </div>
+      </li>
+      <li class="honors-item">
+        <span class="honors-item__seal">✦</span>
+        <div>
+          <h3>ACM MAGICC 2025 — Talk &amp; Poster</h3>
+          <p>Presented SURF research on dining procurement trends in U.S. colleges</p>
+        </div>
+      </li>
+      <li class="honors-item">
+        <span class="honors-item__seal">✦</span>
+        <div>
+          <h3>Electronic Undergraduate Statistics Research Conference 2025 — Talk</h3>
+          <p>Presented SURF research at Smith College</p>
+        </div>
+      </li>
+    </ul>
+  </section>
+
+  <!-- ===== Involvement ===== -->
+  <section class="tabpanel wrap" id="panel-involvement">
+    <div class="section-head">
+      <h2>Club Involvement</h2>
+    </div>
+    <div class="involvement-grid">
+      <article class="involvement-card">
+        <h3>Treasurer</h3>
+        <p class="involvement-card__org">Smithies in SDS</p>
+        <p>Arranged a Python and SQL workshop series for students at Smith College.</p>
+      </article>
+      <article class="involvement-card">
+        <h3>Secretary</h3>
+        <p class="involvement-card__org">Smithies of Color in Tech</p>
+        <p>Arranged an alumni panel and LinkedIn / resume workshops for members.</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Radiah Khan &middot; Northampton, MA &middot; <a href="mailto:rkhan@smith.edu">rkhan@smith.edu</a></p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
