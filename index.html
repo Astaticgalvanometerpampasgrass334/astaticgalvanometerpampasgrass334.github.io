@@ -87,17 +87,17 @@
 
   <!-- ===== Tab nav ===== -->
   <nav class="tabnav wrap" aria-label="Section navigation">
-    <button class="tabnav__btn is-active" data-tab="experience">Experience</button>
+    <button class="tabnav__btn is-active" data-tab="work">Work Experience</button>
+    <button class="tabnav__btn" data-tab="research">Research Experience</button>
     <button class="tabnav__btn" data-tab="projects">Projects</button>
     <button class="tabnav__btn" data-tab="honors">Honors</button>
-    <button class="tabnav__btn" data-tab="involvement">Involvement</button>
+    <button class="tabnav__btn" data-tab="involvement">Campus</button>
   </nav>
 
-  <!-- ===== Experience (timeline) ===== -->
-  <section class="tabpanel is-active wrap" id="panel-experience">
+  <!-- ===== Work Experience (timeline) ===== -->
+  <section class="tabpanel is-active wrap" id="panel-work">
     <div class="section-head">
-      <h2>Experience</h2>
-      <p class="section-head__sub">Industry, research, and teaching roles, most recent first.</p>
+      <h2>Work Experience</h2>
     </div>
 
     <ol class="timeline">
@@ -106,7 +106,6 @@
         <div class="tl-item__marker"></div>
         <div class="tl-item__date">Jun 2026 — Aug 2026</div>
         <div class="tl-item__card">
-          <span class="tag tag--industry">Industry</span>
           <h3>PCCTC Data Science Intern</h3>
           <p class="tl-item__org">Memorial Sloan Kettering Cancer Center</p>
           <ul>
@@ -116,11 +115,34 @@
         </div>
       </li>
 
+      <li class="tl-item" data-tag="industry">
+        <div class="tl-item__marker"></div>
+        <div class="tl-item__date">Jan 2025 — Jul 2025</div>
+        <div class="tl-item__card">
+          <h3>Data Management Intern</h3>
+          <p class="tl-item__org">Solidago Foundation</p>
+          <ul>
+            <li>Led a 3-person team to redesign fragmented data infrastructure supporting a $50K+ annual grant portfolio; cut project delivery time 67% (3 months → 1 month).</li>
+            <li>Built 3 relational analytics databases spanning 200+ projects; developed 5 interactive dashboards and co-authored a 40-slide executive briefing informing environmental-justice and equity funding decisions.</li>
+          </ul>
+        </div>
+      </li>
+
+    </ol>
+  </section>
+
+  <!-- ===== Research Experience (timeline) ===== -->
+  <section class="tabpanel wrap" id="panel-research">
+    <div class="section-head">
+      <h2>Research Experience</h2>
+    </div>
+
+    <ol class="timeline">
+
       <li class="tl-item" data-tag="research">
         <div class="tl-item__marker"></div>
         <div class="tl-item__date">Jan 2026 — May 2026</div>
         <div class="tl-item__card">
-          <span class="tag tag--research">Research</span>
           <h3>Research Assistant, Tinker Lab</h3>
           <p class="tl-item__org">Computer Science Dept., Smith College &middot; Advisor: Prof. Katherine Kinnaird</p>
           <ul>
@@ -130,39 +152,10 @@
         </div>
       </li>
 
-      <li class="tl-item" data-tag="teaching">
-        <div class="tl-item__marker"></div>
-        <div class="tl-item__date">Jan 2026 — May 2026</div>
-        <div class="tl-item__card">
-          <span class="tag tag--teaching">Teaching</span>
-          <h3>In-Class Assistant &amp; Tutor</h3>
-          <p class="tl-item__org">Spinelli Center for Quantitative Learning, Smith College</p>
-          <ul>
-            <li>Teach and debug Python/R and statistics coursework for 85+ students weekly across five sections.</li>
-            <li>Hold office hours for 200-level Advanced Data Science, Multiple Regression, and Research Methods.</li>
-          </ul>
-        </div>
-      </li>
-
-      <li class="tl-item" data-tag="industry">
-        <div class="tl-item__marker"></div>
-        <div class="tl-item__date">Jan 2026 — May 2026</div>
-        <div class="tl-item__card">
-          <span class="tag tag--industry">Industry</span>
-          <h3>Assessment Intern</h3>
-          <p class="tl-item__org">Conway Center for Innovation and Entrepreneurship</p>
-          <ul>
-            <li>Sole analytics lead for an 18-team commercialization competition; built a real-time scoring pipeline in JavaScript synthesizing 65+ applicant variables into live, judge-facing outputs.</li>
-            <li>Built an automated leaderboard (Google Apps Script, Forms, Sheets) for the Elevator Pitch competition, reducing manual scoring across 3 judges and 25+ participants to near zero.</li>
-          </ul>
-        </div>
-      </li>
-
       <li class="tl-item" data-tag="research">
         <div class="tl-item__marker"></div>
         <div class="tl-item__date">Sep 2025 — May 2026</div>
         <div class="tl-item__card">
-          <span class="tag tag--research">Research</span>
           <h3>Technical Researcher, Data Infrastructure Group Lab</h3>
           <p class="tl-item__org">Smith College &middot; Advisor: Dr. Nikko Stevens</p>
           <ul>
@@ -176,7 +169,6 @@
         <div class="tl-item__marker"></div>
         <div class="tl-item__date">May 2025 — Jul 2025</div>
         <div class="tl-item__card">
-          <span class="tag tag--research">Research</span>
           <h3>Summer Research Fellow</h3>
           <p class="tl-item__org">Data Science Dept., Smith College &middot; Advisor: Dr. Kementari Whitcher</p>
           <ul>
@@ -186,25 +178,10 @@
         </div>
       </li>
 
-      <li class="tl-item" data-tag="industry">
-        <div class="tl-item__marker"></div>
-        <div class="tl-item__date">Jan 2025 — Jul 2025</div>
-        <div class="tl-item__card">
-          <span class="tag tag--industry">Industry</span>
-          <h3>Data Management Intern</h3>
-          <p class="tl-item__org">Solidago Foundation</p>
-          <ul>
-            <li>Led a 3-person team to redesign fragmented data infrastructure supporting a $50K+ annual grant portfolio; cut project delivery time 67% (3 months → 1 month).</li>
-            <li>Built 3 relational analytics databases spanning 200+ projects; developed 5 interactive dashboards and co-authored a 40-slide executive briefing informing environmental-justice and equity funding decisions.</li>
-          </ul>
-        </div>
-      </li>
-
       <li class="tl-item" data-tag="research">
         <div class="tl-item__marker"></div>
         <div class="tl-item__date">Oct 2024 — May 2025</div>
         <div class="tl-item__card">
-          <span class="tag tag--research">Research</span>
           <h3>Independent Researcher, Digital Public Infrastructure Lab</h3>
           <p class="tl-item__org">UMass Amherst &middot; Advisor: Prof. Ethan Zuckerman</p>
           <ul>
@@ -468,12 +445,22 @@
     </ul>
   </section>
 
-  <!-- ===== Involvement ===== -->
+  <!-- ===== Campus Involvements/Jobs ===== -->
   <section class="tabpanel wrap" id="panel-involvement">
     <div class="section-head">
-      <h2>Club Involvement</h2>
+      <h2>Campus Involvements / Jobs</h2>
     </div>
     <div class="involvement-grid">
+      <article class="involvement-card">
+        <h3>In-Class Assistant &amp; Tutor</h3>
+        <p class="involvement-card__org">Spinelli Center for Quantitative Learning &middot; Jan–May 2026</p>
+        <p>Teach and debug Python/R and statistics coursework for 85+ students weekly across five sections. Hold office hours for Advanced Data Science, Multiple Regression, and Research Methods.</p>
+      </article>
+      <article class="involvement-card">
+        <h3>Assessment Intern</h3>
+        <p class="involvement-card__org">Conway Center for Innovation &amp; Entrepreneurship &middot; Jan–May 2026</p>
+        <p>Sole analytics lead for an 18-team commercialization competition; built a real-time scoring pipeline in JavaScript. Built an automated leaderboard for the Elevator Pitch competition.</p>
+      </article>
       <article class="involvement-card">
         <h3>Treasurer</h3>
         <p class="involvement-card__org">Smithies in SDS</p>
