@@ -159,37 +159,96 @@ const I=(a,b='wffDffXffDffwfw')=>['wwwwwwwwwwwwwww',a,'wffffffffffffffw','wfffff
 const M={
 town:{n:'태초마을',o:1,bgm:'town',m:[
   'TTTTTTT=TTTTTTT',
-  'T..F..===..F..T',
-  'T.RRR.===...F.T',
-  'T.HDH.===.F...T',
-  'T.====.===...TT',
+  'T..F...=...F..T',
+  'T.RRR..=....F.T',
+  'T.HDH..=..F...T',
+  'T.===..=.....TT',
   '===============',
-  'T.F...===...F.T',
-  'T.....===.F....T',
-  'TT.F..===...TTT',
+  'T.F.........F.T',
+  'T.........F....T',
+  'TT.F........TTT',
   'TTTTTTTTTTTTTTT'
 ],d:{'3,3':['house',7,8]},e:{u:['route1',7,9],l:['coast',14,5],r:['sports',0,5]},p:[
-  {x:10,y:6,c:'#4aa3ff',h:'#6b3e26',n:'마을 소년',s:['어서 와! 여기가 BS World의 태초마을이야.','북쪽 1번 도로 끝엔 자격 시티, 동쪽엔 마라톤 밸리, 서쪽엔 나눔 해변이 있어.','위쪽 🧠 뇌구조 메뉴를 열면 어디든 순간이동할 수 있대!']},
-  {x:5,y:7,c:'#ff8fb1',h:'#222',w:1,n:'꽃집 누나',s:['꽃향기 맡고 가렴. 🌸','달리기 전엔 스트레칭 필수야!']}
+  {x:10,y:6,c:'#4aa3ff',h:'#6b3e26',
+   n:'마을 소년',s:['어서 와! 여기가 BS World의 태초마을이야.','북쪽 1번 도로 끝엔 자격 시티, 동쪽엔 마라톤 밸리, 서쪽엔 나눔 해변이 있어.','위쪽 🧠 뇌구조 메뉴를 열면 어디든 순간이동할 수 있대!']},
+  {x:5,y:7,c:'#ff8fb1',h:'#222',w:1,
+   n:'꽃집 누나',s:['꽃향기 맡고 가렴. 🌸','달리기 전엔 스트레칭 필수야!']}
 ]},
 
-route1:{n:'1번 도로',o:1,bgm:'route',m:['TTTTTTT=TTTTTTT','TT.F...=...F.TT','T..TT..=..TT..T','T.F....=.....FT','TT.....=....TTT','T..F...=..F...T','T.TT...=...TT.T','TT.....=.F...TT','T..F...=.....TT','TTTTTTT=TTTTTTT'],e:{u:['cert',7,9],d:['town',7,0]},p:[
-{x:4,y:3,c:'#8a6d4b',h:'#999',n:'등산객',s:['자격증 공부는 마라톤이래. 페이스 조절이 전부지!','북쪽 시티엔 시험을 줄줄이 통과한 사람이 있다던데… 🤔']},
-{x:10,y:5,c:'#ef4444',h:'#222',w:1,n:'꼬마 트레이너',s:['나는 1번 도로의 달리기 선수!','동쪽 마라톤 밸리까지 경주할래?']},
-{x:9,y:7,c:'#f59e0b',h:'#5a3a1a',n:'여행자',s:['감귤 향 나는 섬에서 왔어. 🍊','감귤마라톤은 코스도 공기도 최고야.']}]},
+route1:{n:'1번 도로',o:1,bgm:'route',m:[
+  'TTTTTTT=TTTTTTT',
+  'TT.F...=...F.TT',
+  'T..TT..=..TT..T',
+  'T.F....=.....FT',
+  'TT.....=....TTT',
+  'T..F...=..F...T',
+  'T.TT...=...TT.T',
+  'TT.....=.F...TT',
+  'T..F...=.....TT',
+  'TTTTTTT=TTTTTTT'],
+        e:{u:['cert',7,9],
+           d:['town',7,0]},
+        p:[
+{x:4,y:3,c:'#8a6d4b',h:'#999',
+ n:'등산객',s:['자격증 공부는 마라톤이래. 페이스 조절이 전부지!','북쪽 시티엔 시험을 줄줄이 통과한 사람이 있다던데… 🤔']},
+{x:10,y:5,c:'#ef4444',h:'#222',w:1,
+ n:'꼬마 트레이너',s:['나는 1번 도로의 달리기 선수!','동쪽 마라톤 밸리까지 경주할래?']},
+{x:9,y:7,c:'#f59e0b',h:'#5a3a1a',
+ n:'여행자',s:['감귤 향 나는 섬에서 왔어. 🍊','감귤마라톤은 코스도 공기도 최고야.']}]},
 
-cert:{n:'학술·자격 검정 시티',o:1,bgm:'knowledge',m:['TTTTTTTTTTTTTTT','T.F...F..F...FT','T.QQQ...YYY...T','T.HDH...HDH...T','T.===...===...T','T..=.....=....T','T.F=.....=F...T','T..=======....T','TT.F...=.....TT','TTTTTTTTTTTTTTT'],d:{'3,3':['agency',7,8],'10,3':['mensa',7,8]},e:{d:['route1',7,0]},p:[
-{x:5,y:6,c:'#3b82f6',h:'#222',n:'시티 안내원',s:['여기는 학술·자격 검정 시티.','파란 지붕은 국가 자격 검정원, 보라색 지붕은 멘사 지능 연구소야.']}]},
+cert:{n:'학술·자격 검정 시티',o:1,bgm:'knowledge',m:
+  ['TTTTTTTTTTTTTTT',
+   'T.F...F..F...FT',
+   'T.QQQ...YYY...T',
+   'T.HDH...HDH...T',
+   'T.===...===...T',
+   'T..=.....=....T',
+   'T.F=.....=F...T',
+   'T..=======....T',
+   'TT.F...=.....TT',
+   'TTTTTTT=TTTTTTT'],
+      d:{'3,3':['agency',7,8],
+         '10,3':['mensa',7,8]},
+      e:{d:['route1',7,0]},
+      p:[
+{x:5,y:6,c:'#3b82f6',h:'#222',
+ n:'시티 안내원',
+ s:['여기는 학술·자격 검정 시티.','파란 지붕은 국가 자격 검정원, 보라색 지붕은 멘사 지능 연구소야.']}]},
 
-sports:{n:'체육 & 마라톤 밸리',o:1,bgm:'sports',m:['TTTTTTTTTTTTTTT','TT....F..GGG.TT','T.....F..HDH..T','T.tttttt.===..T','T.t....t..=...T','..t....t..=====','T.t....t..=..FT','T.tttttt.....TT','TT..F.......TTT','TTTTTTTTTTTTTTT'],d:{'10,2':['gym',7,8]},e:{l:['town',14,5]},p:[
-{x:3,y:3,c:'#22c55e',h:'#222',w:1,n:'트랙 러너',s:['하나, 둘! 하나, 둘!','특전사 출신 코치님이 체육관에 계셔.']}]},
+sports:{n:'체육 & 마라톤 밸리',
+        o:1,bgm:'sports',
+        m:['TTTTTTTTTTTTTTT',
+           'TT....F..GGG.TT',
+           'T.....F..HDH..T',
+           'T.tttttt.===..T',
+           'T.t....t..=...T',
+           '==t....t===...T',
+           'T.t....t.....FT',
+           'T.tttttt.....TT',
+           'TT..F.......TTT',
+           'TTTTTTTTTTTTTTT'],d:{'10,2':['gym',7,8]},e:{l:['town',14,5]},p:[
+{x:3,y:3,c:'#22c55e',h:'#222',w:1,
+ n:'트랙 러너',s:['하나, 둘! 하나, 둘!','특전사 출신 코치님이 체육관에 계셔.']}]},
 
-coast:{n:'나눔 커뮤니티 해변',o:1,bgm:'beach',m:['~~~~~ss.TTTTTTT','~~~~~ss...RRR.T','~~~~~ss...HDH.T','~~~~sss...===.T','~~~~ss...====.T','~~~sss..=======','~~~~ss.F.....FT','~~~~~ss.......T','~~~~~~ss..F.TTT','~~~~~~~sTTTTTTT'],d:{'10,2':['vc',7,8]},e:{r:['town',0,5]},p:[
-{x:5,y:4,c:'#e879f9',h:'#222',w:1,n:'해변 산책러',s:['파도 소리를 들으면 마음이 차분해져. 🌊','센터에 가면 헌혈왕 이야기를 들을 수 있어!']}]},
+coast:{n:'제주 바닷가',o:1,bgm:'beach',m:[
+  '~~~~~ss.TTTTTTT',
+  '~~~~~ss...RRR.T',
+  '~~~~~ss...HDH.T',
+  '~~~~sss...===.T',
+  '~~~~ss...====.T',
+  '~~~sss..=======',
+  '~~~~ss.F.....FT',
+  '~~~~~ss.......T',
+  '~~~~~~ss..F.TTT',
+  '~~~~~~~sTTTTTTT'],d:{'10,2':['vc',7,8]},e:{r:['town',0,5]},p:[
+{x:5,y:4,c:'#e879f9',h:'#222',w:1,
+ n:'해변 산책러',s:['파도 소리를 들으면 마음이 차분해져. 🌊','센터에 가면 헌혈왕 이야기를 들을 수 있어!']}]},
 
 house:{n:'보성의 집',par:'town',bgm:'indoor',m:I('wwwPwwwwKKwwwww','wfKKffXffXffKfw'),d:{'7,9':['town',3,4]},p:[
-{x:6,y:4,c:'#7dd3fc',h:'#1b1b26',n:'거울 속의 나',s:['안녕, 나는 강보성.','BS World에 오신 것을 환영해! IT, 전기공학 및 실무 역량을 지속 발전시키는 중이야.','이 월드의 모든 공간은 내가 걸어온 기록으로 만들었어.'],ch:{'지금까지의 길':['🧠 멘사 IQ 156 · 💻 정보처리기사 · 🏃 하프마라톤 3회 · 🩸 헌혈 167회','궁금하면 각 건물 주민에게 말을 걸어봐!'],'다음 모험':['다음 챕터는 함께할 새로운 퀘스트야.','벽의 액자도 꼭 눌러봐. 📸']}},
-{x:11,y:6,c:'#f59e0b',h:'#f59e0b',w:1,n:'고양이',s:['야옹~ 🐱','(주인이 코딩하는 동안 키보드 옆을 지키는 중이다냥.)']}]},
+{x:6,y:4,c:'#7dd3fc',h:'#1b1b26',
+ n:'거울 속의 나',s:['안녕, 나는 강보성.','BS World에 오신 것을 환영해! IT, 전기공학 및 실무 역량을 지속 발전시키는 중이야.','이 월드의 모든 공간은 내가 걸어온 기록으로 만들었어.'],ch:{'지금까지의 길':['🧠 멘사 IQ 156 · 💻 정보처리기사 · 🏃 하프마라톤 3회 · 🩸 헌혈 167회','궁금하면 각 건물 주민에게 말을 걸어봐!'],'다음 모험':['다음 챕터는 함께할 새로운 퀘스트야.','벽의 액자도 꼭 눌러봐. 📸']}},
+{x:11,y:6,c:'#f59e0b',h:'#f59e0b',w:1,
+ n:'고양이',s:['야옹~ 🐱','(주인이 코딩하는 동안 키보드 옆을 지키는 중이다냥.)']}]},
 
 gym:{n:'런 라이프 체육관',par:'sports',bgm:'sports',m:I('wwwwwMwwwwMwwww','wfKKffXffXffKfw'),d:{'7,9':['sports',10,3]},sh:['🏅 마라톤 메달 진열대','2013 · 2016 · 2016 하프코스 완주 / 2019 감귤마라톤 10km'],p:[
 {x:7,y:5,c:'#16a34a',h:'#222',n:'메인 러닝 코치',s:['어서 와! 여기는 런 라이프 체육관.','마라톤 하프코스를 3번 완주한 러너의 기록실이지.'],ch:{'하프코스 3회':['2013 제2회 6.25 상기 및 정전 60주년 기념 국민대통합 마라톤 대회 하프 01:58:21.05 (대한민국 특전사전우회 / 특수전사령부)','2016 제9회 아름다운제주국제마라톤대회 하프 2:27:11.23','2016 제21회 제주국제관광마라톤축제 하프 02:54:26.14'],'감귤마라톤 & 볼링':['2019 제주감귤국제마라톤 10km 01:22:38.32 🍊','2011 제30회 제주특별자치도볼링협회장기 전도볼링대회 대학부 남자 2인조전 3위 🎳']}},
@@ -208,7 +267,18 @@ vc:{n:'나눔 & 기여 커뮤니티 센터',par:'coast',bgm:'beach',m:I('wwMwwwM
 };
 Object.values(M).forEach(z=>z.m=z.m.map(r=>r.padEnd(W,'T')));
 
-const PG=['...HHHHHH...','..HHHHHHHH..','.HHHHHHHHHH.','.HHSSSSSSHH.','.HSSSSSSSSH.','.PSEESSEESP.','.PSSSSSSSSP.','..SSSMMSSS..','...SSSSSS...','..CCCCCCCC..','.CCCCCCCCCC.','.CCCCCCCCCC.'];
+const PG=['...HHHHHH...',
+          '..HHHHHHHH..',
+          '.HHHHHHHHHH.',
+          '.HHSSSSSSHH.',
+          '.HSSSSSSSSH.',
+          '.PSEESSEESP.',
+          '.PSSSSSSSSP.',
+          '..SSSMMSSS..',
+          '...SSSSSS...',
+          '..CCCCCCCC..',
+          '.CCCCCCCCCC.',
+          '.CCCCCCCCCC.'];
 function spr(c,x,y,s,o={}){const d=o.d||0,col={H:o.h||'#1b1b26',S:'#f2c9a0',E:'#111',P:o.p||'#8a94a8',M:'#b5655a',C:o.c||'#ece4d0'};
 PG.forEach((r,j)=>[...r].forEach((k,i)=>{if(k=='.')return;if(d==1&&j>2&&j<9&&'SEM'.includes(k))k='H';if(d==2&&k=='E'&&i>5)k='S';if(d==3&&k=='E'&&i<6)k='S';c.fillStyle=col[k];c.fillRect(x+i*s,y+j*s,s,s)}));
 if(o.l!==false){c.fillStyle='#34495e';c.fillRect(x+3*s,y+12*s,2*s,o.w?s:2*s);c.fillRect(x+7*s,y+12*s,2*s,o.w?2*s:s)}}
@@ -406,7 +476,7 @@ function showBrain(){
 function brainPick(i){const b=BR[i];$('#bi').innerHTML=`<div class="cd">${b[3]}</div><button class="go" style="font-size:13px;padding:5px 12px" onclick="closeM();warp('${b[2]}',7,8,1)">이 장소로 이동</button>`}
 
 const visited = new Set();
-const REGION_NAMES = {town:'태초마을',route1:'1번 도로',cert:'학술·자격 검정 시티',sports:'체육 & 마라톤 밸리',coast:'나눔 커뮤니티 해변',house:'보성의 집',gym:'런 라이프 체육관',agency:'국가 자격 검정원',mensa:'멘사 지능 연구소',vc:'나눔 & 기여 커뮤니티 센터'};
+const REGION_NAMES = {town:'태초마을',route1:'1번 도로',cert:'학술·자격 검정 시티',sports:'체육 & 마라톤 밸리',coast:'제주 바닷가',house:'보성의 집',gym:'런 라이프 체육관',agency:'국가 자격 검정원',mensa:'멘사 지능 연구소',vc:'나눔 & 기여 커뮤니티 센터'};
 const REGION_DESC = {
  town:'BS World의 모험이 시작되는 태초마을입니다.',
  route1:'자격 시티로 통하는 도로입니다.',
@@ -449,7 +519,7 @@ function showQuestLog(){
  <div class="cd"><b>🌱 첫 발걸음</b><small>${visited.has('town')?'완료':'태초마을 방문하기'}</small></div>
  <div class="cd"><b>🧠 지식의 도시</b><small>${visited.has('cert')||visited.has('agency')||visited.has('mensa')?'완료':'멘사 지능 연구소 또는 검정원 방문하기'}</small></div>
  <div class="cd"><b>🏃 챔피언 밸리</b><small>${visited.has('sports')||visited.has('gym')?'완료':'마라톤 밸리 방문하기'}</small></div>
- <div class="cd"><b>🩸 나눔의 해변</b><small>${visited.has('coast')||visited.has('vc')?'완료':'나눔 해변 커뮤니티 방문하기'}</small></div>`);
+ <div class="cd"><b>🩸 나눔의 해변</b><small>${visited.has('coast')||visited.has('vc')?'완료':'제주 바닷가 방문하기'}</small></div>`);
 }
 
 function press(d){if(dlg&&dlg.s=='m'){dlg.sel=(dlg.sel+(d==1?-1:d==0?1:0)+dlg.keys.length)%dlg.keys.length;menu()}else held=d}
