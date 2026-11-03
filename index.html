@@ -131,7 +131,24 @@
 <!-- 상단 바 원래 문구 복구 완료 -->
 <div id="bar"><b>BS World | Interactive RPG Portfolio</b><button onclick="showMap()">🗺 지도</button><button onclick="showBrain()">🧠 뇌구조</button><button onclick="showCerts()">📜 증명서</button><button id="bg" onclick="togBgm()">🔊</button></div>
 
-<div id="scr"><canvas id="c"></canvas><div id="fade"></div><div id="bn"></div><div id="pop"></div>
+<div id="scr">
+  <canvas id="c"></canvas>
+  <div id="fade"></div>
+  <div id="bn"></div>
+  <div id="pop"></div>
+  
+  <!-- [추가] 우측 하단 고정 미니맵 오버레이 -->
+  <div id="minimap-overlay">
+    <div class="minimap-title">🗺 WORLD MAP</div>
+    <div id="minimap-container"></div>
+  </div>
+
+  <div id="dl"><div id="dn"></div><div id="dt"></div></div>
+  <div id="st">...</div>
+</div>
+
+
+  
 <div id="dl"><div id="dn"></div><div id="dt"></div></div>
 <div id="st"><div class="cd"><h1>BS World</h1><h2>16-BIT RETRO RPG PORTFOLIO</h2><p>걷고, 말을 걸고, 건물에 들어가 보세요. 모험으로 만나는 강보성의 이야기입니다.</p></div><button class="go" onclick="startGame()">모험 시작하기 (START)</button><p>방향키/WASD · Z=행동 · X=취소<br>모바일은 아래 패드를 사용하세요</p></div></div>
 <div id="ctl"><div class="dp"><span></span><button data-d="1">▲</button><span></span><button data-d="2">◀</button><span></span><button data-d="3">▶</button><span></span><button data-d="0">▼</button><span></span></div>
@@ -411,8 +428,33 @@ function warp(id,x,y,d){
 
 function banner(t){const b=$('#bn');b.textContent=t;b.style.opacity=1;setTimeout(()=>b.style.opacity=0,1700)}
 function zone(){return map.o?cur:map.par}
-function wmHTML(){const z=zone(),c=(k,t)=>`<div class="wc${z==k?' me':''}" style="grid-area:${k}">${t}${z==k?'<br>📍현재 위치':''}</div>`;return `<div class="wg">${c('cert','학술·자격<br>검정 시티')}${c('route1','1번 도로')}${c('coast','나눔<br>해변')}${c('town','태초마을')}${c('sports','마라톤<br>밸리')}</div>`}
-function popMap(){const p=$('#pop');p.innerHTML=wmHTML();p.style.opacity=1;setTimeout(()=>p.style.opacity=0,2300)}
+/* 미니맵 HTML 생성 및 클릭 시 순간이동(warp) 연동 함수 */
+function wmHTML(){
+  const z = zone();
+  const node = (k, label, targetMapId) => `
+    <button class="minimap-node${z === k ? ' me' : ''}" style="grid-area:${k}" onclick="warp('${targetMapId}', 7, 8, 1)">
+      ${label}${z === k ? '<br>📍현재' : ''}
+    </button>`;
+  
+  return `<div class="minimap-grid">
+    ${node('cert', '학술·자격 시티', 'cert')}
+    ${node('route1', '1번 도로', 'route1')}
+    ${node('coast', '나눔 해변', 'coast')}
+    ${node('town', '태초마을', 'town')}
+    ${node('sports', '마라톤 밸리', 'sports')}
+  </div>`;
+}
+
+/* 화면 갱신 시 우측 하단 미니맵 오버레이 자동 업데이트 */
+function updateMiniMapOverlay() {
+  const container = $('#minimap-container');
+  if (container) {
+    container.innerHTML = wmHTML();
+  }
+}
+
+  
+  function popMap(){const p=$('#pop');p.innerHTML=wmHTML();p.style.opacity=1;setTimeout(()=>p.style.opacity=0,2300)}
 
 function say(n,l,ch){dlg={n,l:l.slice(),i:0,ch,s:'t',sel:0,keys:ch?Object.keys(ch).concat('그만 듣기'):0};$('#dl').style.display='block';$('#dn').textContent=n;typ(l[0])}
 function typ(s){clearInterval(tw);let k=0;$('#dt').textContent='';tw=setInterval(()=>{k++;$('#dt').textContent=s.slice(0,k);if(k%3==0)sfx('t');if(k>=s.length){clearInterval(tw);tw=null}},26)}
@@ -499,6 +541,8 @@ function updateHUD(){
  if($('#qKnowledge'))$('#qKnowledge').textContent=(visited.has('cert')||visited.has('agency')||visited.has('mensa'))?'완료':'미발견';
  if($('#qSports'))$('#qSports').textContent=(visited.has('sports')||visited.has('gym'))?'완료':'미발견';
  if($('#qCommunity'))$('#qCommunity').textContent=(visited.has('coast')||visited.has('vc'))?'완료':'미발견';
+ 
+ updateMiniMapOverlay(); // [추가] 미니맵 오버레이 실시간 갱신 연동
 }
 
 function showPortfolio(){
