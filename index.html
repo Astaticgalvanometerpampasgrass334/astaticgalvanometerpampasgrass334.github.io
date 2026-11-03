@@ -18,17 +18,19 @@
     #scr{grid-column:2;grid-row:2;width:100%;height:100%;min-height:0;position:relative;background:#000;border:4px solid #667da8;border-radius:8px;box-shadow:0 8px 30px #0006;overflow:hidden}
     #c{width:100%;height:100%;image-rendering:pixelated;display:block;object-fit:fill}
     #fade{position:absolute;inset:0;background:#000;opacity:0;transition:opacity .35s;pointer-events:none}
-    #bn{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#111;border:3px solid #111;padding:3px 12px;font-size:14px;opacity:0;transition:opacity .4s;pointer-events:none;white-space:nowrap}
-    #pop{position:absolute;right:6px;top:6px;width:44%;background:#0f172acc;border:3px solid #fbbf24;padding:6px;opacity:0;transition:opacity .4s;pointer-events:none;font-size:10px;color:#fff}
+    #bn{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#111;border:3px solid #111;padding:3px 12px;font-size:14px;opacity:0;transition:opacity .4s;pointer-events:none;white-space:nowrap;z-index:5}
     #dl{position:absolute;left:2%;right:2%;bottom:2%;max-width:780px;margin:auto;background:#10192e;border:3px solid #fbbf24;border-radius:6px;color:#fff;padding:8px 10px;font-size:14px;line-height:1.5;min-height:74px;display:none;cursor:pointer;z-index:6}
     #dn{position:absolute;top:-14px;left:10px;background:#fbbf24;color:#111;padding:0 8px;font-size:12px}
     .ch{padding:2px 4px}.ch.on{color:#fbbf24}
+    
+    /* 시작 화면 스타일 복구 */
     #st{position:absolute;inset:0;background:#0b1020fa;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:14px;z-index:10}
     #st .cd{border:3px solid #fbbf24;background:#10192e;color:#fff;padding:14px;max-width:340px}
     #st h1{font-size:16px;color:#fbbf24;line-height:1.6}
     #st h2{font-size:12px;color:#5ee7ff;margin:6px 0}
     #st p{font-size:12px;line-height:1.5;color:#cbd5e1}
     .go{font:inherit;font-size:15px;background:#fbbf24;color:#111;border:3px solid #111;padding:8px 18px;cursor:pointer;box-shadow:3px 3px 0 #000}
+
     #ctl{grid-column:2;grid-row:3;flex:none;min-height:104px;background:#d2d2d2;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;touch-action:none;border:2px solid #667da8;border-radius:8px}
     .dp{display:grid;grid-template:repeat(3,42px)/repeat(3,42px);gap:2px;background:#9aa3b5;border-radius:50%;padding:8px;border:2px solid #566074}
     .dp button{background:#222a3a;color:#fff;border:0;border-radius:6px;font-size:15px;touch-action:none}
@@ -64,14 +66,6 @@
     .gl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.gl figure{text-align:center;font-size:12px}.gl canvas{image-rendering:pixelated;border:3px solid #fbbf24;width:120px;height:126px}
     .cd{border:1px solid var(--bd);padding:6px 8px;margin:6px 0;font-size:13px;line-height:1.5}.cd small{display:block;opacity:.75}
     .bl{filter:blur(4.5px);display:inline-block}.mk{font-size:11px;opacity:.8}
-    .wg{display:grid;grid-template-areas:". cert ." ". route1 ." "coast town sports";grid-template-columns:repeat(3,1fr);gap:4px}
-    .wc{border:2px solid #7c8db5;background:#1e2a47;color:#fff;font-size:10px;text-align:center;padding:6px 2px;position:relative;line-height:1.3}
-    .wc.me{border-color:#fbbf24;animation:bk 1s steps(2) infinite}
-    @keyframes bk{50%{background:#7a5c00}}
-    .bsv{width:100%;max-height:250px;background:#fff8fa;border-radius:8px;border:2px dashed #f472b6}
-    .bsv circle{cursor:pointer;stroke:#db2777;stroke-width:2;transition:transform .2s}
-    .bsv circle:hover{fill:#fef08a}
-    .bsv text{font-size:10px;fill:#1f2937;font-weight:bold;pointer-events:none;text-anchor:middle}
     .portfolio-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .portfolio-item{border:1px solid var(--bd);background:#0e172b;border-radius:7px;padding:10px;text-align:left;color:var(--tx);font:inherit;cursor:pointer}
     .portfolio-item b{display:block;color:var(--ac);font-size:12px;margin-bottom:4px}
@@ -79,72 +73,70 @@
     #toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#10192e;color:#fff;border:2px solid #fbbf24;padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}
     #toast.show{opacity:1}
     
-    /* 실제 지도 모양을 살린 미니맵 오버레이 스타일 */
-#minimap-overlay {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  background: rgba(11, 16, 32, 0.92);
-  border: 2px solid #fbbf24;
-  border-radius: 8px;
-  padding: 10px;
-  z-index: 4;
-  width: 190px;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-  pointer-events: auto;
-}
-.minimap-title {
-  font-size: 11px;
-  color: #fbbf24;
-  text-align: center;
-  margin-bottom: 8px;
-  font-weight: bold;
-  border-bottom: 1px solid #2c3a5e;
-  padding-bottom: 4px;
-}
-/* 실제 월드 구조(십자가/T자 형태의 땅 모양)를 본뜬 미니맵 그리드 */
-.minimap-grid {
-  display: grid;
-  grid-template-areas:
-    ". cert ."
-    "road-l route1 road-r"
-    "coast town sports";
-  grid-template-columns: 1fr 1.2fr 1fr;
-  gap: 3px;
-}
-.minimap-node {
-  background: #1e2a47;
-  border: 2px solid #52688f;
-  color: #cbd5e1;
-  font-size: 9px;
-  text-align: center;
-  padding: 6px 2px;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-.minimap-node:hover {
-  background: #2563eb;
-  border-color: #fbbf24;
-  color: #fff;
-}
-.minimap-node.me {
-  border: 2px solid #fbbf24;
-  background: #854d0e;
-  color: #fef08a;
-  font-weight: bold;
-}
-/* 길(도로) 연결부 표현 */
-.minimap-road {
-  background: #e0c279;
-  border-radius: 2px;
-  min-height: 12px;
-}
+    /* 실제 지형 모양을 살린 미니맵 오버레이 스타일 */
+    #minimap-overlay {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      background: rgba(11, 16, 32, 0.92);
+      border: 2px solid #fbbf24;
+      border-radius: 8px;
+      padding: 10px;
+      z-index: 4;
+      width: 190px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+      pointer-events: auto;
+    }
+    .minimap-title {
+      font-size: 11px;
+      color: #fbbf24;
+      text-align: center;
+      margin-bottom: 8px;
+      font-weight: bold;
+      border-bottom: 1px solid #2c3a5e;
+      padding-bottom: 4px;
+    }
+    .minimap-grid {
+      display: grid;
+      grid-template-areas:
+        ". cert ."
+        "road-l route1 road-r"
+        "coast town sports";
+      grid-template-columns: 1fr 1.2fr 1fr;
+      gap: 3px;
+    }
+    .minimap-node {
+      background: #1e2a47;
+      border: 2px solid #52688f;
+      color: #cbd5e1;
+      font-size: 9px;
+      text-align: center;
+      padding: 6px 2px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .minimap-node:hover {
+      background: #2563eb;
+      border-color: #fbbf24;
+      color: #fff;
+    }
+    .minimap-node.me {
+      border: 2px solid #fbbf24;
+      background: #854d0e;
+      color: #fef08a;
+      font-weight: bold;
+    }
+    .minimap-road {
+      background: #e0c279;
+      border-radius: 2px;
+      min-height: 12px;
+    }
 
     @media(max-width:900px){
      #app{grid-template-columns:170px minmax(0,1fr);grid-template-rows:auto minmax(260px,1fr) auto;gap:7px;padding:7px}
@@ -202,7 +194,6 @@
   <canvas id="c"></canvas>
   <div id="fade"></div>
   <div id="bn"></div>
-  <div id="pop"></div>
   
   <!-- 우측 하단 고정 미니맵 오버레이 -->
   <div id="minimap-overlay">
@@ -212,7 +203,7 @@
 
   <div id="dl"><div id="dn"></div><div id="dt"></div></div>
   
-  <!-- 시작 화면 오버레이 -->
+  <!-- [복구완료] 시작 화면 오버레이 -->
   <div id="st">
     <div class="cd">
       <h1>BS World</h1>
@@ -447,7 +438,6 @@ function warp(id,x,y,d){
     $('#fade').style.opacity=0;
     setTimeout(()=>{
       busy=false;banner(map.n);
-      if(map.o&&(!from||M[from].o))popMap();
     },300);
   },380);
 }
@@ -455,7 +445,7 @@ function warp(id,x,y,d){
 function banner(t){const b=$('#bn');b.textContent=t;b.style.opacity=1;setTimeout(()=>b.style.opacity=0,1700)}
 function zone(){return map.o?cur:map.par}
 
-/* 실제 땅 모양(위치 관계)을 시각화한 미니맵 구조 */
+/* 실제 지형 모양을 살린 미니맵 구조 */
 function wmHTML(){
   const z = zone();
   const node = (areaName, label, targetMapId) => `
@@ -482,13 +472,10 @@ function updateMiniMapOverlay() {
   }
 }
 
-/* 기존 불필요해진 팝업 지도 함수는 미니맵 오버레이로 대체 */
 function showMap(){
   if(busy)return;
   toast('우측 하단 미니맵에서 지역을 클릭해 이동하세요!');
 }
-
-function popMap(){const p=$('#pop');p.innerHTML=wmHTML();p.style.opacity=1;setTimeout(()=>p.style.opacity=0,2300)}
 
 function say(n,l,ch){dlg={n,l:l.slice(),i:0,ch,s:'t',sel:0,keys:ch?Object.keys(ch).concat('그만 듣기'):0};$('#dl').style.display='block';$('#dn').textContent=n;typ(l[0])}
 function typ(s){clearInterval(tw);let k=0;$('#dt').textContent='';tw=setInterval(()=>{k++;$('#dt').textContent=s.slice(0,k);if(k%3==0)sfx('t');if(k>=s.length){clearInterval(tw);tw=null}},26)}
@@ -514,7 +501,6 @@ function cancel(){if(modal)closeM();else if(dlg)endDlg()}
 
 function openM(h){$('#mc').innerHTML=h;$('#md').hidden=false;modal=true}
 function closeM(){$('#md').hidden=true;modal=false}
-function showMap(){if(busy)return;openM('<h3>🗺 월드 맵</h3>'+wmHTML())}
 
 const V=[{n:'단정한 댄디컷',bg:'#cfd8e8',c:'#ece4d0',p:'#f2c9a0'},{n:'헤드폰 룩',bg:'#2b3552',c:'#7a8599',p:'#e04f4f'},{n:'포근한 룩',bg:'#f5e1c8',c:'#c98f6b',p:'#f2c9a0'}];
 function showGallery(){openM('<h3>📸 AI 도트 초상화 갤러리</h3><div class="gl">'+V.map((v,i)=>`<figure><canvas id="pc${i}" width="132" height="140"></canvas><figcaption>${v.n}</figcaption></figure>`).join('')+'</div>');V.forEach((v,i)=>{const c=$('#pc'+i).getContext('2d');c.fillStyle=v.bg;c.fillRect(0,0,132,140);spr(c,0,8,11,{...v,l:false})})}
