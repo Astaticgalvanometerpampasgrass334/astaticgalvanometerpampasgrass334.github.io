@@ -7,8 +7,8 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0}
-    :root{--bg:#0b1020;--pn:#131c33;--tx:#e8ecf4;--ac:#fbbf24;--bd:#2c3a5e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
-    @media(prefers-color-scheme:light){:root{--bg:#dfe6f2;--pn:#fff;--tx:#14192a;--bd:#b9c4dc;color-scheme:light}}
+    :root{--bg:#0b1020;--pn:#131c33;--tx:#e8ecf4;--ac:#fbbf24;--bd:#2c3a5e;--muted:#9fb0d0;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+    @media(prefers-color-scheme:light){:root{--bg:#dfe6f2;--pn:#fff;--tx:#14192a;--bd:#b9c4dc;--muted:#4b5876;color-scheme:light}}
     html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
     body{height:100%;background:var(--bg);color:var(--tx);font-family:'DotGothic16','Malgun Gothic',system-ui,sans-serif;display:flex;justify-content:center;user-select:none;-webkit-user-select:none;overflow:hidden}
     #app{max-width:1440px;width:100%;height:100dvh;display:grid;grid-template-columns:220px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px;position:relative;overflow:hidden}
@@ -72,73 +72,41 @@
     #toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#10192e;color:#fff;border:2px solid #fbbf24;padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}
     #toast.show{opacity:1}
     
-    /* [개선된 미니맵] 각 지역 스크린샷 테마 배경 및 직관적 배치 */
-    #minimap-overlay {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      background: rgba(11, 16, 32, 0.95);
-      border: 2px solid #fbbf24;
-      border-radius: 8px;
-      padding: 8px;
-      z-index: 4;
-      width: 175px;
-      box-shadow: 0 4px 15px rgba(0,0,0,0.6);
-      pointer-events: auto;
+    /* [월드맵] 각 지역의 실제 땅 모양(타일맵)을 사각형 안에 투영 */
+    #minimap-overlay{
+      position:absolute;right:10px;bottom:10px;z-index:4;
+      width:clamp(150px,30%,250px);
+      background:rgba(11,16,32,.92);border:2px solid #fbbf24;border-radius:8px;padding:6px;
+      box-shadow:0 4px 15px rgba(0,0,0,.6);pointer-events:auto;
     }
-    .minimap-title {
-      font-size: 11px;
-      color: #fbbf24;
-      text-align: center;
-      margin-bottom: 6px;
-      font-weight: bold;
-      border-bottom: 1px solid #2c3a5e;
-      padding-bottom: 4px;
+    .minimap-title{font-size:11px;color:#fbbf24;text-align:center;margin-bottom:5px;font-weight:bold;border-bottom:1px solid #2c3a5e;padding-bottom:3px}
+    .minimap-grid{
+      display:grid;
+      grid-template-areas:". cert ." ". route1 ." "coast town sports";
+      grid-template-columns:repeat(3,1fr);gap:3px;
     }
-    .minimap-grid {
-      display: grid;
-      grid-template-areas:
-        ". cert ."
-        ". route1 ."
-        "coast town sports";
-      grid-template-columns: repeat(3, 1fr);
-      gap: 4px;
+    .minimap-node{
+      position:relative;display:block;padding:0;margin:0;
+      aspect-ratio:3/2;width:100%;min-width:0;
+      border:1.5px solid #52688f;border-radius:4px;overflow:hidden;cursor:pointer;
+      background-color:#1b2540;background-size:100% 100%;background-repeat:no-repeat;
+      image-rendering:pixelated;font-family:inherit;transition:transform .15s,border-color .15s;
     }
-    .minimap-node {
-      border: 1.5px solid #52688f;
-      color: #fff;
-      font-size: 9px;
-      text-align: center;
-      padding: 10px 2px;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      text-shadow: 0 1px 2px #000, 0 0 3px #000;
-      font-weight: bold;
+    .minimap-node.cert{grid-area:cert}.minimap-node.route1{grid-area:route1}
+    .minimap-node.coast{grid-area:coast}.minimap-node.town{grid-area:town}.minimap-node.sports{grid-area:sports}
+    .minimap-node .lb{
+      position:absolute;left:2px;bottom:2px;max-width:calc(100% - 4px);
+      font-size:8px;line-height:1.2;color:#fff;font-weight:bold;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+      background:rgba(0,0,0,.6);padding:1px 3px;border-radius:2px;pointer-events:none;
     }
-    /* 각 지역별 스크린샷 테마 배경 연출 (연하게 베이스 깔기) */
-    .minimap-node.cert { background: linear-gradient(rgba(30,58,138,0.7), rgba(30,58,138,0.7)), repeating-linear-gradient(45deg, #3b82f6 0, #3b82f6 4px, #1e3a8a 4px, #1e3a8a 8px); }
-    .minimap-node.route1 { background: linear-gradient(rgba(45,55,72,0.7), rgba(45,55,72,0.7)), linear-gradient(90deg, transparent 40%, #e0c279 40%, #e0c279 60%, transparent 60%); }
-    .minimap-node.coast { background: linear-gradient(rgba(2,132,199,0.7), rgba(2,132,199,0.7)), repeating-linear-gradient(0deg, #38bdf8 0, #38bdf8 2px, #0284c7 2px, #0284c7 6px); }
-    .minimap-node.town { background: linear-gradient(rgba(22,101,52,0.7), rgba(22,101,52,0.7)), repeating-linear-gradient(45deg, #22c55e 0, #22c55e 3px, #15803d 3px, #15803d 6px); }
-    .minimap-node.sports { background: linear-gradient(rgba(180,83,9,0.7), rgba(180,83,9,0.7)), repeating-linear-gradient(0deg, #c8693f 0, #c8693f 4px, #9a3412 4px, #9a3412 8px); }
-
-    .minimap-node:hover {
-      border-color: #fbbf24;
-      transform: scale(1.03);
+    .minimap-node:hover{border-color:#fbbf24;transform:scale(1.04);z-index:2}
+    .minimap-node.me{border:2px solid #fbbf24;box-shadow:0 0 8px #fbbf24}
+    #mm-dot{
+      position:absolute;width:7px;height:7px;margin:-3.5px 0 0 -3.5px;border-radius:50%;
+      background:#ef4444;border:1.5px solid #fff;box-shadow:0 0 4px #000;pointer-events:none;
+      animation:mmblink .8s steps(2) infinite;z-index:3;
     }
-    .minimap-node.me {
-      border: 2.5px solid #fbbf24;
-      box-shadow: 0 0 8px #fbbf24;
-      color: #fef08a;
-    }
+    @keyframes mmblink{50%{opacity:.25}}
 
     @media(max-width:900px){
      #app{grid-template-columns:170px minmax(0,1fr);grid-template-rows:auto minmax(260px,1fr) auto;gap:7px;padding:7px}
@@ -159,6 +127,8 @@
      #scr{width:100%;height:auto;aspect-ratio:3/2;flex:none;min-height:0}
      #ctl{flex:1;min-height:120px;padding:8px 12px}
      #dl{font-size:12px;min-height:64px}
+     #minimap-overlay{width:128px;right:6px;bottom:6px;padding:4px}
+     .minimap-node .lb{font-size:7px}
      .portfolio-list{grid-template-columns:1fr}
     }
     @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#toast{transition:none}}
@@ -200,7 +170,7 @@
   <!-- 우측 하단 고정 미니맵 오버레이 -->
   <div id="minimap-overlay">
     <div class="minimap-title">🗺 WORLD MAP</div>
-    <div id="minimap-container"></div>
+    <div id="minimap-container" class="minimap-grid"></div>
   </div>
 
   <div id="dl"><div id="dn"></div><div id="dt"></div></div>
@@ -257,7 +227,7 @@ town:{n:'태초마을',o:1,bgm:'town',m:[
   'T.===..=.....TT',
   '===============',
   'T.F.........F.T',
-  'T.........F....T',
+  'T.........F...T',
   'TT.F........TTT',
   'TTTTTTTTTTTTTTT'
 ],d:{'3,3':['house',7,8]},e:{u:['route1',7,9],l:['coast',14,5],r:['sports',0,5]},p:[
@@ -445,31 +415,59 @@ function warp(id,x,y,d){
 }
 
 function banner(t){const b=$('#bn');b.textContent=t;b.style.opacity=1;setTimeout(()=>b.style.opacity=0,1700)}
-function zone(){return map.o?cur:map.par}
+function zone(){return !map?null:(map.o?cur:map.par)}
 
-/* [개선된 미니맵] 각 지역 스크린샷 테마 배경 및 직관적 배치 */
-function wmHTML(){
-  const z = zone();
-  const node = (k, label, targetMapId) => `
-    <button class="minimap-node ${k}${z === targetMapId ? ' me' : ''}" onclick="warp('${targetMapId}', 7, 8, 1)">
-      <span>${label}</span>
-      ${z === targetMapId ? '<span style="font-size:7px; margin-top:2px; color:#fef08a;">📍현재</span>' : ''}
-    </button>`;
-  
-  return `<div class="minimap-grid">
-    ${node('cert', '학술시티', 'cert')}
-    ${node('route1', '1번도로', 'route1')}
-    ${node('coast', '제주해변', 'coast')}
-    ${node('town', '태초마을', 'town')}
-    ${node('sports', '마라톤밸리', 'sports')}
-  </div>`;
+/* [월드맵] 각 지역의 실제 타일맵을 작은 캔버스로 그려 사각형 안에 투영 */
+const MM_COL={T:'#1e7a31','.':'#6cc04a',F:'#6cc04a','=':'#f3db98','~':'#38bdf8',s:'#fde047',
+  R:'#d64541',Q:'#3b6fd6',G:'#2f9e5f',Y:'#7e57c2',H:'#fef3c7',D:'#78350f',t:'#c8693f'};
+const MM_NODES=[['cert','학술시티'],['route1','1번도로'],['coast','제주해변'],['town','태초마을'],['sports','마라톤밸리']];
+const mmEls={};let mmDot=null,mmLast=null;
+
+function mmShape(id){
+  const P=8,c=document.createElement('canvas');c.width=W*P;c.height=H*P;
+  const x=c.getContext('2d');
+  M[id].m.forEach((row,j)=>{for(let i=0;i<W;i++){
+    const k=row[i]||'T';
+    x.fillStyle=MM_COL[k]||'#6cc04a';x.fillRect(i*P,j*P,P,P);
+    if(k==='T'){x.fillStyle='#2eb84d';x.fillRect(i*P+1,j*P,P-2,P-3)}        // 나무 윗면
+    else if(k==='F'){x.fillStyle='#f59e0b';x.fillRect(i*P+3,j*P+3,2,2)}      // 꽃
+    else if(k==='~'&&(i+j)%3===0){x.fillStyle='#ffffff90';x.fillRect(i*P+1,j*P+3,4,1)} // 물결
+    else if(k==='t'){x.fillStyle='#e5d5c0';x.fillRect(i*P,j*P,P,1)}          // 트랙 라인
+  }});
+  return c.toDataURL();
 }
 
-function updateMiniMapOverlay() {
-  const container = $('#minimap-container');
-  if (container) {
-    container.innerHTML = wmHTML();
+function buildMiniMap(){
+  const box=$('#minimap-container');if(!box)return;
+  box.innerHTML='';
+  MM_NODES.forEach(([id,label])=>{
+    const b=document.createElement('button');
+    b.type='button';b.className='minimap-node '+id;b.title=label;
+    b.style.backgroundImage='url('+mmShape(id)+')';
+    b.innerHTML='<span class="lb">'+label+'</span>';
+    b.addEventListener('click',()=>{if(busy||modal)return;warp(id,7,8,1)});
+    box.appendChild(b);mmEls[id]=b;
+  });
+  mmDot=document.createElement('i');mmDot.id='mm-dot';
+}
+
+/* 현재 지역 강조 (DOM을 다시 만들지 않고 클래스만 토글) */
+function updateMiniMapOverlay(){
+  const z=zone();if(z===mmLast)return;mmLast=z;
+  Object.keys(mmEls).forEach(k=>mmEls[k].classList.toggle('me',k===z));
+}
+
+/* 플레이어 위치를 땅 모양 위에 점으로 표시 (실내면 건물 입구 위치) */
+function updateMiniDot(){
+  if(!map||!mmDot)return;
+  const z=zone(),n=mmEls[z];if(!n)return;
+  let x=px,y=py;
+  if(!map.o){
+    const d=M[map.par].d||{},k=Object.keys(d).find(q=>d[q][0]===cur);
+    if(k){[x,y]=k.split(',').map(Number)}
   }
+  if(mmDot.parentNode!==n)n.appendChild(mmDot);
+  mmDot.style.left=((x+.5)/W*100)+'%';mmDot.style.top=((y+.5)/H*100)+'%';
 }
 
 function showMap(){
@@ -629,8 +627,7 @@ function draw(t){
 }
 
 function loop(t){
-  updateHUD();
-  requestAnimationFrame(loop);
+  requestAnimationFrame(loop);   // 먼저 예약해서, 이후 오류가 나도 루프가 죽지 않게 함
   if(!map)return;
   if(!busy&&!dlg&&!modal&&!mv&&held!=null){
     dir=held;const[dx,dy]=DV[dir],nx=px+dx,ny=py+dy;
@@ -643,6 +640,7 @@ function loop(t){
     const d=map.d&&map.d[px+','+py];if(d)warp(d[0],d[1],d[2],map.o?1:0);
   }
   draw(t);
+  updateMiniDot();
 }
 
 setInterval(()=>{
@@ -662,6 +660,8 @@ function startGame(){
   toast('BS World에 오신 것을 환영합니다!');
 }
 
+buildMiniMap();
+updateHUD();
 requestAnimationFrame(loop);
 </script>
 </body>
