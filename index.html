@@ -79,59 +79,72 @@
     #toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#10192e;color:#fff;border:2px solid #fbbf24;padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}
     #toast.show{opacity:1}
     
-    /* 미니맵 인터페이스 오버레이 스타일 */
-    #minimap-overlay {
-      position: absolute;
-      right: 12px;
-      bottom: 12px;
-      background: rgba(15, 23, 42, 0.9);
-      border: 2px solid #fbbf24;
-      border-radius: 8px;
-      padding: 8px;
-      z-index: 4;
-      width: 170px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-      pointer-events: auto;
-    }
-    .minimap-title {
-      font-size: 11px;
-      color: #fbbf24;
-      text-align: center;
-      margin-bottom: 6px;
-      font-weight: bold;
-      border-bottom: 1px solid #2c3a5e;
-      padding-bottom: 4px;
-    }
-    .minimap-grid {
-      display: grid;
-      grid-template-areas:
-        ". cert ."
-        ". route1 ."
-        "coast town sports";
-      gap: 4px;
-    }
-    .minimap-node {
-      background: #1e2a47;
-      border: 1px solid #52688f;
-      color: #fff;
-      font-size: 9px;
-      text-align: center;
-      padding: 5px 2px;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: all 0.2s;
-      font-family: inherit;
-    }
-    .minimap-node:hover {
-      background: #2563eb;
-      border-color: #fbbf24;
-    }
-    .minimap-node.me {
-      border: 2px solid #fbbf24;
-      background: #7a5c00;
-      color: #fef08a;
-      font-weight: bold;
-    }
+    /* 실제 지도 모양을 살린 미니맵 오버레이 스타일 */
+#minimap-overlay {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  background: rgba(11, 16, 32, 0.92);
+  border: 2px solid #fbbf24;
+  border-radius: 8px;
+  padding: 10px;
+  z-index: 4;
+  width: 190px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.6);
+  pointer-events: auto;
+}
+.minimap-title {
+  font-size: 11px;
+  color: #fbbf24;
+  text-align: center;
+  margin-bottom: 8px;
+  font-weight: bold;
+  border-bottom: 1px solid #2c3a5e;
+  padding-bottom: 4px;
+}
+/* 실제 월드 구조(십자가/T자 형태의 땅 모양)를 본뜬 미니맵 그리드 */
+.minimap-grid {
+  display: grid;
+  grid-template-areas:
+    ". cert ."
+    "road-l route1 road-r"
+    "coast town sports";
+  grid-template-columns: 1fr 1.2fr 1fr;
+  gap: 3px;
+}
+.minimap-node {
+  background: #1e2a47;
+  border: 2px solid #52688f;
+  color: #cbd5e1;
+  font-size: 9px;
+  text-align: center;
+  padding: 6px 2px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.minimap-node:hover {
+  background: #2563eb;
+  border-color: #fbbf24;
+  color: #fff;
+}
+.minimap-node.me {
+  border: 2px solid #fbbf24;
+  background: #854d0e;
+  color: #fef08a;
+  font-weight: bold;
+}
+/* 길(도로) 연결부 표현 */
+.minimap-road {
+  background: #e0c279;
+  border-radius: 2px;
+  min-height: 12px;
+}
 
     @media(max-width:900px){
      #app{grid-template-columns:170px minmax(0,1fr);grid-template-rows:auto minmax(260px,1fr) auto;gap:7px;padding:7px}
@@ -442,19 +455,23 @@ function warp(id,x,y,d){
 function banner(t){const b=$('#bn');b.textContent=t;b.style.opacity=1;setTimeout(()=>b.style.opacity=0,1700)}
 function zone(){return map.o?cur:map.par}
 
+/* 실제 땅 모양(위치 관계)을 시각화한 미니맵 구조 */
 function wmHTML(){
   const z = zone();
-  const node = (k, label, targetMapId) => `
-    <button class="minimap-node${z === k ? ' me' : ''}" style="grid-area:${k}" onclick="warp('${targetMapId}', 7, 8, 1)">
-      ${label}${z === k ? '<br>📍현재' : ''}
+  const node = (areaName, label, targetMapId) => `
+    <button class="minimap-node${z === targetMapId ? ' me' : ''}" style="grid-area:${areaName}" onclick="warp('${targetMapId}', 7, 8, 1)">
+      <span>${label}</span>
+      ${z === targetMapId ? '<span style="color:#fef08a; font-size:8px; margin-top:2px;">📍 현재</span>' : ''}
     </button>`;
   
   return `<div class="minimap-grid">
-    ${node('cert', '학술·자격 시티', 'cert')}
-    ${node('route1', '1번 도로', 'route1')}
-    ${node('coast', '제주 바닷가', 'coast')}
+    ${node('cert', '학술시티', 'cert')}
+    <div class="minimap-road" style="grid-area:road-l"></div>
+    ${node('route1', '1번도로', 'route1')}
+    <div class="minimap-road" style="grid-area:road-r"></div>
+    ${node('coast', '제주해변', 'coast')}
     ${node('town', '태초마을', 'town')}
-    ${node('sports', '마라톤 밸리', 'sports')}
+    ${node('sports', '마라톤밸리', 'sports')}
   </div>`;
 }
 
@@ -463,6 +480,12 @@ function updateMiniMapOverlay() {
   if (container) {
     container.innerHTML = wmHTML();
   }
+}
+
+/* 기존 불필요해진 팝업 지도 함수는 미니맵 오버레이로 대체 */
+function showMap(){
+  if(busy)return;
+  toast('우측 하단 미니맵에서 지역을 클릭해 이동하세요!');
 }
 
 function popMap(){const p=$('#pop');p.innerHTML=wmHTML();p.style.opacity=1;setTimeout(()=>p.style.opacity=0,2300)}
