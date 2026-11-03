@@ -48,8 +48,10 @@
     .meter{height:8px;background:#080d19;border:1px solid #52688f;border-radius:20px;overflow:hidden;margin:5px 0 10px}
     .meter span{display:block;height:100%;width:18%;background:linear-gradient(90deg,#16a34a,#a3e635)}
     .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-    .quick-grid button,.side-action{font:inherit;font-size:11px;color:var(--tx);background:#24375c;border:1px solid #536b98;border-radius:6px;padding:9px 6px;cursor:pointer;text-align:left}
-    .quick-grid button:hover,.side-action:hover{border-color:var(--ac);background:#344a73}
+    .quick-grid button{font:inherit;font-size:12px;font-weight:bold;color:#ffffff;background:#1e3a8a;border:2px solid #93c5fd;border-radius:6px;padding:10px 6px;cursor:pointer;text-align:left;box-shadow:0 2px 4px rgba(0,0,0,0.3)}
+    .quick-grid button:hover{border-color:var(--ac);background:#2563eb;color:#fef08a}
+    .side-action{font:inherit;font-size:11px;color:var(--tx);background:#24375c;border:1px solid #536b98;border-radius:6px;padding:9px 6px;cursor:pointer;text-align:left}
+    .side-action:hover{border-color:var(--ac);background:#344a73}
     .quest{border:1px solid var(--bd);border-radius:7px;padding:9px;margin:7px 0;background:#0e172b}
     .quest b{font-size:12px;display:block;margin-bottom:4px}
     .quest small{font-size:10px;color:var(--muted);line-height:1.4}
@@ -147,7 +149,9 @@
 <div class="md" id="md" hidden><div class="mb"><button class="x" onclick="closeM()">✕</button><div id="mc"></div></div></div>
 <script>
 const $=s=>document.querySelector(s),TS=32,W=15,H=10,cv=$('#c'),g=cv.getContext('2d');cv.width=W*TS;cv.height=H*TS;
-const I=(a,b='wffffffffffffffw')=>['wwwwwwwwwwwwwww',a,'wffffffffffffffw','wffffffffffffffw',b,...Array(4).fill('wffffffffffffffw'),'wwwwwwwDwwwwwww'];
+
+/* 실내 맵 구조: 중앙 책상(D), 화분(X) 등의 도트 오브젝트 배치를 포함한 확장 템플릿 */
+const I=(a,b='wffDffXffDffwfw')=>['wwwwwwwwwwwwwww',a,'wffffffffffffffw','wffffffffffffffw',b,...Array(4).fill('wffffffffffffffw'),'wwwwwwwDwwwwwww'];
 
 const M={
 town:{n:'태초마을',o:1,bgm:'town',m:['TTTTTTT=TTTTTTT','T..F..===..F..T','T.RRR..=....F.T','T.HDH..=..F...T','T.===..=.....TT','===============','T.F...=.....F.T','T.....=..F....T','TT.F..=.....TTT','TTTTTTTTTTTTTTT'],d:{'3,3':['house',7,8]},e:{u:['route1',7,9],l:['coast',14,5],r:['sports',0,5]},p:[
@@ -159,7 +163,7 @@ route1:{n:'1번 도로',o:1,bgm:'route',m:['TTTTTTT=TTTTTTT','TT.F...=...F.TT','
 {x:10,y:5,c:'#ef4444',h:'#222',w:1,n:'꼬마 트레이너',s:['나는 1번 도로의 달리기 선수!','동쪽 마라톤 밸리까지 경주할래?']},
 {x:9,y:7,c:'#f59e0b',h:'#5a3a1a',n:'여행자',s:['감귤 향 나는 섬에서 왔어. 🍊','감귤마라톤은 코스도 공기도 최고야.']}]},
 
-cert:{n:'학술·자격 검정 시티',o:1,bgm:'knowledge',m:['TTTTTTTTTTTTTTT','T.F...F..F...FT','T.QQQ...YYY...T','T.HDH...HDH...T','T.===...===...T','T..=.....=....T','T.F=.....=F...T','T..=======....T','TT.F...=.....TT','TTTTTTT=TTTTTTT'],d:{'3,3':['agency',7,8],'10,3':['mensa',7,8]},e:{d:['route1',7,0]},p:[
+cert:{n:'학술·자격 검정 시티',o:1,bgm:'knowledge',m:['TTTTTTTTTTTTTTT','T.F...F..F...FT','T.QQQ...YYY...T','T.HDH...HDH...T','T.===...===...T','T..=.....=....T','T.F=.....=F...T','T..=======....T','TT.F...=.....TT','TTTTTTTTTTTTTTT'],d:{'3,3':['agency',7,8],'10,3':['mensa',7,8]},e:{d:['route1',7,0]},p:[
 {x:5,y:6,c:'#3b82f6',h:'#222',n:'시티 안내원',s:['여기는 학술·자격 검정 시티.','파란 지붕은 국가 자격 검정원, 보라색 지붕은 멘사 지능 연구소야.']}]},
 
 sports:{n:'체육 & 마라톤 밸리',o:1,bgm:'sports',m:['TTTTTTTTTTTTTTT','TT....F..GGG.TT','T.....F..HDH..T','T.tttttt.===..T','T.t....t..=...T','..t....t..=====','T.t....t..=..FT','T.tttttt.....TT','TT..F.......TTT','TTTTTTTTTTTTTTT'],d:{'10,2':['gym',7,8]},e:{l:['town',14,5]},p:[
@@ -168,11 +172,11 @@ sports:{n:'체육 & 마라톤 밸리',o:1,bgm:'sports',m:['TTTTTTTTTTTTTTT','TT.
 coast:{n:'나눔 커뮤니티 해변',o:1,bgm:'beach',m:['~~~~~ss.TTTTTTT','~~~~~ss...RRR.T','~~~~~ss...HDH.T','~~~~sss...===.T','~~~~ss...====.T','~~~sss..=======','~~~~ss.F.....FT','~~~~~ss.......T','~~~~~~ss..F.TTT','~~~~~~~sTTTTTTT'],d:{'10,2':['vc',7,8]},e:{r:['town',0,5]},p:[
 {x:5,y:4,c:'#e879f9',h:'#222',w:1,n:'해변 산책러',s:['파도 소리를 들으면 마음이 차분해져. 🌊','센터에 가면 헌혈왕 이야기를 들을 수 있어!']}]},
 
-house:{n:'보성의 집',par:'town',bgm:'indoor',m:I('wwwPwwwwKKwwwww','wfKKffffffffKfw'),d:{'7,9':['town',3,4]},p:[
-{x:6,y:4,c:'#7dd3fc',h:'#1b1b26',n:'거울 속의 나',s:['안녕, 나는 강보성.','BS World에 온 것을 환영해! IT, 전기공학 및 실무 역량을 지속 발전시키는 중이야.','이 월드의 모든 공간은 내가 걸어온 기록으로 만들었어.'],ch:{'지금까지의 길':['🧠 멘사 IQ 156 · 💻 정보처리기사 · 🏃 하프마라톤 3회 · 🩸 헌혈 167회','궁금하면 각 건물 주민에게 말을 걸어봐!'],'다음 모험':['다음 챕터는 함께할 새로운 퀘스트야.','벽의 액자도 꼭 눌러봐. 📸']}},
+house:{n:'보성의 집',par:'town',bgm:'indoor',m:I('wwwPwwwwKKwwwww','wfKKffXffXffKfw'),d:{'7,9':['town',3,4]},p:[
+{x:6,y:4,c:'#7dd3fc',h:'#1b1b26',n:'거울 속의 나',s:['안녕, 나는 강보성.','BS World에 오신 것을 환영해! IT, 전기공학 및 실무 역량을 지속 발전시키는 중이야.','이 월드의 모든 공간은 내가 걸어온 기록으로 만들었어.'],ch:{'지금까지의 길':['🧠 멘사 IQ 156 · 💻 정보처리기사 · 🏃 하프마라톤 3회 · 🩸 헌혈 167회','궁금하면 각 건물 주민에게 말을 걸어봐!'],'다음 모험':['다음 챕터는 함께할 새로운 퀘스트야.','벽의 액자도 꼭 눌러봐. 📸']}},
 {x:11,y:6,c:'#f59e0b',h:'#f59e0b',w:1,n:'고양이',s:['야옹~ 🐱','(주인이 코딩하는 동안 키보드 옆을 지키는 중이다냥.)']}]},
 
-gym:{n:'런 라이프 체육관',par:'sports',bgm:'sports',m:I('wwwwwMwwwwMwwww','wfKKfffffKKfffw'),d:{'7,9':['sports',10,3]},sh:['🏅 마라톤 메달 진열대','2013 · 2016 · 2016 하프코스 완주 / 2019 감귤마라톤 10km'],p:[
+gym:{n:'런 라이프 체육관',par:'sports',bgm:'sports',m:I('wwwwwMwwwwMwwww','wfKKffXffXffKfw'),d:{'7,9':['sports',10,3]},sh:['🏅 마라톤 메달 진열대','2013 · 2016 · 2016 하프코스 완주 / 2019 감귤마라톤 10km'],p:[
 {x:7,y:5,c:'#16a34a',h:'#222',n:'메인 러닝 코치',s:['어서 와! 여기는 런 라이프 체육관.','마라톤 하프코스를 3번 완주한 러너의 기록실이지.'],ch:{'하프코스 3회':['2013 제2회 6.25 상기 및 정전 60주년 기념 국민대통합 마라톤 대회 하프 01:58:21.05 (대한민국 특전사전우회 / 특수전사령부)','2016 제9회 아름다운제주국제마라톤대회 하프 2:27:11.23','2016 제21회 제주국제관광마라톤축제 하프 02:54:26.14'],'감귤마라톤 & 볼링':['2019 제주감귤국제마라톤 10km 01:22:38.32 🍊','2011 제30회 제주특별자치도볼링협회장기 전도볼링대회 대학부 남자 2인조전 3위 🎳']}},
 {x:3,y:6,c:'#60a5fa',h:'#222',w:1,n:'서브 러너',s:['후… 후… 아 안녕!','기록은 숫자지만 완주는 이야기야. 파이팅!']}]},
 
@@ -194,7 +198,6 @@ function spr(c,x,y,s,o={}){const d=o.d||0,col={H:o.h||'#1b1b26',S:'#f2c9a0',E:'#
 PG.forEach((r,j)=>[...r].forEach((k,i)=>{if(k=='.')return;if(d==1&&j>2&&j<9&&'SEM'.includes(k))k='H';if(d==2&&k=='E'&&i>5)k='S';if(d==3&&k=='E'&&i<6)k='S';c.fillStyle=col[k];c.fillRect(x+i*s,y+j*s,s,s)}));
 if(o.l!==false){c.fillStyle='#34495e';c.fillRect(x+3*s,y+12*s,2*s,o.w?s:2*s);c.fillRect(x+7*s,y+12*s,2*s,o.w?2*s:s)}}
 
-// ---- Enhanced Tile System (Tropics / Resort Theme)
 function tile(c,k,x,y,t){
   const X=x*TS,Y=y*TS,r=(x*7+y*13)%5,f=(col,a,b,w,h)=>{c.fillStyle=col;c.fillRect(X+a,Y+b,w,h)};
   const gr=()=>{f('#6cc04a',0,0,32,32);f('#5aaa3c',(r*5)%24+2,(r*3)%20+4,3,3);f('#7fd35a',(r*9)%22+4,(r*7)%24+2,2,2)},
@@ -205,7 +208,6 @@ function tile(c,k,x,y,t){
   switch(k){
     case 'T':
       gr();
-      // 야자수 트로피컬 스타일 풍성한 나무 렌더링
       f('#5c4028',13,18,6,14);f('#705035',14,18,2,14);
       f('#1e7a31',2,2,28,18);f('#2eb84d',4,0,24,14);f('#76e053',8,2,10,6);
       break;
@@ -213,31 +215,39 @@ function tile(c,k,x,y,t){
       f('#f3db98',0,0,32,32);f('#e0c279',(r*6)%24+3,(r*4)%24+3,5,3);
       break;
     case '~':
-      // 파도 치는 애니메이션 바다 타일
       f('#38bdf8',0,0,32,32);f('#0284c7',0,0,32,16);
       const waveOffset = Math.sin((t/180) + x + y) * 4;
       f('#ffffffa0', 2, 8 + waveOffset, 14, 2);
       f('#ffffff80', 16, 20 - waveOffset, 12, 2);
       break;
     case 's':
-      // 트로피컬 모래사장 & 조개껍데기
       f('#fde047',0,0,32,32);f('#facc15',r*5+2,r*4+3,4,3);
       if(r===2){f('#fb7185', 18, 12, 3, 3);f('#ffffff', 19, 13, 1, 1);}
       break;
     case 'F':
       gr();
-      // 해바라기 / 트로피컬 꽃
       f('#f59e0b',10,8,12,12);f('#78350f',13,11,6,6);f('#22c55e',15,20,2,8);
       break;
     case 't':
       f('#c8693f',0,0,32,32);f('#e5d5c0',0,0,32,2);
       break;
     case 'H':
-      // 목재 리조트 오두막 스타일
       f('#fef3c7',0,0,32,32);f('#b45309',0,28,32,4);f('#38bdf8',9,8,14,12);f('#fff',9,8,14,2);
       break;
     case 'D':
-      f('#fef3c7',0,0,32,32);f('#78350f',6,2,20,30);f('#b45309',8,4,16,26);f('#fbbf24',20,18,3,3);
+      // 실내 우든 책상 오브젝트
+      fl();
+      f('#78350f', 4, 6, 24, 20);
+      f('#b45309', 6, 8, 20, 14);
+      f('#fde68a', 10, 11, 6, 6);
+      break;
+    case 'X':
+      // 실내 인테리어 화분 오브젝트
+      fl();
+      f('#9ca3af', 10, 18, 12, 10);
+      f('#15803d', 8, 6, 16, 14);
+      f('#22c55e', 10, 8, 12, 10);
+      f('#f43f5e', 14, 6, 4, 4);
       break;
     case 'f':fl();break;case 'w':wl();f('#46352a',0,28,32,4);break;
     case 'K':fl();f('#7a4a2a',2,6,28,22);f('#a8693f',2,6,28,6);break;
@@ -248,15 +258,13 @@ function tile(c,k,x,y,t){
   }
 }
 
-// ---- Audio System (Location-based Dynamic BGM)
 let AC, bgm=true, mt=null, step=0;
-
 const BGM_TRACKS = {
   town: { m: [0,4,7,12,11,7,4,7,5,9,12,9,7,4,2,4], b: [0,0,5,7], s: 230, type:'square' },
   route: { m: [9,12,16,12,14,11,7,11,9,12,14,16,17,16,14,11], b: [9,5,7,4], s: 190, type:'square' },
-  beach: { m: [12,14,16,19,16,14,12,7,9,12,14,12,9,7,5,7], b: [0,-5,-2,-7], s: 260, type:'sine' }, // 파도 감성
-  knowledge: { m: [7,11,14,18,14,11,7,2,5,9,12,9,5,2,0,4], b: [7,2,0,-3], s: 280, type:'triangle' }, // 지적 미니멀 테마
-  sports: { m: [0,7,4,7,2,7,5,7,0,7,4,9,7,5,4,2], b: [0,-3,-5,-7], s: 160, type:'square' }, // 업템포
+  beach: { m: [12,14,16,19,16,14,12,7,9,12,14,12,9,7,5,7], b: [0,-5,-2,-7], s: 260, type:'sine' },
+  knowledge: { m: [7,11,14,18,14,11,7,2,5,9,12,9,5,2,0,4], b: [7,2,0,-3], s: 280, type:'triangle' },
+  sports: { m: [0,7,4,7,2,7,5,7,0,7,4,9,7,5,4,2], b: [0,-3,-5,-7], s: 160, type:'square' },
   indoor: { m: [4,7,11,7,4,2,0,2,4,7,9,7,4,2,0,-3], b: [0,0,-5,-5], s: 300, type:'sine' }
 };
 
@@ -293,7 +301,6 @@ function sfx(k){
 
 function togBgm(){bgm=!bgm;$('#bg').textContent=bgm?'🔊':'🔇';bgm?music():clearInterval(mt)}
 
-// ---- Game Engine Logic
 let cur=null,map=null,px=7,py=5,dir=0,mv=null,steps=0,busy=true,modal=false,dlg=null,tw=null,npcs=[],held=null,bumpT=0;
 const DV=[[0,1],[0,-1],[-1,0],[1,0]],EK=['d','u','l','r'],WALK='.F=stDf';
 const at=(x,y)=>map.m[y]&&map.m[y][x];
