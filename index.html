@@ -13,8 +13,7 @@
     body{height:100%;background:var(--bg);color:var(--tx);font-family:'DotGothic16','Malgun Gothic',system-ui,sans-serif;display:flex;justify-content:center;user-select:none;-webkit-user-select:none;overflow:hidden}
     #app{max-width:1440px;width:100%;height:100dvh;display:grid;grid-template-columns:220px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px}
     #bar{grid-column:1/-1;border:2px solid #667da8;border-radius:8px;min-height:44px;display:flex;gap:6px;align-items:center;padding:6px 8px;background:linear-gradient(#e8f0fb,#b7c8e6);color:#14223d;font-size:13px}
-    #bar b{flex:1;font-size:14px;white-space:nowrap}
-    #bar b i{display:inline-block;background:#fbbf24;color:#111;width:20px;height:20px;text-align:center;font-style:normal;margin-right:6px;border:2px solid #111}
+    #bar b{flex:1;font-size:14px;white-space:nowrap;font-weight:bold}
     #bar button{font:inherit;font-size:12px;border:1px solid #5b6f99;background:#fff;color:#14223d;padding:3px 7px;cursor:pointer;border-radius:4px}
     #scr{grid-column:2;grid-row:2;width:100%;height:100%;min-height:0;position:relative;background:#000;border:4px solid #667da8;border-radius:8px;box-shadow:0 8px 30px #0006;overflow:hidden}
     #c{width:100%;height:100%;image-rendering:pixelated;display:block;object-fit:fill}
@@ -126,7 +125,9 @@
   <p class="world-note" style="margin-top:14px">키보드 방향키 또는 WASD로 이동하고, Z 키로 주민과 대화하세요. 모바일에서는 화면 아래 패드를 이용할 수 있습니다.</p>
 </aside>
 
-<div id="bar"><b><i>B</i>BS World</b><button onclick="showMap()">🗺 지도</button><button onclick="showBrain()">🧠 뇌구조</button><button onclick="showCerts()">📜 증명서</button><button id="bg" onclick="togBgm()">🔊</button></div>
+<!-- 상단 바 수정: 노란색 B 네모 제거 및 타이틀 변경 -->
+<div id="bar"><b>BS World | Interactive RPG Portfolio</b><button onclick="showMap()">🗺 지도</button><button onclick="showBrain()">🧠 뇌구조</button><button onclick="showCerts()">📜 증명서</button><button id="bg" onclick="togBgm()">🔊</button></div>
+
 <div id="scr"><canvas id="c"></canvas><div id="fade"></div><div id="bn"></div><div id="pop"></div>
 <div id="dl"><div id="dn"></div><div id="dt"></div></div>
 <div id="st"><div class="cd"><h1>BS World</h1><h2>16-BIT RETRO RPG PORTFOLIO</h2><p>걷고, 말을 걸고, 건물에 들어가 보세요. 모험으로 만나는 강보성의 이야기입니다.</p></div><button class="go" onclick="startGame()">모험 시작하기 (START)</button><p>방향키/WASD · Z=행동 · X=취소<br>모바일은 아래 패드를 사용하세요</p></div></div>
@@ -150,7 +151,6 @@
 <script>
 const $=s=>document.querySelector(s),TS=32,W=15,H=10,cv=$('#c'),g=cv.getContext('2d');cv.width=W*TS;cv.height=H*TS;
 
-/* 실내 맵 구조: 중앙 책상(D), 화분(X) 등의 도트 오브젝트 배치를 포함한 확장 템플릿 */
 const I=(a,b='wffDffXffDffwfw')=>['wwwwwwwwwwwwwww',a,'wffffffffffffffw','wffffffffffffffw',b,...Array(4).fill('wffffffffffffffw'),'wwwwwwwDwwwwwww'];
 
 const M={
@@ -235,14 +235,12 @@ function tile(c,k,x,y,t){
       f('#fef3c7',0,0,32,32);f('#b45309',0,28,32,4);f('#38bdf8',9,8,14,12);f('#fff',9,8,14,2);
       break;
     case 'D':
-      // 실내 우든 책상 오브젝트
       fl();
       f('#78350f', 4, 6, 24, 20);
       f('#b45309', 6, 8, 20, 14);
       f('#fde68a', 10, 11, 6, 6);
       break;
     case 'X':
-      // 실내 인테리어 화분 오브젝트
       fl();
       f('#9ca3af', 10, 18, 12, 10);
       f('#15803d', 8, 6, 16, 14);
