@@ -1,0 +1,329 @@
+<!DOCTYPE html><html lang="ko"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>BO-SUNG WORLD | Interactive Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0}
+:root{--bg:#0b1020;--pn:#131c33;--tx:#e8ecf4;--ac:#fbbf24;--bd:#2c3a5e;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:dark}
+@media(prefers-color-scheme:light){:root{--bg:#dfe6f2;--pn:#fff;--tx:#14192a;--bd:#b9c4dc;color-scheme:light}}
+html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
+body{height:100%;background:var(--bg);color:var(--tx);font-family:'DotGothic16','Malgun Gothic',system-ui,sans-serif;display:flex;justify-content:center;user-select:none;-webkit-user-select:none}
+#app{width:100%;max-width:560px;height:100%;display:flex;flex-direction:column}
+#bar{display:flex;gap:6px;align-items:center;padding:6px 8px;background:linear-gradient(#e8f0fb,#b7c8e6);color:#14223d;font-size:13px}
+#bar b{flex:1;font-size:13px;white-space:nowrap}#bar b i{display:inline-block;background:#fbbf24;color:#111;width:20px;height:20px;text-align:center;font-style:normal;margin-right:6px;border:2px solid #111}
+#bar button{font:inherit;font-size:12px;border:1px solid #5b6f99;background:#fff;color:#14223d;padding:3px 7px;cursor:pointer}
+#scr{position:relative;background:#000;aspect-ratio:3/2;width:100%;overflow:hidden}
+#c{width:100%;height:100%;image-rendering:pixelated;display:block}
+#fade{position:absolute;inset:0;background:#000;opacity:0;transition:opacity .35s;pointer-events:none}
+#bn{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#111;border:3px solid #111;padding:3px 12px;font-size:14px;opacity:0;transition:opacity .4s;pointer-events:none;white-space:nowrap}
+#pop{position:absolute;right:6px;top:6px;width:44%;background:#0f172acc;border:3px solid #fbbf24;padding:6px;opacity:0;transition:opacity .4s;pointer-events:none;font-size:10px;color:#fff}
+#dl{position:absolute;left:6px;right:6px;bottom:6px;background:#10192e;border:3px solid #fbbf24;border-radius:6px;color:#fff;padding:8px 10px;font-size:14px;line-height:1.5;min-height:74px;display:none;cursor:pointer}
+#dn{position:absolute;top:-14px;left:10px;background:#fbbf24;color:#111;padding:0 8px;font-size:12px}
+.ch{padding:2px 4px}.ch.on{color:#fbbf24}
+#st{position:absolute;inset:0;background:#0b1020e8;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:14px;z-index:5}
+#st .cd{border:3px solid #fbbf24;background:#10192e;color:#fff;padding:14px;max-width:340px}
+#st h1{font-family:'Press Start 2P',monospace;font-size:15px;color:#fbbf24;line-height:1.6}
+#st h2{font-size:12px;color:#5ee7ff;margin:6px 0}
+#st p{font-size:12px;line-height:1.5;color:#cbd5e1}
+.go{font:inherit;font-size:15px;background:#fbbf24;color:#111;border:3px solid #111;padding:8px 18px;cursor:pointer;box-shadow:3px 3px 0 #000}
+#ctl{flex:1;min-height:128px;background:#d2d2d2;display:flex;align-items:center;justify-content:space-between;padding:8px 18px;touch-action:none}
+.dp{display:grid;grid-template:repeat(3,42px)/repeat(3,42px);gap:2px;background:#9aa3b5;border-radius:50%;padding:8px;border:2px solid #566074}
+.dp button{background:#222a3a;color:#fff;border:0;border-radius:6px;font-size:15px;touch-action:none}
+.ab{display:flex;gap:18px}.ab div{text-align:center;font-size:10px;color:#566074}
+.ab button{display:block;margin:0 auto 4px;width:46px;height:46px;border-radius:50%;border:2px solid #111;box-shadow:2px 2px 0 #000;color:#fff;font:inherit;font-size:16px;touch-action:none}
+.md{position:fixed;inset:0;background:#000a;display:flex;align-items:center;justify-content:center;z-index:9;padding:12px}
+.md[hidden]{display:none}
+.mb{position:relative;background:var(--pn);color:var(--tx);border:3px solid #fbbf24;max-width:520px;width:100%;max-height:86%;overflow:auto;padding:14px;user-select:text}
+.x{position:sticky;top:0;float:right;font:inherit;background:#fbbf24;border:2px solid #111;cursor:pointer;padding:0 8px}
+h3{margin-bottom:8px;font-size:16px}
+.gl{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}.gl figure{text-align:center;font-size:12px}.gl canvas{image-rendering:pixelated;border:3px solid #fbbf24;width:120px;height:126px}
+.cd{border:1px solid var(--bd);padding:6px 8px;margin:6px 0;font-size:13px;line-height:1.5}.cd small{display:block;opacity:.75}
+.bl{filter:blur(4.5px);display:inline-block}.mk{font-size:11px;opacity:.8}
+.wg{display:grid;grid-template-areas:". cert ." ". route1 ." "coast town sports";grid-template-columns:repeat(3,1fr);gap:4px}
+.wc{border:2px solid #7c8db5;background:#1e2a47;color:#fff;font-size:10px;text-align:center;padding:6px 2px;position:relative;line-height:1.3}
+.wc.me{border-color:#fbbf24;animation:bk 1s steps(2) infinite}
+@keyframes bk{50%{background:#7a5c00}}
+.bsv{width:100%;max-height:230px}.bsv circle{cursor:pointer;stroke:#fff;stroke-width:2}.bsv text{font-size:10px;fill:#111;pointer-events:none;text-anchor:middle}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+/* ===== WORLD EXPANSION LAYER ===== */
+:root{--gold:#fbbf24;--panel2:#172440;--muted:#9eacc6}
+body{overflow:hidden}
+#app{max-width:1440px;width:100%;height:100dvh;display:grid;grid-template-columns:220px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px}
+#bar{grid-column:1/-1;border:2px solid #667da8;border-radius:8px;min-height:44px}
+#scr{grid-column:2;grid-row:2;width:100%;height:100%;min-height:0;aspect-ratio:auto;border:4px solid #667da8;border-radius:8px;box-shadow:0 8px 30px #0006}
+#c{width:100%;height:100%;object-fit:fill}
+#ctl{grid-column:2;grid-row:3;flex:none;min-height:104px;border:2px solid #667da8;border-radius:8px}
+#leftPanel,#rightPanel{background:var(--pn);border:2px solid var(--bd);border-radius:8px;padding:12px;overflow:auto;min-height:0}
+#leftPanel{grid-column:1;grid-row:2/4}
+#rightPanel{grid-column:3;grid-row:2/4}
+.panel-title{font-size:13px;color:var(--ac);letter-spacing:.04em;border-bottom:1px solid var(--bd);padding-bottom:8px;margin:2px 0 10px}
+.avatar-card{background:linear-gradient(145deg,#24375c,#10192e);border:1px solid #52688f;border-radius:8px;padding:12px;text-align:center;margin-bottom:12px}
+.avatar-mark{width:64px;height:64px;border:3px solid var(--ac);background:#dbeafe;border-radius:8px;margin:0 auto 8px;display:grid;place-items:center;font-size:34px}
+.avatar-card strong{display:block;font-size:14px;color:#fff}
+.avatar-card small{color:#b9c9e5}
+.stat-line{display:flex;justify-content:space-between;gap:8px;font-size:11px;margin:8px 0;color:var(--muted)}
+.stat-line b{color:var(--tx)}
+.meter{height:8px;background:#080d19;border:1px solid #52688f;border-radius:20px;overflow:hidden;margin:5px 0 10px}
+.meter span{display:block;height:100%;width:18%;background:linear-gradient(90deg,#16a34a,#a3e635)}
+.quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+.quick-grid button,.side-action{font:inherit;font-size:11px;color:var(--tx);background:#24375c;border:1px solid #536b98;border-radius:6px;padding:9px 6px;cursor:pointer;text-align:left}
+.quick-grid button:hover,.side-action:hover{border-color:var(--ac);background:#344a73}
+.quest{border:1px solid var(--bd);border-radius:7px;padding:9px;margin:7px 0;background:#0e172b}
+.quest b{font-size:12px;display:block;margin-bottom:4px}
+.quest small{font-size:10px;color:var(--muted);line-height:1.4}
+.quest .qtag{color:#fbbf24;font-size:10px}
+.world-note{font-size:11px;line-height:1.55;color:var(--muted)}
+#bar button{border-radius:4px}
+#bar b{font-size:14px}
+#bar .mode-label{font-size:10px;background:#14223d;color:#fff;padding:4px 7px;border-radius:4px;white-space:nowrap}
+#dl{max-width:780px;left:2%;right:2%;bottom:2%;margin:auto}
+.mb{border-radius:10px}
+.portfolio-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.portfolio-item{border:1px solid var(--bd);background:#0e172b;border-radius:7px;padding:10px;text-align:left;color:var(--tx);font:inherit;cursor:pointer}
+.portfolio-item b{display:block;color:var(--ac);font-size:12px;margin-bottom:4px}
+.portfolio-item small{font-size:10px;line-height:1.4;color:var(--muted)}
+#toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#10192e;color:#fff;border:2px solid var(--ac);padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}
+#toast.show{opacity:1}
+@media(max-width:900px){
+ #app{grid-template-columns:170px minmax(0,1fr);grid-template-rows:auto minmax(260px,1fr) auto;gap:7px;padding:7px}
+ #bar{grid-column:1/-1;flex-wrap:wrap}
+ #leftPanel{grid-column:1;grid-row:2/4}
+ #scr{grid-column:2;grid-row:2}
+ #ctl{grid-column:2;grid-row:3}
+ #rightPanel{display:none}
+}
+@media(max-width:620px){
+ body{overflow:auto}
+ #app{height:100dvh;min-height:560px;display:flex;flex-direction:column;gap:5px;padding:5px}
+ #bar{flex:none;gap:4px;padding:5px;flex-wrap:wrap}
+ #bar b{width:100%;flex:1 0 100%}
+ #bar button{font-size:10px;padding:4px 6px}
+ #leftPanel{display:none}
+ #rightPanel{display:none}
+ #scr{width:100%;height:auto;aspect-ratio:3/2;flex:none;min-height:0}
+ #ctl{flex:1;min-height:120px;padding:8px 12px}
+ #dl{font-size:12px;min-height:64px}
+ .portfolio-list{grid-template-columns:1fr}
+}
+@media(prefers-reduced-motion:reduce){#toast{transition:none}}
+
+</style></head><body>
+<div id="app">
+
+<aside id="leftPanel" aria-label="캐릭터 정보">
+  <div class="panel-title">PLAYER PROFILE</div>
+  <div class="avatar-card">
+    <div class="avatar-mark">🧑🏻‍💻</div>
+    <strong>KANG BO-SUNG</strong>
+    <small>WORLD EXPLORER · Lv. 01</small>
+  </div>
+  <div class="stat-line"><span>탐험 진행도</span><b id="progressText">0 / 8 지역</b></div>
+  <div class="meter"><span id="progressBar"></span></div>
+  <div class="stat-line"><span>걸음 수</span><b id="stepCount">0</b></div>
+  <div class="stat-line"><span>방문 지역</span><b id="visitedCount">0</b></div>
+  <div class="panel-title" style="margin-top:18px">QUICK ACCESS</div>
+  <div class="quick-grid">
+    <button onclick="showPortfolio()">👤 소개</button>
+    <button onclick="showCerts()">📜 자격·수상</button>
+    <button onclick="showBrain()">🧠 역량 지도</button>
+    <button onclick="showMap()">🗺 월드맵</button>
+    <button onclick="showGallery()">📸 갤러리</button>
+    <button onclick="showQuestLog()">🎯 퀘스트</button>
+  </div>
+  <p class="world-note" style="margin-top:14px">키보드 방향키 또는 WASD로 이동하고, Z 키로 주민과 대화하세요. 모바일에서는 화면 아래 패드를 이용할 수 있습니다.</p>
+</aside>
+
+<div id="bar"><b><i>K</i>KANG BO-SUNG WORLD</b><button onclick="showMap()">🗺 지도</button><button onclick="showBrain()">🧠 뇌구조</button><button onclick="showCerts()">📜 증명서</button><button id="bg" onclick="togBgm()">🔊</button></div>
+<div id="scr"><canvas id="c"></canvas><div id="fade"></div><div id="bn"></div><div id="pop"></div>
+<div id="dl"><div id="dn"></div><div id="dt"></div></div>
+<div id="st"><div class="cd"><h1>BO-SUNG WORLD</h1><h2>16-BIT RETRO RPG PORTFOLIO</h2><p>걷고, 말을 걸고, 건물에 들어가 보세요. 이력서가 아니라 모험으로 만나는 강보성의 이야기입니다.</p></div><button class="go" onclick="startGame()">모험 시작하기 (START)</button><p>방향키/WASD · Z=행동 · X=취소<br>모바일은 아래 패드를 사용하세요</p></div></div>
+<div id="ctl"><div class="dp"><span></span><button data-d="1">▲</button><span></span><button data-d="2">◀</button><span></span><button data-d="3">▶</button><span></span><button data-d="0">▼</button><span></span></div>
+<div class="ab"><div><button style="background:#b91c1c" id="bB">B</button>CANCEL(X)</div><div><button style="background:#047857" id="bA">A</button>ACTION(Z)</div></div></div>
+
+<aside id="rightPanel" aria-label="퀘스트 및 탐험 안내">
+  <div class="panel-title">ADVENTURE LOG</div>
+  <div class="quest"><b>🌱 첫 발걸음</b><small>태초마을에서 모험을 시작하세요.</small><div class="qtag" id="qStart">진행 중</div></div>
+  <div class="quest"><b>🧠 지식의 도시</b><small>멘사 헤드쿼터 또는 자격 검정원을 방문하세요.</small><div class="qtag" id="qKnowledge">미발견</div></div>
+  <div class="quest"><b>🏃 챔피언 밸리</b><small>러닝 체육관에서 도전의 기록을 확인하세요.</small><div class="qtag" id="qSports">미발견</div></div>
+  <div class="quest"><b>🩸 나눔의 해변</b><small>커뮤니티 센터에서 나눔의 기록을 만나보세요.</small><div class="qtag" id="qCommunity">미발견</div></div>
+  <div class="panel-title" style="margin-top:18px">WORLD GUIDE</div>
+  <p class="world-note" id="regionDesc">태초마을은 모든 모험이 시작되는 곳입니다. 주민에게 말을 걸어 월드의 비밀을 알아보세요.</p>
+  <button class="side-action" style="width:100%;margin-top:10px" onclick="showPortfolio()">포트폴리오 전체 보기 ↗</button>
+</aside>
+<div id="toast" role="status" aria-live="polite"></div>
+
+</div>
+<div class="md" id="md" hidden><div class="mb"><button class="x" onclick="closeM()">✕</button><div id="mc"></div></div></div>
+<script>
+const $=s=>document.querySelector(s),TS=32,W=15,H=10,cv=$('#c'),g=cv.getContext('2d');cv.width=W*TS;cv.height=H*TS;
+const I=(a,b='wffffffffffffffw')=>['wwwwwwwwwwwwwww',a,'wffffffffffffffw','wffffffffffffffw',b,...Array(4).fill('wffffffffffffffw'),'wwwwwwwDwwwwwww'];
+const M={
+town:{n:'태초마을',o:1,m:['TTTTTTT=TTTTTTT','T..F..===..F..T','T.RRR..=....F.T','T.HDH..=..F...T','T.===..=.....TT','===============','T.F...=.....F.T','T.....=..F....T','TT.F..=.....TTT','TTTTTTTTTTTTTTT'],d:{'3,3':['house',7,8]},e:{u:['route1',7,9],l:['coast',14,5],r:['sports',0,5]},p:[
+{x:10,y:6,c:'#4aa3ff',h:'#6b3e26',n:'마을 소년',s:['어서 와, 보성! 여기가 태초마을이야.','북쪽 1번 도로 끝엔 자격 시티, 동쪽엔 마라톤 밸리, 서쪽엔 나눔 해변이 있어.','위쪽 🧠 뇌구조 메뉴를 열면 어디든 순간이동할 수 있대!']},
+{x:5,y:7,c:'#ff8fb1',h:'#222',w:1,n:'꽃집 누나',s:['꽃향기 맡고 가렴. 🌸','달리기 전엔 스트레칭 필수야!']}]},
+route1:{n:'1번 도로',o:1,m:['TTTTTTT=TTTTTTT','TT.F...=...F.TT','T..TT..=..TT..T','T.F....=.....FT','TT.....=....TTT','T..F...=..F...T','T.TT...=...TT.T','TT.....=.F...TT','T..F...=.....TT','TTTTTTT=TTTTTTT'],e:{u:['cert',7,9],d:['town',7,0]},p:[
+{x:4,y:3,c:'#8a6d4b',h:'#999',n:'등산객',s:['자격증 공부는 마라톤이래. 페이스 조절이 전부지!','북쪽 시티엔 시험을 줄줄이 통과한 사람이 있다던데… 🤔']},
+{x:10,y:5,c:'#ef4444',h:'#222',w:1,n:'꼬마 트레이너',s:['나는 1번 도로의 달리기 선수!','동쪽 마라톤 밸리까지 경주할래?']},
+{x:9,y:7,c:'#f59e0b',h:'#5a3a1a',n:'여행자',s:['감귤 향 나는 섬에서 왔어. 🍊','감귤마라톤은 코스도 공기도 최고야.']}]},
+cert:{n:'학술·자격 검정 시티',o:1,m:['TTTTTTTTTTTTTTT','T.F...F..F...FT','T.QQQ...YYY...T','T.HDH...HDH...T','T.===..=.===..T','T......=......T','T.F....=...F..T','T......=......T','TT.F...=.....TT','TTTTTTT=TTTTTTT'],d:{'3,3':['agency',7,8],'10,3':['mensa',7,8]},e:{d:['route1',7,0]},p:[
+{x:5,y:6,c:'#3b82f6',h:'#222',n:'시티 안내원',s:['여기는 학술·자격 검정 시티.','파란 지붕은 국가 자격 검정원, 보라색 지붕은 멘사 헤드쿼터야.']}]},
+sports:{n:'체육 & 마라톤 밸리',o:1,m:['TTTTTTTTTTTTTTT','TT....F..GGG.TT','T.....F..HDH..T','T.tttttt.===..T','T.t....t..=...T','..t....t..=====','T.t....t..=..FT','T.tttttt.....TT','TT..F.......TTT','TTTTTTTTTTTTTTT'],d:{'10,2':['gym',7,8]},e:{l:['town',14,5]},p:[
+{x:3,y:3,c:'#22c55e',h:'#222',w:1,n:'트랙 러너',s:['하나, 둘! 하나, 둘!','특전사 출신 코치님이 체육관에 계셔.']}]},
+coast:{n:'나눔 커뮤니티 해변',o:1,m:['~~~~~ss.TTTTTTT','~~~~~ss...RRR.T','~~~~~ss...HDH.T','~~~~sss...===.T','~~~~ss..=====.T','~~~sss..=======','~~~~ss.F.....FT','~~~~~ss.......T','~~~~~~ss..F.TTT','~~~~~~~sTTTTTTT'],d:{'11,2':['vc',7,8]},e:{r:['town',0,5]},p:[
+{x:5,y:4,c:'#e879f9',h:'#222',w:1,n:'해변 산책러',s:['파도 소리를 들으면 마음이 차분해져.','센터에 가면 헌혈왕 이야기를 들을 수 있어!']}]},
+house:{n:'보성의 집',par:'town',m:I('wwwPwwwwKKwwwww','wfKKffffffffKfw'),d:{'7,9':['town',3,4]},p:[
+{x:6,y:4,c:'#7dd3fc',h:'#1b1b26',n:'거울 속의 나',s:['안녕, 나는 강보성.','정보처리와 데이터를 공부하고, 달리고, 나누며 살아온 모험가야.','이 월드의 모든 건물은 내가 걸어온 기록으로 만들었어.'],ch:{'지금까지의 길':['🧠 멘사 IQ 156 · 💻 정보처리기사 · 🏃 하프마라톤 3회 · 🩸 헌혈 167회','궁금하면 각 건물 주민에게 말을 걸어봐!'],'다음 모험':['다음 챕터는 함께할 새로운 퀘스트야.','벽의 액자도 꼭 눌러봐. 📸']}},
+{x:11,y:6,c:'#f59e0b',h:'#f59e0b',w:1,n:'고양이',s:['야옹~ 🐱','(주인이 코딩하는 동안 키보드 옆을 지키는 중이다냥.)']}]},
+gym:{n:'런 라이프 체육관',par:'sports',m:I('wwwwwMwwwwMwwww','wfKKfffffKKfffw'),d:{'7,9':['sports',10,3]},sh:['🏅 마라톤 메달 진열대','2013 · 2016 · 2016 하프코스 완주 / 2019 감귤마라톤 10km'],p:[
+{x:7,y:5,c:'#16a34a',h:'#222',n:'메인 러닝 코치',s:['어서 와! 여기는 런 라이프 체육관.','마라톤 하프코스를 3번 완주한 러너의 기록실이지.'],ch:{'하프코스 3회':['2013 제2회 6.25 상기 및 정전 60주년 기념 국민대통합 마라톤 대회 하프 01:58:21.05 (대한민국 특전사전우회 / 특수전사령부)','2016 제9회 아름다운제주국제마라톤대회 하프 2:27:11.23','2016 제21회 제주국제관광마라톤축제 하프 02:54:26.14'],'감귤마라톤 & 볼링':['2019 제주감귤국제마라톤 10km 01:22:38.32 🍊','2011 제30회 제주특별자치도볼링협회장기 전도볼링대회 대학부 남자 2인조전 3위 🎳']}},
+{x:3,y:6,c:'#60a5fa',h:'#222',w:1,n:'서브 러너',s:['후… 후… 아 안녕!','기록은 숫자지만 완주는 이야기야. 파이팅!']}]},
+agency:{n:'국가 자격 검정원',par:'cert',m:I('wwCwwCwwwwCwwww'),d:{'7,9':['cert',3,4]},p:[
+{x:7,y:5,c:'#2563eb',h:'#333',n:'총괄 수석관',s:['어서 오게. 국가 자격 검정원이야.','무엇이 궁금한가?'],ch:{'자격증':['📜 정보처리기사 · 컴퓨터활용능력 1급 · 워드프로세서','📊 사회조사분석사 2급 · 한국사능력검정시험 2급','🔤 TOEIC 최고 775점'],'공모전·수상':['🏆 2016 지역기업 청년 희망이음 프로젝트 경진대회 대상 (산업통상자원부 장관상)','🥇 2017 같은 대회 금상 (산업통상자원부 장관상)','🎖️ 2016 이니스프리 마케팅 공모전 입상 (제주대 LINC) · 2018 대한민국건축문화제 상상유니브 UCC 마케팅 공모전 장려상'],'수료·활동':['📜 청년취업아카데미 · 빅데이터 활용을 위한 DB관리 전문가 과정 (300시간)','📜 2017 희망이음 서포터즈 6기 · 2016 상상volunteer 11기 수료'],'🔒 증명서 전시장':'cert'}},
+{x:11,y:6,c:'#94a3b8',h:'#222',w:1,n:'시험 준비생',s:['으아… 정처기 실기 공부 중이에요.','저분 기록 보면 희망이 생겨요!']}]},
+mensa:{n:'멘사 헤드쿼터',par:'cert',m:I('wwKwwwwwwwwwKww'),d:{'7,9':['cert',10,4]},p:[
+{x:7,y:4,c:'#7c3aed',h:'#eee',n:'멘사 시험관',s:['멘사 헤드쿼터에 온 걸 환영합니다.','테스트 결과: IQ 156, Percentile 99%. 상위 1%로 합격해 현재 준회원입니다.','숫자는 출발점일 뿐, 꾸준함이 기록을 만든다네.']}]},
+vc:{n:'나눔 & 기여 커뮤니티 센터',par:'coast',m:I('wwMwwwMwwwMwwww'),d:{'7,9':['coast',11,3]},sh:['🩸 헌혈 유공 진열대','대한적십자사 헌혈유공장 은장 · 헌혈 167회'],p:[
+{x:7,y:5,c:'#dc2626',h:'#444',n:'커뮤니티 이사장',s:['어서 오세요. 나눔 & 기여 커뮤니티 센터입니다.'],ch:{'헌혈':['🩸 헌혈 167회 달성!','적십자 헌혈유공장 은장 포장증을 받았습니다.'],'표창·수료':['🏅 산업통상자원부 장관상 2회 (2016 대상 · 2017 금상)','📜 2016 상상volunteer 11기 · 2017 희망이음 서포터즈 6기 수료']}},
+{x:4,y:6,c:'#fb923c',h:'#222',w:1,n:'봉사원',s:['오늘도 봉사 활동 중! 😊','작은 나눔이 모이면 큰 기록이 돼요.']}]}
+};
+Object.values(M).forEach(z=>z.m=z.m.map(r=>r.padEnd(W,'T')));
+// ---- sprites
+const PG=['...HHHHHH...','..HHHHHHHH..','.HHHHHHHHHH.','.HHSSSSSSHH.','.HSSSSSSSSH.','.PSEESSEESP.','.PSSSSSSSSP.','..SSSMMSSS..','...SSSSSS...','..CCCCCCCC..','.CCCCCCCCCC.','.CCCCCCCCCC.'];
+function spr(c,x,y,s,o={}){const d=o.d||0,col={H:o.h||'#1b1b26',S:'#f2c9a0',E:'#111',P:o.p||'#8a94a8',M:'#b5655a',C:o.c||'#ece4d0'};
+PG.forEach((r,j)=>[...r].forEach((k,i)=>{if(k=='.')return;if(d==1&&j>2&&j<9&&'SEM'.includes(k))k='H';if(d==2&&k=='E'&&i>5)k='S';if(d==3&&k=='E'&&i<6)k='S';c.fillStyle=col[k];c.fillRect(x+i*s,y+j*s,s,s)}));
+if(o.l!==false){c.fillStyle='#34495e';c.fillRect(x+3*s,y+12*s,2*s,o.w?s:2*s);c.fillRect(x+7*s,y+12*s,2*s,o.w?2*s:s)}}
+function tile(c,k,x,y,t){const X=x*TS,Y=y*TS,r=(x*7+y*13)%5,f=(col,a,b,w,h)=>{c.fillStyle=col;c.fillRect(X+a,Y+b,w,h)};
+const gr=()=>{f('#6cc04a',0,0,32,32);f('#5aaa3c',(r*5)%24+2,(r*3)%20+4,3,3);f('#7fd35a',(r*9)%22+4,(r*7)%24+2,2,2)},wl=()=>{f('#5b4636',0,0,32,32);f('#7a5f49',0,0,32,6)},fl=()=>{f('#c9a36b',0,0,32,32);f('#b78f55',0,0,32,1);f('#b78f55',0,0,1,32)},RC={R:'#d64541',Q:'#3b6fd6',G:'#2f9e5f',Y:'#7e57c2'};
+if(RC[k]){f(RC[k],0,0,32,32);f('#0003',0,10,32,3);f('#0003',0,22,32,3);f('#fff4',0,0,32,4);return}
+switch(k){
+case 'T':gr();f('#3d2b1f',13,22,6,10);f('#1f7a3a',2,2,28,22);f('#2e9e4f',5,0,22,18);f('#43b862',9,4,8,6);break;
+case '=':f('#dcc58f',0,0,32,32);f('#c4ab72',(r*6)%24+3,(r*4)%24+3,4,3);break;
+case '~':f('#3f86e0',0,0,32,32);f('#8fc0f5',((t/200|0)+r*6)%20+2,10+r*3,8,2);break;
+case 's':f('#f0e0a8',0,0,32,32);f('#e0cc88',r*5+2,r*4+3,3,2);break;
+case 'F':gr();f('#ff7aa8',8,10,5,5);f('#ffe066',20,18,5,5);break;
+case 't':f('#c8693f',0,0,32,32);f('#e5d5c0',0,0,32,2);break;
+case 'H':f('#f2e8cc',0,0,32,32);f('#8a6d4b',0,28,32,4);f('#7ec8ff',9,8,14,12);f('#fff',9,8,14,2);break;
+case 'D':f('#f2e8cc',0,0,32,32);f('#7a4a2a',6,2,20,30);f('#a8693f',8,4,16,26);f('#ffd34d',20,18,3,3);break;
+case 'f':fl();break;case 'w':wl();f('#46352a',0,28,32,4);break;
+case 'K':fl();f('#7a4a2a',2,6,28,22);f('#a8693f',2,6,28,6);break;
+case 'P':wl();f('#e0b840',6,2,20,26);f('#cfd8e8',9,5,14,20);spr(c,X+10,Y+7,1,{l:false,p:'#f2c9a0'});break;
+case 'C':wl();f('#8a6d4b',3,6,26,22);f('#fff',6,9,8,10);f('#ffe066',17,9,9,6);f('#7ec8ff',17,18,9,6);break;
+case 'M':wl();f('#8a6d4b',3,6,26,22);f('#ffd34d',7,10,6,6);f('#c0c0c0',17,10,6,6);f('#cd7f32',12,19,6,6);break;
+default:gr()}}
+// ---- audio
+let AC,bgm=true,mt=null,step=0;
+const TH={t:{m:[0,4,7,12,11,7,4,7,5,9,12,9,7,4,2,4],b:[0,0,5,7],s:240},r:{m:[9,12,16,12,14,11,7,11,9,12,14,16,17,16,14,11],b:[9,5,7,4],s:200},i:{m:[0,7,4,7,2,7,5,7,0,7,4,9,7,5,4,2],b:[0,-3,-5,-7],s:310}};
+function tone(n,d,ty,v,t0){if(!AC)return;const o=AC.createOscillator(),gn=AC.createGain(),t=AC.currentTime+(t0||0);o.type=ty;o.frequency.value=261.63*2**(n/12);gn.gain.setValueAtTime(v,t);gn.gain.exponentialRampToValueAtTime(.0001,t+d);o.connect(gn);gn.connect(AC.destination);o.start(t);o.stop(t+d)}
+function music(){clearInterval(mt);if(!AC||!bgm||!map)return;const T=TH[map.o?(cur=='route1'?'r':'t'):'i'];step=0;mt=setInterval(()=>{tone(T.m[step%16],.2,'square',.04);if(step%4==0)tone(T.b[(step/4|0)%4]-12,.8,'triangle',.07);step++},T.s)}
+function sfx(k){if(!bgm)return;if(k=='b')tone(-12,.08,'square',.04);else if(k=='t')tone(14+Math.random()*3,.03,'square',.015);else if(k=='w'){[0,4,7,12].forEach((n,i)=>tone(n,.12,'square',.04,i*.07))}else tone(12,.06,'square',.04)}
+function togBgm(){bgm=!bgm;$('#bg').textContent=bgm?'🔊':'🔇';bgm?music():clearInterval(mt)}
+// ---- game state
+let cur=null,map=null,px=7,py=5,dir=0,mv=null,steps=0,busy=true,modal=false,dlg=null,tw=null,npcs=[],held=null,bumpT=0;
+const DV=[[0,1],[0,-1],[-1,0],[1,0]],EK=['d','u','l','r'],WALK='.F=stDf';
+const at=(x,y)=>map.m[y]&&map.m[y][x];
+function free(x,y){if(x<0||y<0||x>=W||y>=H||!WALK.includes(at(x,y)))return false;if(npcs.some(n=>n.x==x&&n.y==y))return false;return !(x==px&&y==py)}
+function warp(id,x,y,d){busy=true;sfx('w');$('#fade').style.opacity=1;setTimeout(()=>{const from=cur;cur=id;map=M[id];visited.add(id);updateHUD();px=x;py=y;dir=d;mv=null;npcs=map.p.map(o=>({...o,hx:o.x,hy:o.y,dir:0}));music();$('#fade').style.opacity=0;setTimeout(()=>{busy=false;banner(map.n);if(map.o&&(!from||M[from].o))popMap()},300)},380)}
+function banner(t){const b=$('#bn');b.textContent=t;b.style.opacity=1;setTimeout(()=>b.style.opacity=0,1700)}
+function zone(){return map.o?cur:map.par}
+function wmHTML(){const z=zone(),c=(k,t)=>`<div class="wc${z==k?' me':''}" style="grid-area:${k}">${t}${z==k?'<br>📍현재 위치':''}</div>`;return `<div class="wg">${c('cert','학술·자격<br>검정 시티')}${c('route1','1번 도로')}${c('coast','나눔<br>해변')}${c('town','태초마을')}${c('sports','마라톤<br>밸리')}</div>`}
+function popMap(){const p=$('#pop');p.innerHTML=wmHTML();p.style.opacity=1;setTimeout(()=>p.style.opacity=0,2300)}
+// ---- dialog
+function say(n,l,ch){dlg={n,l:l.slice(),i:0,ch,s:'t',sel:0,keys:ch?Object.keys(ch).concat('그만 듣기'):0};$('#dl').style.display='block';$('#dn').textContent=n;typ(l[0])}
+function typ(s){clearInterval(tw);let k=0;$('#dt').textContent='';tw=setInterval(()=>{k++;$('#dt').textContent=s.slice(0,k);if(k%3==0)sfx('t');if(k>=s.length){clearInterval(tw);tw=null}},26)}
+function menu(){dlg.s='m';clearInterval(tw);tw=null;$('#dt').innerHTML=dlg.keys.map((l,i)=>`<div class="ch${i==dlg.sel?' on':''}" data-i="${i}">▶ ${l}</div>`).join('')}
+function endDlg(){clearInterval(tw);tw=null;dlg=null;$('#dl').style.display='none'}
+function pick(i){const k=dlg.keys[i];if(k=='그만 듣기')return endDlg();const v=dlg.ch[k];if(v=='cert'){endDlg();return showCerts()}dlg.l=v;dlg.i=0;dlg.s='t';typ(v[0])}
+function advance(){if(tw){clearInterval(tw);tw=null;$('#dt').textContent=dlg.l[dlg.i];return}
+if(dlg.s=='m')return pick(dlg.sel);if(dlg.i<dlg.l.length-1){dlg.i++;typ(dlg.l[dlg.i])}else if(dlg.ch)menu();else endDlg()}
+$('#dt').addEventListener('click',e=>{if(dlg&&dlg.s=='m'&&e.target.dataset.i!=null){dlg.sel=+e.target.dataset.i;e.stopPropagation();pick(dlg.sel)}});
+$('#dl').addEventListener('click',()=>dlg&&advance());
+function act(){if(busy||modal)return;if(dlg)return advance();const[dx,dy]=DV[dir],x=px+dx,y=py+dy,n=npcs.find(o=>o.x==x&&o.y==y);sfx('s');
+if(n){n.dir=[1,0,3,2][dir];return say(n.n,n.s,n.ch)}
+const k=at(x,y);if(k=='P')showGallery();else if(k=='C')showCerts();else if(k=='M')say('전시대',map.sh)}
+function cancel(){if(modal)closeM();else if(dlg)endDlg()}
+// ---- modals
+function openM(h){$('#mc').innerHTML=h;$('#md').hidden=false;modal=true}
+function closeM(){$('#md').hidden=true;modal=false}
+function showMap(){if(busy)return;openM('<h3>🗺 월드 맵</h3>'+wmHTML())}
+const V=[{n:'단정한 댄디컷',bg:'#cfd8e8',c:'#ece4d0',p:'#f2c9a0'},{n:'헤드폰 룩',bg:'#2b3552',c:'#7a8599',p:'#e04f4f'},{n:'포근한 룩',bg:'#f5e1c8',c:'#c98f6b',p:'#f2c9a0'}];
+function showGallery(){openM('<h3>📸 AI 도트 초상화 갤러리</h3><div class="gl">'+V.map((v,i)=>`<figure><canvas id="pc${i}" width="132" height="140"></canvas><figcaption>${v.n}</figcaption></figure>`).join('')+'</div><p style="margin-top:8px;font-size:12px;opacity:.8">AI 아바타의 단정한 흑발과 뚜렷한 눈매, 헤드폰 포인트를 도트로 재해석했어요.</p>');V.forEach((v,i)=>{const c=$('#pc'+i).getContext('2d');c.fillStyle=v.bg;c.fillRect(0,0,132,140);spr(c,0,8,11,{...v,l:false})})}
+const CT=[['🧠','멘사 (Mensa International)','IQ 156 · Percentile 99% · 준회원'],['💻','정보처리기사',''],['💻','컴퓨터활용능력 1급',''],['💻','워드프로세서',''],['📊','사회조사분석사 2급',''],['📜','한국사능력검정시험 2급',''],['🔤','TOEIC 최고 775점',''],['🏆','2016 지역기업 청년 희망이음 프로젝트 경진대회 대상','산업통상자원부 장관상'],['🥇','2017 지역기업 청년 희망이음 프로젝트 경진대회 금상','산업통상자원부 장관상'],['🎖️','2016 이니스프리 마케팅 공모전 입상','제주대학교 LINC'],['🎖️','2018 대한민국건축문화제 상상유니브 UCC 마케팅 공모전 장려상',''],['📜','청년취업아카데미 수료증','빅데이터 활용을 위한 DB관리 전문가 과정 (300시간)'],['📜','2017 희망이음 서포터즈 6기 수료증',''],['📜','2016 상상volunteer 11기 수료증',''],['🏃','2019 제주감귤국제마라톤 10km 기록증','01:22:38.32'],['🩸','헌혈유공장 은장','헌혈 167회 · 대한적십자사']];
+function showCerts(){if(busy)return;openM('<h3>📜 증명서 & 뱃지 전시</h3><p style="font-size:12px;opacity:.8">🔒 생년월일·문서번호 등 개인정보는 가림(마스킹) 처리됩니다.</p>'+CT.map(c=>`<div class="cd"><b>${c[0]} ${c[1]}</b>${c[2]?`<small>${c[2]}</small>`:''}<div class="mk">생년월일 <span class="bl">0000.00.00</span> · 문서번호 <span class="bl">XXXX-0000</span></div></div>`).join(''))}
+const BR=[['대뇌피질','IQ·상위 1%','mensa','🧠 지능의 방. 멘사 IQ 156, 상위 1% 준회원.',150,48],['전두엽','논리·IT','agency','💻 계획과 논리의 방. 정보처리기사부터 사회조사분석사까지.',232,92],['해마','기억·기록','house','🏠 추억이 저장되는 곳. 보성의 집과 AI 도트 초상화.',150,112],['소뇌','운동·균형','gym','🏃 달리기와 균형의 방. 하프마라톤 3회 완주.',78,150],['변연계','감정·나눔','vc','🩸 따뜻한 마음의 방. 헌혈 167회와 봉사.',222,150]];
+function showBrain(){if(busy)return;openM('<h3>🧠 뇌 구조 대화</h3><p style="font-size:12px">머릿속 방을 눌러 보세요.</p><svg class="bsv" viewBox="0 0 300 200"><ellipse cx="150" cy="100" rx="140" ry="88" fill="#f9a8d4"/>'+BR.map((b,i)=>`<circle cx="${b[4]}" cy="${b[5]}" r="30" fill="#fde68a" onclick="brainPick(${i})"/><text x="${b[4]}" y="${b[5]-2}">${b[0]}</text><text x="${b[4]}" y="${b[5]+10}" style="font-size:8px">${b[1]}</text>`).join('')+'</svg><div id="bi" style="margin-top:8px;min-height:60px"></div>')}
+function brainPick(i){const b=BR[i];$('#bi').innerHTML=`<div class="cd">${b[3]}</div><button class="go" style="font-size:13px;padding:5px 12px" onclick="closeM();warp('${b[2]}',7,8,1)">이 방으로 이동</button>`}
+
+// ===== Portfolio + quest layer =====
+const visited = new Set();
+const REGION_NAMES = {town:'태초마을',route1:'1번 도로',cert:'학술·자격 검정 시티',sports:'체육 & 마라톤 밸리',coast:'나눔 커뮤니티 해변',house:'보성의 집',gym:'런 라이프 체육관',agency:'국가 자격 검정원',mensa:'멘사 헤드쿼터',vc:'나눔 & 기여 커뮤니티 센터'};
+const REGION_DESC = {
+ town:'모험의 출발점입니다. 마을 주민에게 말을 걸고 다른 지역으로 떠나보세요.',
+ route1:'태초마을과 지식의 도시를 연결하는 길입니다. 길 위의 여행자에게 이야기를 들어보세요.',
+ cert:'학습과 전문성을 상징하는 도시입니다. 자격 검정원과 멘사 헤드쿼터가 있습니다.',
+ sports:'도전과 꾸준함을 상징하는 지역입니다. 체육관에서 달리기와 경기 기록을 확인할 수 있습니다.',
+ coast:'나눔과 사회적 기여를 상징하는 해변입니다. 커뮤니티 센터를 방문해 보세요.',
+ house:'보성의 개인 공간입니다. 자기소개와 취향, 기억을 만날 수 있습니다.',
+ gym:'마라톤과 스포츠 기록을 보관한 체육관입니다.',
+ agency:'자격증, 수상, 교육 및 활동 이력을 살펴볼 수 있습니다.',
+ mensa:'멘사 관련 기록과 지적 도전의 이야기를 확인할 수 있습니다.',
+ vc:'헌혈과 봉사, 사회적 기여 기록을 소개하는 공간입니다.'
+};
+function toast(msg){const el=$('#toast');if(!el)return;el.textContent=msg;el.classList.add('show');clearTimeout(toast._t);toast._t=setTimeout(()=>el.classList.remove('show'),1800)}
+function updateHUD(){
+ const total=Object.keys(REGION_NAMES).length, count=visited.size;
+ const pc=Math.round(count/total*100);
+ if($('#progressText'))$('#progressText').textContent=`${count} / ${total} 지역`;
+ if($('#progressBar'))$('#progressBar').style.width=pc+'%';
+ if($('#stepCount'))$('#stepCount').textContent=steps;
+ if($('#visitedCount'))$('#visitedCount').textContent=count;
+ if($('#regionDesc'))$('#regionDesc').textContent=REGION_DESC[cur]||'새로운 지역을 탐험해 보세요.';
+ if($('#qStart'))$('#qStart').textContent=visited.has('town')?'완료':'진행 중';
+ if($('#qKnowledge'))$('#qKnowledge').textContent=(visited.has('cert')||visited.has('agency')||visited.has('mensa'))?'완료':'미발견';
+ if($('#qSports'))$('#qSports').textContent=(visited.has('sports')||visited.has('gym'))?'완료':'미발견';
+ if($('#qCommunity'))$('#qCommunity').textContent=(visited.has('coast')||visited.has('vc'))?'완료':'미발견';
+}
+function showPortfolio(){
+ if(busy)return;
+ openM(`<h3>👤 KANG BO-SUNG · PORTFOLIO</h3>
+ <p style="font-size:12px;line-height:1.7;opacity:.85;margin-bottom:12px">경험과 도전을 하나의 세계로 기록한 인터랙티브 포트폴리오입니다. 아래 항목을 선택해 바로 살펴볼 수 있습니다.</p>
+ <div class="portfolio-list">
+ <button class="portfolio-item" onclick="showCerts()"><b>📜 자격증 · 수상 · 교육</b><small>전문성, 학습, 공모전 및 수료 기록</small></button>
+ <button class="portfolio-item" onclick="closeM();warp('gym',7,8,1)"><b>🏃 스포츠 · 도전</b><small>하프마라톤, 10km, 볼링 기록</small></button>
+ <button class="portfolio-item" onclick="closeM();warp('vc',7,8,1)"><b>🩸 나눔 · 사회 기여</b><small>헌혈 및 봉사 활동 기록</small></button>
+ <button class="portfolio-item" onclick="closeM();warp('house',7,8,1)"><b>🏠 개인 공간</b><small>자기소개와 개인적인 이야기</small></button>
+ <button class="portfolio-item" onclick="showBrain()"><b>🧠 역량 지도</b><small>관심 분야와 경험을 연결한 탐색 지도</small></button>
+ <button class="portfolio-item" onclick="showMap()"><b>🗺 월드 지도</b><small>전체 지역을 한눈에 확인</small></button>
+ </div>
+ <p style="font-size:10px;opacity:.65;margin-top:12px">※ 실제 증빙 이미지와 상세 경력은 자료가 준비된 항목부터 연결할 수 있도록 구성합니다.</p>`);
+}
+function showQuestLog(){
+ if(busy)return;
+ openM(`<h3>🎯 탐험 퀘스트</h3>
+ <div class="cd"><b>🌱 첫 발걸음</b><small>${visited.has('town')?'완료':'태초마을 방문하기'}</small></div>
+ <div class="cd"><b>🧠 지식의 도시</b><small>${visited.has('cert')||visited.has('agency')||visited.has('mensa')?'완료':'학술·자격 검정 시티 또는 관련 건물 방문하기'}</small></div>
+ <div class="cd"><b>🏃 챔피언 밸리</b><small>${visited.has('sports')||visited.has('gym')?'완료':'체육 & 마라톤 밸리 방문하기'}</small></div>
+ <div class="cd"><b>🩸 나눔의 해변</b><small>${visited.has('coast')||visited.has('vc')?'완료':'나눔 커뮤니티 해변 방문하기'}</small></div>
+ <div class="cd"><b>🧭 월드 탐험가</b><small>${visited.size}개 지역 발견 / ${Object.keys(REGION_NAMES).length}개 지역</small></div>`);
+}
+
+// ---- input
+function press(d){if(dlg&&dlg.s=='m'){dlg.sel=(dlg.sel+(d==1?-1:d==0?1:0)+dlg.keys.length)%dlg.keys.length;menu()}else held=d}
+const KM={ArrowDown:0,s:0,ArrowUp:1,w:1,ArrowLeft:2,a:2,ArrowRight:3,d:3};
+addEventListener('keydown',e=>{const k=KM[e.key];if(k!=null){e.preventDefault();if(!e.repeat||!dlg)press(k);return}if(['z','Z','Enter',' '].includes(e.key)){e.preventDefault();act()}if(['x','X','Escape'].includes(e.key))cancel()});
+addEventListener('keyup',e=>{const k=KM[e.key];if(k!=null&&held===k)held=null});
+document.querySelectorAll('.dp button').forEach(b=>{const d=+b.dataset.d;b.addEventListener('pointerdown',e=>{e.preventDefault();press(d)});['pointerup','pointerleave','pointercancel'].forEach(t=>b.addEventListener(t,()=>{if(held===d)held=null}))});
+$('#bA').addEventListener('pointerdown',e=>{e.preventDefault();act()});$('#bB').addEventListener('pointerdown',e=>{e.preventDefault();cancel()});
+// ---- loop
+function draw(t){for(let y=0;y<H;y++)for(let x=0;x<W;x++)tile(g,map.m[y][x],x,y,t);
+let ux=px,uy=py;if(mv){const p=Math.min(1,(t-mv.a)/160);ux=mv.fx+(mv.tx-mv.fx)*p;uy=mv.fy+(mv.ty-mv.fy)*p}
+const E=npcs.map(n=>({y:n.y,f:()=>spr(g,n.x*TS+4,n.y*TS+2,2,{d:n.dir,h:n.h,p:n.h,c:n.c,w:(t/350|0)%2})}));
+E.push({y:uy,f:()=>{g.fillStyle='#0003';g.fillRect(ux*TS+6,uy*TS+28,20,4);spr(g,ux*TS+4,uy*TS+2,2,{d:dir,w:mv&&steps%2})}});E.sort((a,b)=>a.y-b.y).forEach(e=>e.f())}
+function loop(t){updateHUD();requestAnimationFrame(loop);if(!map)return;
+if(!busy&&!dlg&&!modal&&!mv&&held!=null){dir=held;const[dx,dy]=DV[dir],nx=px+dx,ny=py+dy;
+if(nx<0||ny<0||nx>=W||ny>=H){const e=map.e&&map.e[EK[dir]];if(e)warp(e[0],e[1],e[2],dir)}
+else if(free(nx,ny))mv={a:t,fx:px,fy:py,tx:nx,ty:ny};else if(t-bumpT>300){bumpT=t;sfx('b')}}
+if(mv&&t-mv.a>=160){px=mv.tx;py=mv.ty;mv=null;steps++;updateHUD();const d=map.d&&map.d[px+','+py];if(d)warp(d[0],d[1],d[2],map.o?1:0)}
+draw(t)}
+setInterval(()=>{if(!map||dlg||modal||busy)return;npcs.forEach(n=>{if(!n.w||Math.random()<.5)return;const d=Math.random()*4|0,nx=n.x+DV[d][0],ny=n.y+DV[d][1];n.dir=d;if(Math.abs(nx-n.hx)<3&&Math.abs(ny-n.hy)<3&&free(nx,ny)&&!(map.d&&map.d[nx+','+ny])){n.x=nx;n.y=ny}})},1100);
+function startGame(){try{AC=new(window.AudioContext||window.webkitAudioContext)()}catch(e){}$('#st').style.display='none';busy=false;warp('town',7,5,0);toast('BO-SUNG WORLD에 오신 것을 환영합니다!')}
+requestAnimationFrame(loop);
+</script></body></html>
