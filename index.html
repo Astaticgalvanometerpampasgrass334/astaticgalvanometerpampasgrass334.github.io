@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <title>BS World | Interactive RPG Portfolio</title>
+  <title>BS World</title>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap" rel="stylesheet">
   <style>
     *{box-sizing:border-box;margin:0}
@@ -12,8 +12,8 @@
     html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
     body{height:100%;background:var(--bg);color:var(--tx);font-family:'DotGothic16','Malgun Gothic',system-ui,sans-serif;display:flex;justify-content:center;user-select:none;-webkit-user-select:none;overflow:hidden}
     #app{max-width:1440px;width:100%;height:100dvh;display:grid;grid-template-columns:220px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px}
-    #bar{grid-column:1/-1;border:2px solid #667da8;border-radius:8px;min-height:44px;display:flex;gap:6px;align-items:center;padding:6px 8px;background:linear-gradient(#e8f0fb,#b7c8e6);color:#14223d;font-size:13px}
-    #bar b{flex:1;font-size:14px;white-space:nowrap;font-weight:bold}
+    #bar{grid-column:1/-1;border:2px solid #667da8;border-radius:8px;min-height:44px;display:flex;gap:6px;align-items:center;padding:6px 12px;background:linear-gradient(#e8f0fb,#b7c8e6);color:#14223d;font-size:13px}
+    #bar b{flex:1;font-size:15px;white-space:nowrap;font-weight:bold;letter-spacing:-0.5px}
     #bar button{font:inherit;font-size:12px;border:1px solid #5b6f99;background:#fff;color:#14223d;padding:3px 7px;cursor:pointer;border-radius:4px}
     #scr{grid-column:2;grid-row:2;width:100%;height:100%;min-height:0;position:relative;background:#000;border:4px solid #667da8;border-radius:8px;box-shadow:0 8px 30px #0006;overflow:hidden}
     #c{width:100%;height:100%;image-rendering:pixelated;display:block;object-fit:fill}
@@ -47,8 +47,11 @@
     .meter{height:8px;background:#080d19;border:1px solid #52688f;border-radius:20px;overflow:hidden;margin:5px 0 10px}
     .meter span{display:block;height:100%;width:18%;background:linear-gradient(90deg,#16a34a,#a3e635)}
     .quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px}
-    .quick-grid button{font:inherit;font-size:12px;font-weight:bold;color:#ffffff;background:#1e3a8a;border:2px solid #93c5fd;border-radius:6px;padding:10px 6px;cursor:pointer;text-align:left;box-shadow:0 2px 4px rgba(0,0,0,0.3)}
+    
+    /* 퀵 ACCESS 버튼 정돈된 레이아웃 및 텍스트 줄바꿈 방지 */
+    .quick-grid button{font:inherit;font-size:12px;font-weight:bold;color:#ffffff;background:#1e3a8a;border:2px solid #93c5fd;border-radius:6px;padding:10px 4px;cursor:pointer;text-align:center;white-space:nowrap;box-shadow:0 2px 4px rgba(0,0,0,0.3);display:flex;align-items:center;justify-content:center;gap:4px}
     .quick-grid button:hover{border-color:var(--ac);background:#2563eb;color:#fef08a}
+    
     .side-action{font:inherit;font-size:11px;color:var(--tx);background:#24375c;border:1px solid #536b98;border-radius:6px;padding:9px 6px;cursor:pointer;text-align:left}
     .side-action:hover{border-color:var(--ac);background:#344a73}
     .quest{border:1px solid var(--bd);border-radius:7px;padding:9px;margin:7px 0;background:#0e172b}
@@ -68,12 +71,18 @@
     .wc{border:2px solid #7c8db5;background:#1e2a47;color:#fff;font-size:10px;text-align:center;padding:6px 2px;position:relative;line-height:1.3}
     .wc.me{border-color:#fbbf24;animation:bk 1s steps(2) infinite}
     @keyframes bk{50%{background:#7a5c00}}
-    .bsv{width:100%;max-height:230px}.bsv circle{cursor:pointer;stroke:#fff;stroke-width:2}.bsv text{font-size:10px;fill:#111;pointer-events:none;text-anchor:middle}
+    
+    /* 뇌 구조 스타일 SVG 도면 정돈 */
+    .bsv{width:100%;max-height:250px;background:#fff8fa;border-radius:8px;border:2px dashed #f472b6}
+    .bsv circle{cursor:pointer;stroke:#db2777;stroke-width:2;transition:transform .2s}
+    .bsv circle:hover{fill:#fef08a}
+    .bsv text{font-size:10px;fill:#1f2937;font-weight:bold;pointer-events:none;text-anchor:middle}
+
     .portfolio-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
     .portfolio-item{border:1px solid var(--bd);background:#0e172b;border-radius:7px;padding:10px;text-align:left;color:var(--tx);font:inherit;cursor:pointer}
     .portfolio-item b{display:block;color:var(--ac);font-size:12px;margin-bottom:4px}
     .portfolio-item small{font-size:10px;line-height:1.4;color:var(--muted)}
-    #toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#10192e;color:#fff;border:2px solid var(--ac);padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}
+    #toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#10192e;color:#fff;border:2px solid #fbbf24;padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}
     #toast.show{opacity:1}
     @media(max-width:900px){
      #app{grid-template-columns:170px minmax(0,1fr);grid-template-rows:auto minmax(260px,1fr) auto;gap:7px;padding:7px}
@@ -125,9 +134,7 @@
   <p class="world-note" style="margin-top:14px">키보드 방향키 또는 WASD로 이동하고, Z 키로 주민과 대화하세요. 모바일에서는 화면 아래 패드를 이용할 수 있습니다.</p>
 </aside>
 
-<!-- 상단 바 수정: 노란색 B 네모 제거 및 타이틀 변경 -->
-<div id="bar"><b>BS World | Interactive RPG Portfolio</b><button onclick="showMap()">🗺 지도</button><button onclick="showBrain()">🧠 뇌구조</button><button onclick="showCerts()">📜 증명서</button><button id="bg" onclick="togBgm()">🔊</button></div>
-
+<div id="bar"><b>BS World</b><button onclick="showMap()">🗺 지도</button><button onclick="showBrain()">🧠 뇌구조</button><button onclick="showCerts()">📜 증명서</button><button id="bg" onclick="togBgm()">🔊</button></div>
 <div id="scr"><canvas id="c"></canvas><div id="fade"></div><div id="bn"></div><div id="pop"></div>
 <div id="dl"><div id="dn"></div><div id="dt"></div></div>
 <div id="st"><div class="cd"><h1>BS World</h1><h2>16-BIT RETRO RPG PORTFOLIO</h2><p>걷고, 말을 걸고, 건물에 들어가 보세요. 모험으로 만나는 강보성의 이야기입니다.</p></div><button class="go" onclick="startGame()">모험 시작하기 (START)</button><p>방향키/WASD · Z=행동 · X=취소<br>모바일은 아래 패드를 사용하세요</p></div></div>
@@ -361,8 +368,37 @@ function showGallery(){openM('<h3>📸 AI 도트 초상화 갤러리</h3><div cl
 const CT=[['🧠','멘사 (Mensa International)','IQ 156 · Percentile 99% · 준회원'],['💻','정보처리기사',''],['💻','컴퓨터활용능력 1급',''],['💻','워드프로세서',''],['📊','사회조사분석사 2급',''],['📜','한국사능력검정시험 2급',''],['🔤','TOEIC 최고 775점',''],['🏆','2016 지역기업 청년 희망이음 프로젝트 경진대회 대상','산업통상자원부 장관상'],['🥇','2017 지역기업 청년 희망이음 프로젝트 경진대회 금상','산업통상자원부 장관상'],['🏃','2019 제주감귤국제마라톤 10km 기록증','01:22:38.32'],['🩸','헌혈유공장 은장','헌혈 167회 · 대한적십자사']];
 function showCerts(){if(busy)return;openM('<h3>📜 증명서 & 뱃지 전시</h3><p style="font-size:12px;opacity:.8">🔒 개인정보는 가림(마스킹) 처리됩니다.</p>'+CT.map(c=>`<div class="cd"><b>${c[0]} ${c[1]}</b>${c[2]?`<small>${c[2]}</small>`:''}<div class="mk">생년월일 <span class="bl">0000.00.00</span> · 문서번호 <span class="bl">XXXX-0000</span></div></div>`).join(''))}
 
-const BR=[['대뇌피질','IQ·상위 1%','mensa','🧠 지능의 방. 멘사 IQ 156 준회원.',150,48],['전두엽','논리·IT','agency','💻 컴퓨터 및 데이터 전문 자격 증명 공간.',232,92],['해마','기억·기록','house','🏠 추억과 기록이 보관된 메인 하우스.',150,112],['소뇌','운동·균형','gym','🏃 마라톤 및 스포츠 기록 공간.',78,150],['변연계','감정·나눔','vc','🩸 헌혈 및 사회적 기여 공간.',222,150]];
-function showBrain(){if(busy)return;openM('<h3>🧠 역량 지도 (Brain Map)</h3><p style="font-size:12px">관심 노드를 눌러 보세요.</p><svg class="bsv" viewBox="0 0 300 200"><ellipse cx="150" cy="100" rx="140" ry="88" fill="#f9a8d4"/>'+BR.map((b,i)=>`<circle cx="${b[4]}" cy="${b[5]}" r="30" fill="#fde68a" onclick="brainPick(${i})"/><text x="${b[4]}" y="${b[5]-2}">${b[0]}</text><text x="${b[4]}" y="${b[5]+10}" style="font-size:8px">${b[1]}</text>`).join('')+'</svg><div id="bi" style="margin-top:8px;min-height:60px"></div>')}
+/* 뇌 구조 스타일 컨셉 데이터 재구성 (생각 주머니 형태) */
+const BR=[
+  ['대뇌피질', 'IQ·상위 1%', 'mensa', '🧠 지능의 방. 멘사 IQ 156 준회원.', 90, 60],
+  ['전두엽', '논리·IT', 'agency', '💻 컴퓨터 및 데이터 전문 자격 증명 공간.', 210, 55],
+  ['해마', '기억·기록', 'house', '🏠 추억과 기록이 보관된 메인 하우스.', 150, 110],
+  ['소뇌', '운동·균형', 'gym', '🏃 마라톤 및 스포츠 기록 공간.', 80, 155],
+  ['변연계', '감정·나눔', 'vc', '🩸 헌혈 및 사회적 기여 공간.', 220, 150]
+];
+
+function showBrain(){
+  if(busy)return;
+  openM(`<h3>🧠 역량 지도 (Brain Map)</h3>
+  <p style="font-size:12px;margin-bottom:8px">생각 주머니를 눌러보세요.</p>
+  <svg class="bsv" viewBox="0 0 300 200">
+    <!-- 측면 두뇌 윤곽선 (손그림 감성) -->
+    <path d="M50,140 Q40,80 80,45 Q120,20 180,30 Q240,40 260,80 Q280,120 250,160 Q210,185 160,185 Q100,185 50,140 Z" fill="none" stroke="#1f2937" stroke-width="2.5" stroke-dasharray="4,3"/>
+    <path d="M50,140 Q45,170 80,180 Q110,188 130,170" fill="none" stroke="#1f2937" stroke-width="2.5"/>
+    <text x="65" y="165" font-size="10" fill="#6b7280">BS Brain</text>
+    
+    <!-- 뇌 노드 (생각 주머니 형태) -->
+    ${BR.map((b,i)=>`
+      <g onclick="brainPick(${i})" style="cursor:pointer">
+        <ellipse cx="${b[4]}" cy="${b[5]}" rx="32" ry="22" fill="#fff" stroke="#ec4899" stroke-width="2.5"/>
+        <text x="${b[4]}" y="${b[5]-3}" font-size="11" fill="#111" text-anchor="middle">${b[0]}</text>
+        <text x="${b[4]}" y="${b[5]+9}" font-size="8" fill="#db2777" text-anchor="middle">${b[1]}</text>
+      </g>
+    `).join('')}
+  </svg>
+  <div id="bi" style="margin-top:8px;min-height:50px"></div>`);
+}
+
 function brainPick(i){const b=BR[i];$('#bi').innerHTML=`<div class="cd">${b[3]}</div><button class="go" style="font-size:13px;padding:5px 12px" onclick="closeM();warp('${b[2]}',7,8,1)">이 장소로 이동</button>`}
 
 const visited = new Set();
