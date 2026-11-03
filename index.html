@@ -100,6 +100,65 @@
      .portfolio-list{grid-template-columns:1fr}
     }
     @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#toast{transition:none}}
+
+  /* 미니맵 인터페이스 오버레이 스타일 */
+#minimap-overlay {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  background: rgba(15, 23, 42, 0.9);
+  border: 2px solid #fbbf24;
+  border-radius: 8px;
+  padding: 8px;
+  z-index: 4;
+  width: 170px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  pointer-events: auto;
+}
+.minimap-title {
+  font-size: 11px;
+  color: #fbbf24;
+  text-align: center;
+  margin-bottom: 6px;
+  font-weight: bold;
+  border-bottom: 1px solid #2c3a5e;
+  padding-bottom: 4px;
+}
+.minimap-grid {
+  display: grid;
+  grid-template-areas:
+    ". cert ."
+    ". route1 ."
+    "coast town sports";
+  gap: 4px;
+}
+.minimap-node {
+  background: #1e2a47;
+  border: 1px solid #52688f;
+  color: #fff;
+  font-size: 9px;
+  text-align: center;
+  padding: 5px 2px;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-family: inherit;
+}
+.minimap-node:hover {
+  background: #2563eb;
+  border-color: #fbbf24;
+}
+.minimap-node.me {
+  border: 2px solid #fbbf24;
+  background: #7a5c00;
+  color: #fef08a;
+  font-weight: bold;
+}
+  
+  
+  
+  
+  
   </style>
 </head>
 <body>
