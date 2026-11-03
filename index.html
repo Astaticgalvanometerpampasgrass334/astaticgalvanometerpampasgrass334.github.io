@@ -157,9 +157,21 @@ const $=s=>document.querySelector(s),TS=32,W=15,H=10,cv=$('#c'),g=cv.getContext(
 const I=(a,b='wffDffXffDffwfw')=>['wwwwwwwwwwwwwww',a,'wffffffffffffffw','wffffffffffffffw',b,...Array(4).fill('wffffffffffffffw'),'wwwwwwwDwwwwwww'];
 
 const M={
-town:{n:'태초마을',o:1,bgm:'town',m:['TTTTTTT=TTTTTTT','T..F..===..F..T','T.RRR..=....F.T','T.HDH..=..F...T','T.===..=.....TT','===============','T.F...=.....F.T','T.....=..F....T','TT.F..=.....TTT','TTTTTTTTTTTTTTT'],d:{'3,3':['house',7,8]},e:{u:['route1',7,9],l:['coast',14,5],r:['sports',0,5]},p:[
-{x:10,y:6,c:'#4aa3ff',h:'#6b3e26',n:'마을 소년',s:['어서 와! 여기가 BS World의 태초마을이야.','북쪽 1번 도로 끝엔 자격 시티, 동쪽엔 마라톤 밸리, 서쪽엔 나눔 해변이 있어.','위쪽 🧠 뇌구조 메뉴를 열면 어디든 순간이동할 수 있대!']},
-{x:5,y:7,c:'#ff8fb1',h:'#222',w:1,n:'꽃집 누나',s:['꽃향기 맡고 가렴. 🌸','달리기 전엔 스트레칭 필수야!']}]},
+town:{n:'태초마을',o:1,bgm:'town',m:[
+  'TTTTTTT=TTTTTTT',
+  'T..F..===..F..T',
+  'T.RRR..=....F.T',
+  'T.HDH..=..F...T',
+  'T.===..=.....TT',
+  '===============',
+  'T.F...=.....F.T',
+  'T.....=..F....T',
+  'TT.F..=.....TTT',
+  'TTTTTTTTTTTTTTT'
+],d:{'3,3':['house',7,8]},e:{u:['route1',7,9],l:['coast',14,5],r:['sports',0,5]},p:[
+  {x:10,y:6,c:'#4aa3ff',h:'#6b3e26',n:'마을 소년',s:['어서 와! 여기가 BS World의 태초마을이야.','북쪽 1번 도로 끝엔 자격 시티, 동쪽엔 마라톤 밸리, 서쪽엔 나눔 해변이 있어.','위쪽 🧠 뇌구조 메뉴를 열면 어디든 순간이동할 수 있대!']},
+  {x:5,y:7,c:'#ff8fb1',h:'#222',w:1,n:'꽃집 누나',s:['꽃향기 맡고 가렴. 🌸','달리기 전엔 스트레칭 필수야!']}
+]},
 
 route1:{n:'1번 도로',o:1,bgm:'route',m:['TTTTTTT=TTTTTTT','TT.F...=...F.TT','T..TT..=..TT..T','T.F....=.....FT','TT.....=....TTT','T..F...=..F...T','T.TT...=...TT.T','TT.....=.F...TT','T..F...=.....TT','TTTTTTT=TTTTTTT'],e:{u:['cert',7,9],d:['town',7,0]},p:[
 {x:4,y:3,c:'#8a6d4b',h:'#999',n:'등산객',s:['자격증 공부는 마라톤이래. 페이스 조절이 전부지!','북쪽 시티엔 시험을 줄줄이 통과한 사람이 있다던데… 🤔']},
