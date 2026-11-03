@@ -11,7 +11,7 @@
     @media(prefers-color-scheme:light){:root{--bg:#dfe6f2;--pn:#fff;--tx:#14192a;--bd:#b9c4dc;color-scheme:light}}
     html{height:100%;scroll-padding-top:env(safe-area-inset-top,0px)}
     body{height:100%;background:var(--bg);color:var(--tx);font-family:'DotGothic16','Malgun Gothic',system-ui,sans-serif;display:flex;justify-content:center;user-select:none;-webkit-user-select:none;overflow:hidden}
-    #app{max-width:1440px;width:100%;height:100dvh;display:grid;grid-template-columns:220px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px}
+    #app{max-width:1440px;width:100%;height:100dvh;display:grid;grid-template-columns:220px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px;position:relative;overflow:hidden}
     #bar{grid-column:1/-1;border:2px solid #667da8;border-radius:8px;min-height:44px;display:flex;gap:6px;align-items:center;padding:6px 12px;background:linear-gradient(#e8f0fb,#b7c8e6);color:#14223d;font-size:13px}
     #bar b{flex:1;font-size:14px;white-space:nowrap;font-weight:bold;letter-spacing:-0.5px}
     #bar button{font:inherit;font-size:12px;border:1px solid #5b6f99;background:#fff;color:#14223d;padding:3px 7px;cursor:pointer;border-radius:4px}
@@ -20,10 +20,10 @@
     #fade{position:absolute;inset:0;background:#000;opacity:0;transition:opacity .35s;pointer-events:none}
     #bn{position:absolute;top:8px;left:50%;transform:translateX(-50%);background:#fbbf24;color:#111;border:3px solid #111;padding:3px 12px;font-size:14px;opacity:0;transition:opacity .4s;pointer-events:none;white-space:nowrap}
     #pop{position:absolute;right:6px;top:6px;width:44%;background:#0f172acc;border:3px solid #fbbf24;padding:6px;opacity:0;transition:opacity .4s;pointer-events:none;font-size:10px;color:#fff}
-    #dl{position:absolute;left:2%;right:2%;bottom:2%;max-width:780px;margin:auto;background:#10192e;border:3px solid #fbbf24;border-radius:6px;color:#fff;padding:8px 10px;font-size:14px;line-height:1.5;min-height:74px;display:none;cursor:pointer}
+    #dl{position:absolute;left:2%;right:2%;bottom:2%;max-width:780px;margin:auto;background:#10192e;border:3px solid #fbbf24;border-radius:6px;color:#fff;padding:8px 10px;font-size:14px;line-height:1.5;min-height:74px;display:none;cursor:pointer;z-index:6}
     #dn{position:absolute;top:-14px;left:10px;background:#fbbf24;color:#111;padding:0 8px;font-size:12px}
     .ch{padding:2px 4px}.ch.on{color:#fbbf24}
-    #st{position:absolute;inset:0;background:#0b1020e8;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:14px;z-index:5}
+    #st{position:absolute;inset:0;background:#0b1020fa;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:12px;text-align:center;padding:14px;z-index:10}
     #st .cd{border:3px solid #fbbf24;background:#10192e;color:#fff;padding:14px;max-width:340px}
     #st h1{font-size:16px;color:#fbbf24;line-height:1.6}
     #st h2{font-size:12px;color:#5ee7ff;margin:6px 0}
@@ -78,6 +78,61 @@
     .portfolio-item small{font-size:10px;line-height:1.4;color:var(--muted)}
     #toast{position:fixed;z-index:20;left:50%;bottom:18px;transform:translateX(-50%);background:#10192e;color:#fff;border:2px solid #fbbf24;padding:9px 14px;border-radius:7px;font-size:12px;opacity:0;pointer-events:none;transition:opacity .2s}
     #toast.show{opacity:1}
+    
+    /* 미니맵 인터페이스 오버레이 스타일 */
+    #minimap-overlay {
+      position: absolute;
+      right: 12px;
+      bottom: 12px;
+      background: rgba(15, 23, 42, 0.9);
+      border: 2px solid #fbbf24;
+      border-radius: 8px;
+      padding: 8px;
+      z-index: 4;
+      width: 170px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+      pointer-events: auto;
+    }
+    .minimap-title {
+      font-size: 11px;
+      color: #fbbf24;
+      text-align: center;
+      margin-bottom: 6px;
+      font-weight: bold;
+      border-bottom: 1px solid #2c3a5e;
+      padding-bottom: 4px;
+    }
+    .minimap-grid {
+      display: grid;
+      grid-template-areas:
+        ". cert ."
+        ". route1 ."
+        "coast town sports";
+      gap: 4px;
+    }
+    .minimap-node {
+      background: #1e2a47;
+      border: 1px solid #52688f;
+      color: #fff;
+      font-size: 9px;
+      text-align: center;
+      padding: 5px 2px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+    }
+    .minimap-node:hover {
+      background: #2563eb;
+      border-color: #fbbf24;
+    }
+    .minimap-node.me {
+      border: 2px solid #fbbf24;
+      background: #7a5c00;
+      color: #fef08a;
+      font-weight: bold;
+    }
+
     @media(max-width:900px){
      #app{grid-template-columns:170px minmax(0,1fr);grid-template-rows:auto minmax(260px,1fr) auto;gap:7px;padding:7px}
      #bar{grid-column:1/-1;flex-wrap:wrap}
@@ -100,65 +155,6 @@
      .portfolio-list{grid-template-columns:1fr}
     }
     @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}#toast{transition:none}}
-
-  /* 미니맵 인터페이스 오버레이 스타일 */
-#minimap-overlay {
-  position: absolute;
-  right: 12px;
-  bottom: 12px;
-  background: rgba(15, 23, 42, 0.9);
-  border: 2px solid #fbbf24;
-  border-radius: 8px;
-  padding: 8px;
-  z-index: 4;
-  width: 170px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-  pointer-events: auto;
-}
-.minimap-title {
-  font-size: 11px;
-  color: #fbbf24;
-  text-align: center;
-  margin-bottom: 6px;
-  font-weight: bold;
-  border-bottom: 1px solid #2c3a5e;
-  padding-bottom: 4px;
-}
-.minimap-grid {
-  display: grid;
-  grid-template-areas:
-    ". cert ."
-    ". route1 ."
-    "coast town sports";
-  gap: 4px;
-}
-.minimap-node {
-  background: #1e2a47;
-  border: 1px solid #52688f;
-  color: #fff;
-  font-size: 9px;
-  text-align: center;
-  padding: 5px 2px;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: all 0.2s;
-  font-family: inherit;
-}
-.minimap-node:hover {
-  background: #2563eb;
-  border-color: #fbbf24;
-}
-.minimap-node.me {
-  border: 2px solid #fbbf24;
-  background: #7a5c00;
-  color: #fef08a;
-  font-weight: bold;
-}
-  
-  
-  
-  
-  
   </style>
 </head>
 <body>
@@ -187,7 +183,6 @@
   <p class="world-note" style="margin-top:14px">키보드 방향키 또는 WASD로 이동하고, Z 키로 주민과 대화하세요. 모바일에서는 화면 아래 패드를 이용할 수 있습니다.</p>
 </aside>
 
-<!-- 상단 바 원래 문구 복구 완료 -->
 <div id="bar"><b>BS World | Interactive RPG Portfolio</b><button onclick="showMap()">🗺 지도</button><button onclick="showBrain()">🧠 뇌구조</button><button onclick="showCerts()">📜 증명서</button><button id="bg" onclick="togBgm()">🔊</button></div>
 
 <div id="scr">
@@ -196,22 +191,33 @@
   <div id="bn"></div>
   <div id="pop"></div>
   
-  <!-- [추가] 우측 하단 고정 미니맵 오버레이 -->
+  <!-- 우측 하단 고정 미니맵 오버레이 -->
   <div id="minimap-overlay">
     <div class="minimap-title">🗺 WORLD MAP</div>
     <div id="minimap-container"></div>
   </div>
 
   <div id="dl"><div id="dn"></div><div id="dt"></div></div>
-  <div id="st">...</div>
+  
+  <!-- 시작 화면 오버레이 -->
+  <div id="st">
+    <div class="cd">
+      <h1>BS World</h1>
+      <h2>16-BIT RETRO RPG PORTFOLIO</h2>
+      <p>걷고, 말을 걸고, 건물에 들어가 보세요. 모험으로 만나는 강보성의 이야기입니다.</p>
+    </div>
+    <button class="go" onclick="startGame()">모험 시작하기 (START)</button>
+    <p>스페이스바(Space) 또는 엔터(Enter)로 시작<br>방향키/WASD · Z=행동 · X=취소</p>
+  </div>
 </div>
 
-
-  
-<div id="dl"><div id="dn"></div><div id="dt"></div></div>
-<div id="st"><div class="cd"><h1>BS World</h1><h2>16-BIT RETRO RPG PORTFOLIO</h2><p>걷고, 말을 걸고, 건물에 들어가 보세요. 모험으로 만나는 강보성의 이야기입니다.</p></div><button class="go" onclick="startGame()">모험 시작하기 (START)</button><p>방향키/WASD · Z=행동 · X=취소<br>모바일은 아래 패드를 사용하세요</p></div></div>
-<div id="ctl"><div class="dp"><span></span><button data-d="1">▲</button><span></span><button data-d="2">◀</button><span></span><button data-d="3">▶</button><span></span><button data-d="0">▼</button><span></span></div>
-<div class="ab"><div><button style="background:#b91c1c" id="bB">B</button>CANCEL(X)</div><div><button style="background:#047857" id="bA">A</button>ACTION(Z)</div></div></div>
+<div id="ctl">
+  <div class="dp"><span></span><button data-d="1">▲</button><span></span><button data-d="2">◀</button><span></span><button data-d="3">▶</button><span></span><button data-d="0">▼</button><span></span></div>
+  <div class="ab">
+    <div><button style="background:#b91c1c" id="bB">B</button>CANCEL(X)</div>
+    <div><button style="background:#047857" id="bA">A</button>ACTION(Z)</div>
+  </div>
+</div>
 
 <aside id="rightPanel" aria-label="퀘스트 및 탐험 안내">
   <div class="panel-title">ADVENTURE LOG</div>
@@ -226,7 +232,11 @@
 <div id="toast" role="status" aria-live="polite"></div>
 
 </div>
-<div class="md" id="md" hidden><div class="mb"><button class="x" onclick="closeM()">✕</button><div id="mc"></div></div></div>
+
+<div class="md" id="md" hidden>
+  <div class="mb"><button class="x" onclick="closeM()">✕</button><div id="mc"></div></div>
+</div>
+
 <script>
 const $=s=>document.querySelector(s),TS=32,W=15,H=10,cv=$('#c'),g=cv.getContext('2d');cv.width=W*TS;cv.height=H*TS;
 
@@ -245,10 +255,8 @@ town:{n:'태초마을',o:1,bgm:'town',m:[
   'TT.F........TTT',
   'TTTTTTTTTTTTTTT'
 ],d:{'3,3':['house',7,8]},e:{u:['route1',7,9],l:['coast',14,5],r:['sports',0,5]},p:[
-  {x:10,y:6,c:'#4aa3ff',h:'#6b3e26',
-   n:'마을 소년',s:['어서 와! 여기가 BS World의 태초마을이야.','북쪽 1번 도로 끝엔 자격 시티, 동쪽엔 마라톤 밸리, 서쪽엔 나눔 해변이 있어.','위쪽 🧠 뇌구조 메뉴를 열면 어디든 순간이동할 수 있대!']},
-  {x:5,y:7,c:'#ff8fb1',h:'#222',w:1,
-   n:'꽃집 누나',s:['꽃향기 맡고 가렴. 🌸','달리기 전엔 스트레칭 필수야!']}
+  {x:10,y:6,c:'#4aa3ff',h:'#6b3e26',n:'마을 소년',s:['어서 와! 여기가 BS World의 태초마을이야.','북쪽 1번 도로 끝엔 자격 시티, 동쪽엔 마라톤 밸리, 서쪽엔 나눔 해변이 있어.','위쪽 🧠 뇌구조 메뉴를 열면 어디든 순간이동할 수 있대!']},
+  {x:5,y:7,c:'#ff8fb1',h:'#222',w:1,n:'꽃집 누나',s:['꽃향기 맡고 가렴. 🌸','달리기 전엔 스트레칭 필수야!']}
 ]},
 
 route1:{n:'1번 도로',o:1,bgm:'route',m:[
@@ -262,18 +270,14 @@ route1:{n:'1번 도로',o:1,bgm:'route',m:[
   'TT.....=.F...TT',
   'T..F...=.....TT',
   'TTTTTTT=TTTTTTT'],
-        e:{u:['cert',7,9],
-           d:['town',7,0]},
+        e:{u:['cert',7,9], d:['town',7,0]},
         p:[
-{x:4,y:3,c:'#8a6d4b',h:'#999',
- n:'등산객',s:['자격증 공부는 마라톤이래. 페이스 조절이 전부지!','북쪽 시티엔 시험을 줄줄이 통과한 사람이 있다던데… 🤔']},
-{x:10,y:5,c:'#ef4444',h:'#222',w:1,
- n:'꼬마 트레이너',s:['나는 1번 도로의 달리기 선수!','동쪽 마라톤 밸리까지 경주할래?']},
-{x:9,y:7,c:'#f59e0b',h:'#5a3a1a',
- n:'여행자',s:['감귤 향 나는 섬에서 왔어. 🍊','감귤마라톤은 코스도 공기도 최고야.']}]},
+{x:4,y:3,c:'#8a6d4b',h:'#999',n:'등산객',s:['자격증 공부는 마라톤이래. 페이스 조절이 전부지!','북쪽 시티엔 시험을 줄줄이 통과한 사람이 있다던데… 🤔']},
+{x:10,y:5,c:'#ef4444',h:'#222',w:1,n:'꼬마 트레이너',s:['나는 1번 도로의 달리기 선수!','동쪽 마라톤 밸리까지 경주할래?']},
+{x:9,y:7,c:'#f59e0b',h:'#5a3a1a',n:'여행자',s:['감귤 향 나는 섬에서 왔어. 🍊','감귤마라톤은 코스도 공기도 최고야.']}]},
 
-cert:{n:'학술·자격 검정 시티',o:1,bgm:'knowledge',m:
-  ['TTTTTTTTTTTTTTT',
+cert:{n:'학술·자격 검정 시티',o:1,bgm:'knowledge',m:[
+   'TTTTTTTTTTTTTTT',
    'T.F...F..F...FT',
    'T.QQQ...YYY...T',
    'T.HDH...HDH...T',
@@ -283,17 +287,13 @@ cert:{n:'학술·자격 검정 시티',o:1,bgm:'knowledge',m:
    'T..=======....T',
    'TT.F...=.....TT',
    'TTTTTTT=TTTTTTT'],
-      d:{'3,3':['agency',7,8],
-         '10,3':['mensa',7,8]},
+      d:{'3,3':['agency',7,8], '10,3':['mensa',7,8]},
       e:{d:['route1',7,0]},
       p:[
-{x:5,y:6,c:'#3b82f6',h:'#222',
- n:'시티 안내원',
- s:['여기는 학술·자격 검정 시티.','파란 지붕은 국가 자격 검정원, 보라색 지붕은 멘사 지능 연구소야.']}]},
+{x:5,y:6,c:'#3b82f6',h:'#222',n:'시티 안내원',s:['여기는 학술·자격 검정 시티.','파란 지붕은 국가 자격 검정원, 보라색 지붕은 멘사 지능 연구소야.']}]},
 
-sports:{n:'체육 & 마라톤 밸리',
-        o:1,bgm:'sports',
-        m:['TTTTTTTTTTTTTTT',
+sports:{n:'체육 & 마라톤 밸리', o:1,bgm:'sports', m:[
+           'TTTTTTTTTTTTTTT',
            'TT....F..GGG.TT',
            'T.....F..HDH..T',
            'T.tttttt.===..T',
@@ -302,9 +302,9 @@ sports:{n:'체육 & 마라톤 밸리',
            'T.t....t.....FT',
            'T.tttttt.....TT',
            'TT..F.......TTT',
-           'TTTTTTTTTTTTTTT'],d:{'10,2':['gym',7,8]},e:{l:['town',14,5]},p:[
-{x:3,y:3,c:'#22c55e',h:'#222',w:1,
- n:'트랙 러너',s:['하나, 둘! 하나, 둘!','특전사 출신 코치님이 체육관에 계셔.']}]},
+           'TTTTTTTTTTTTTTT'],
+        d:{'10,2':['gym',7,8]}, e:{l:['town',14,5]},
+        p:[{x:3,y:3,c:'#22c55e',h:'#222',w:1,n:'트랙 러너',s:['하나, 둘! 하나, 둘!','특전사 출신 코치님이 체육관에 계셔.']}]},
 
 coast:{n:'제주 바닷가',o:1,bgm:'beach',m:[
   '~~~~~ss.TTTTTTT',
@@ -317,44 +317,30 @@ coast:{n:'제주 바닷가',o:1,bgm:'beach',m:[
   '~~~~~ss.......T',
   '~~~~~~ss..F.TTT',
   '~~~~~~~sTTTTTTT'],d:{'10,2':['vc',7,8]},e:{r:['town',0,5]},p:[
-{x:5,y:4,c:'#e879f9',h:'#222',w:1,
- n:'해변 산책러',s:['파도 소리를 들으면 마음이 차분해져. 🌊','센터에 가면 헌혈왕 이야기를 들을 수 있어!']}]},
+{x:5,y:4,c:'#e879f9',h:'#222',w:1,n:'해변 산책러',s:['파도 소리를 들으면 마음이 차분해져. 🌊','센터에 가면 헌혈왕 이야기를 들을 수 있어!']}]},
 
 house:{n:'보성의 집',par:'town',bgm:'indoor',m:I('wwwPwwwwKKwwwww','wfKKffXffXffKfw'),d:{'7,9':['town',3,4]},p:[
-{x:6,y:4,c:'#7dd3fc',h:'#1b1b26',
- n:'거울 속의 나',s:['안녕, 나는 강보성.','BS World에 오신 것을 환영해! IT, 전기공학 및 실무 역량을 지속 발전시키는 중이야.','이 월드의 모든 공간은 내가 걸어온 기록으로 만들었어.'],ch:{'지금까지의 길':['🧠 멘사 IQ 156 · 💻 정보처리기사 · 🏃 하프마라톤 3회 · 🩸 헌혈 167회','궁금하면 각 건물 주민에게 말을 걸어봐!'],'다음 모험':['다음 챕터는 함께할 새로운 퀘스트야.','벽의 액자도 꼭 눌러봐. 📸']}},
-{x:11,y:6,c:'#f59e0b',h:'#f59e0b',w:1,
- n:'고양이',s:['야옹~ 🐱','(주인이 코딩하는 동안 키보드 옆을 지키는 중이다냥.)']}]},
+{x:6,y:4,c:'#7dd3fc',h:'#1b1b26',n:'거울 속의 나',s:['안녕, 나는 강보성.','BS World에 오신 것을 환영해! IT, 전기공학 및 실무 역량을 지속 발전시키는 중이야.'],ch:{'지금까지의 길':['🧠 멘사 IQ 156 · 💻 정보처리기사 · 🏃 하프마라톤 3회 · 🩸 헌혈 167회'],'다음 모험':['다음 챕터는 함께할 새로운 퀘스트야.','벽의 액자도 꼭 눌러봐. 📸']}},
+{x:11,y:6,c:'#f59e0b',h:'#f59e0b',w:1,n:'고양이',s:['야옹~ 🐱','(주인이 코딩하는 동안 키보드 옆을 지키는 중이다냥.)']}]},
 
 gym:{n:'런 라이프 체육관',par:'sports',bgm:'sports',m:I('wwwwwMwwwwMwwww','wfKKffXffXffKfw'),d:{'7,9':['sports',10,3]},sh:['🏅 마라톤 메달 진열대','2013 · 2016 · 2016 하프코스 완주 / 2019 감귤마라톤 10km'],p:[
-{x:7,y:5,c:'#16a34a',h:'#222',n:'메인 러닝 코치',s:['어서 와! 여기는 런 라이프 체육관.','마라톤 하프코스를 3번 완주한 러너의 기록실이지.'],ch:{'하프코스 3회':['2013 제2회 6.25 상기 및 정전 60주년 기념 국민대통합 마라톤 대회 하프 01:58:21.05 (대한민국 특전사전우회 / 특수전사령부)','2016 제9회 아름다운제주국제마라톤대회 하프 2:27:11.23','2016 제21회 제주국제관광마라톤축제 하프 02:54:26.14'],'감귤마라톤 & 볼링':['2019 제주감귤국제마라톤 10km 01:22:38.32 🍊','2011 제30회 제주특별자치도볼링협회장기 전도볼링대회 대학부 남자 2인조전 3위 🎳']}},
+{x:7,y:5,c:'#16a34a',h:'#222',n:'메인 러닝 코치',s:['어서 와! 여기는 런 라이프 체육관.','마라톤 하프코스를 3번 완주한 러너의 기록실이지.'],ch:{'하프코스 3회':['2013 제2회 6.25 상기 및 정전 60주년 기념 국민대통합 마라톤 대회 하프 01:58:21.05','2016 제9회 아름다운제주국제마라톤대회 하프 2:27:11.23','2016 제21회 제주국제관광마라톤축제 하프 02:54:26.14'],'감귤마라톤 & 볼링':['2019 제주감귤국제마라톤 10km 01:22:38.32 🍊','2011 제30회 제주특별자치도볼링협회장기 전도볼링대회 대학부 남자 2인조전 3위 🎳']}},
 {x:3,y:6,c:'#60a5fa',h:'#222',w:1,n:'서브 러너',s:['후… 후… 아 안녕!','기록은 숫자지만 완주는 이야기야. 파이팅!']}]},
 
 agency:{n:'국가 자격 검정원',par:'cert',bgm:'knowledge',m:I('wwCwwCwwwwCwwww'),d:{'7,9':['cert',3,4]},p:[
-{x:7,y:5,c:'#2563eb',h:'#333',n:'총괄 수석관',s:['어서 오게. 국가 자격 검정원이야.','무엇이 궁금한가?'],ch:{'자격증':['📜 정보처리기사 · 컴퓨터활용능력 1급 · 워드프로세서','📊 사회조사분석사 2급 · 한국사능력검정시험 2급','🔤 TOEIC 최고 775점'],'공모전·수상':['🏆 2016 지역기업 청년 희망이음 프로젝트 경진대회 대상 (산업통상자원부 장관상)','🥇 2017 같은 대회 금상 (산업통상자원부 장관상)','🎖️ 2016 이니스프리 마케팅 공모전 입상 (제주대 LINC) · 2018 대한민국건축문화제 상상유니브 UCC 마케팅 공모전 장려상'],'수료·활동':['📜 청년취업아카데미 · 빅데이터 활용을 위한 DB관리 전문가 과정 (300시간)','📜 2017 희망이음 서포터즈 6기 · 2016 상상volunteer 11기 수료'],'🔒 증명서 전시장':'cert'}},
+{x:7,y:5,c:'#2563eb',h:'#333',n:'총괄 수석관',s:['어서 오게. 국가 자격 검정원이야.','무엇이 궁금한가?'],ch:{'자격증':['📜 정보처리기사 · 컴퓨터활용능력 1급 · 워드프로세서','📊 사회조사분석사 2급 · 한국사능력검정시험 2급','🔤 TOEIC 최고 775점'],'공모전·수상':['🏆 2016 지역기업 청년 희망이음 프로젝트 경진대회 대상 (산업통상자원부 장관상)','🥇 2017 같은 대회 금상 (산업통상자원부 장관상)']}},
 {x:11,y:6,c:'#94a3b8',h:'#222',w:1,n:'시험 준비생',s:['으아… 정처기 실기 공부 중이에요.','저분 기록 보면 희망이 생겨요!']}]},
 
 mensa:{n:'멘사 지능 연구소',par:'cert',bgm:'knowledge',m:I('wwKwwwwwwwwwKww'),d:{'7,9':['cert',10,4]},p:[
-{x:7,y:4,c:'#7c3aed',h:'#eee',n:'멘사 연구소장',s:['멘사 지능 연구소에 온 걸 환영합니다.','테스트 결과: IQ 156, Percentile 99%. 상위 1% 준회원입니다.','지성은 출발점일 뿐, 꾸준함이 역사를 만든다네.']}]},
+{x:7,y:4,c:'#7c3aed',h:'#eee',n:'멘사 연구소장',s:['멘사 지능 연구소에 온 걸 환영합니다.','테스트 결과: IQ 156, Percentile 99%. 상위 1% 준회원입니다.']}]},
 
 vc:{n:'나눔 & 기여 커뮤니티 센터',par:'coast',bgm:'beach',m:I('wwMwwwMwwwMwwww'),d:{'7,9':['coast',10,3]},sh:['🩸 헌혈 유공 진열대','대한적십자사 헌혈유공장 은장 · 헌혈 167회'],p:[
-{x:7,y:5,c:'#dc2626',h:'#444',n:'커뮤니티 이사장',s:['어서 오세요. 나눔 & 기여 커뮤니티 센터입니다.'],ch:{'헌혈':['🩸 헌혈 167회 달성!','적십자 헌혈유공장 은장 포장증을 받았습니다.'],'표창·수료':['🏅 산업통상자원부 장관상 2회 (2016 대상 · 2017 금상)','📜 2016 상상volunteer 11기 · 2017 희망이음 서포터즈 6기 수료']}},
+{x:7,y:5,c:'#dc2626',h:'#444',n:'커뮤니티 이사장',s:['어서 오세요. 나눔 & 기여 커뮤니티 센터입니다.'],ch:{'헌혈':['🩸 헌혈 167회 달성!','적십자 헌혈유공장 은장 포장증을 받았습니다.']}},
 {x:4,y:6,c:'#fb923c',h:'#222',w:1,n:'봉사원',s:['오늘도 봉사 활동 중! 😊','작은 나눔이 모이면 큰 기록이 돼요.']}]}
 };
 Object.values(M).forEach(z=>z.m=z.m.map(r=>r.padEnd(W,'T')));
 
-const PG=['...HHHHHH...',
-          '..HHHHHHHH..',
-          '.HHHHHHHHHH.',
-          '.HHSSSSSSHH.',
-          '.HSSSSSSSSH.',
-          '.PSEESSEESP.',
-          '.PSSSSSSSSP.',
-          '..SSSMMSSS..',
-          '...SSSSSS...',
-          '..CCCCCCCC..',
-          '.CCCCCCCCCC.',
-          '.CCCCCCCCCC.'];
+const PG=['...HHHHHH...','..HHHHHHHH..','.HHHHHHHHHH.','.HHSSSSSSHH.','.HSSSSSSSSH.','.PSEESSEESP.','.PSSSSSSSSP.','..SSSMMSSS..','...SSSSSS...','..CCCCCCCC..','.CCCCCCCCCC.','.CCCCCCCCCC.'];
 function spr(c,x,y,s,o={}){const d=o.d||0,col={H:o.h||'#1b1b26',S:'#f2c9a0',E:'#111',P:o.p||'#8a94a8',M:'#b5655a',C:o.c||'#ece4d0'};
 PG.forEach((r,j)=>[...r].forEach((k,i)=>{if(k=='.')return;if(d==1&&j>2&&j<9&&'SEM'.includes(k))k='H';if(d==2&&k=='E'&&i>5)k='S';if(d==3&&k=='E'&&i<6)k='S';c.fillStyle=col[k];c.fillRect(x+i*s,y+j*s,s,s)}));
 if(o.l!==false){c.fillStyle='#34495e';c.fillRect(x+3*s,y+12*s,2*s,o.w?s:2*s);c.fillRect(x+7*s,y+12*s,2*s,o.w?2*s:s)}}
@@ -367,53 +353,21 @@ function tile(c,k,x,y,t){
         RC={R:'#d64541',Q:'#3b6fd6',G:'#2f9e5f',Y:'#7e57c2'};
   if(RC[k]){f(RC[k],0,0,32,32);f('#0003',0,10,32,3);f('#0003',0,22,32,3);f('#fff4',0,0,32,4);return}
   switch(k){
-    case 'T':
-      gr();
-      f('#5c4028',13,18,6,14);f('#705035',14,18,2,14);
-      f('#1e7a31',2,2,28,18);f('#2eb84d',4,0,24,14);f('#76e053',8,2,10,6);
-      break;
-    case '=':
-      f('#f3db98',0,0,32,32);f('#e0c279',(r*6)%24+3,(r*4)%24+3,5,3);
-      break;
-    case '~':
-      f('#38bdf8',0,0,32,32);f('#0284c7',0,0,32,16);
-      const waveOffset = Math.sin((t/180) + x + y) * 4;
-      f('#ffffffa0', 2, 8 + waveOffset, 14, 2);
-      f('#ffffff80', 16, 20 - waveOffset, 12, 2);
-      break;
-    case 's':
-      f('#fde047',0,0,32,32);f('#facc15',r*5+2,r*4+3,4,3);
-      if(r===2){f('#fb7185', 18, 12, 3, 3);f('#ffffff', 19, 13, 1, 1);}
-      break;
-    case 'F':
-      gr();
-      f('#f59e0b',10,8,12,12);f('#78350f',13,11,6,6);f('#22c55e',15,20,2,8);
-      break;
-    case 't':
-      f('#c8693f',0,0,32,32);f('#e5d5c0',0,0,32,2);
-      break;
-    case 'H':
-      f('#fef3c7',0,0,32,32);f('#b45309',0,28,32,4);f('#38bdf8',9,8,14,12);f('#fff',9,8,14,2);
-      break;
-    case 'D':
-      fl();
-      f('#78350f', 4, 6, 24, 20);
-      f('#b45309', 6, 8, 20, 14);
-      f('#fde68a', 10, 11, 6, 6);
-      break;
-    case 'X':
-      fl();
-      f('#9ca3af', 10, 18, 12, 10);
-      f('#15803d', 8, 6, 16, 14);
-      f('#22c55e', 10, 8, 12, 10);
-      f('#f43f5e', 14, 6, 4, 4);
-      break;
-    case 'f':fl();break;case 'w':wl();f('#46352a',0,28,32,4);break;
-    case 'K':fl();f('#7a4a2a',2,6,28,22);f('#a8693f',2,6,28,6);break;
-    case 'P':wl();f('#e0b840',6,2,20,26);f('#cfd8e8',9,5,14,20);spr(c,X+10,Y+7,1,{l:false,p:'#f2c9a0'});break;
-    case 'C':wl();f('#8a6d4b',3,6,26,22);f('#fff',6,9,8,10);f('#ffe066',17,9,9,6);f('#7ec8ff',17,18,9,6);break;
-    case 'M':wl();f('#8a6d4b',3,6,26,22);f('#ffd34d',7,10,6,6);f('#c0c0c0',17,10,6,6);f('#cd7f32',12,19,6,6);break;
-    default:gr();
+    case 'T': gr(); f('#5c4028',13,18,6,14); f('#705035',14,18,2,14); f('#1e7a31',2,2,28,18); f('#2eb84d',4,0,24,14); f('#76e053',8,2,10,6); break;
+    case '=': f('#f3db98',0,0,32,32); f('#e0c279',(r*6)%24+3,(r*4)%24+3,5,3); break;
+    case '~': f('#38bdf8',0,0,32,32); f('#0284c7',0,0,32,16); const wo=Math.sin((t/180)+x+y)*4; f('#ffffffa0',2,8+wo,14,2); f('#ffffff80',16,20-wo,12,2); break;
+    case 's': f('#fde047',0,0,32,32); f('#facc15',r*5+2,r*4+3,4,3); if(r===2){f('#fb7185',18,12,3,3);f('#ffffff',19,13,1,1);} break;
+    case 'F': gr(); f('#f59e0b',10,8,12,12); f('#78350f',13,11,6,6); f('#22c55e',15,20,2,8); break;
+    case 't': f('#c8693f',0,0,32,32); f('#e5d5c0',0,0,32,2); break;
+    case 'H': f('#fef3c7',0,0,32,32); f('#b45309',0,28,32,4); f('#38bdf8',9,8,14,12); f('#fff',9,8,14,2); break;
+    case 'D': fl(); f('#78350f',4,6,24,20); f('#b45309',6,8,20,14); f('#fde68a',10,11,6,6); break;
+    case 'X': fl(); f('#9ca3af',10,18,12,10); f('#15803d',8,6,16,14); f('#22c55e',10,8,12,10); f('#f43f5e',14,6,4,4); break;
+    case 'f': fl(); break; case 'w': wl(); f('#46352a',0,28,32,4); break;
+    case 'K': fl(); f('#7a4a2a',2,6,28,22); f('#a8693f',2,6,28,6); break;
+    case 'P': wl(); f('#e0b840',6,2,20,26); f('#cfd8e8',9,5,14,20); spr(c,X+10,Y+7,1,{l:false,p:'#f2c9a0'}); break;
+    case 'C': wl(); f('#8a6d4b',3,6,26,22); f('#fff',6,9,8,10); f('#ffe066',17,9,9,6); f('#7ec8ff',17,18,9,6); break;
+    case 'M': wl(); f('#8a6d4b',3,6,26,22); f('#ffd34d',7,10,6,6); f('#c0c0c0',17,10,6,6); f('#cd7f32',12,19,6,6); break;
+    default: gr();
   }
 }
 
@@ -487,7 +441,7 @@ function warp(id,x,y,d){
 
 function banner(t){const b=$('#bn');b.textContent=t;b.style.opacity=1;setTimeout(()=>b.style.opacity=0,1700)}
 function zone(){return map.o?cur:map.par}
-/* 미니맵 HTML 생성 및 클릭 시 순간이동(warp) 연동 함수 */
+
 function wmHTML(){
   const z = zone();
   const node = (k, label, targetMapId) => `
@@ -498,13 +452,12 @@ function wmHTML(){
   return `<div class="minimap-grid">
     ${node('cert', '학술·자격 시티', 'cert')}
     ${node('route1', '1번 도로', 'route1')}
-    ${node('coast', '나눔 해변', 'coast')}
+    ${node('coast', '제주 바닷가', 'coast')}
     ${node('town', '태초마을', 'town')}
     ${node('sports', '마라톤 밸리', 'sports')}
   </div>`;
 }
 
-/* 화면 갱신 시 우측 하단 미니맵 오버레이 자동 업데이트 */
 function updateMiniMapOverlay() {
   const container = $('#minimap-container');
   if (container) {
@@ -512,8 +465,7 @@ function updateMiniMapOverlay() {
   }
 }
 
-  
-  function popMap(){const p=$('#pop');p.innerHTML=wmHTML();p.style.opacity=1;setTimeout(()=>p.style.opacity=0,2300)}
+function popMap(){const p=$('#pop');p.innerHTML=wmHTML();p.style.opacity=1;setTimeout(()=>p.style.opacity=0,2300)}
 
 function say(n,l,ch){dlg={n,l:l.slice(),i:0,ch,s:'t',sel:0,keys:ch?Object.keys(ch).concat('그만 듣기'):0};$('#dl').style.display='block';$('#dn').textContent=n;typ(l[0])}
 function typ(s){clearInterval(tw);let k=0;$('#dt').textContent='';tw=setInterval(()=>{k++;$('#dt').textContent=s.slice(0,k);if(k%3==0)sfx('t');if(k>=s.length){clearInterval(tw);tw=null}},26)}
@@ -544,7 +496,7 @@ function showMap(){if(busy)return;openM('<h3>🗺 월드 맵</h3>'+wmHTML())}
 const V=[{n:'단정한 댄디컷',bg:'#cfd8e8',c:'#ece4d0',p:'#f2c9a0'},{n:'헤드폰 룩',bg:'#2b3552',c:'#7a8599',p:'#e04f4f'},{n:'포근한 룩',bg:'#f5e1c8',c:'#c98f6b',p:'#f2c9a0'}];
 function showGallery(){openM('<h3>📸 AI 도트 초상화 갤러리</h3><div class="gl">'+V.map((v,i)=>`<figure><canvas id="pc${i}" width="132" height="140"></canvas><figcaption>${v.n}</figcaption></figure>`).join('')+'</div>');V.forEach((v,i)=>{const c=$('#pc'+i).getContext('2d');c.fillStyle=v.bg;c.fillRect(0,0,132,140);spr(c,0,8,11,{...v,l:false})})}
 
-const CT=[['🧠','멘사 (Mensa International)','IQ 156 · Percentile 99% · 준회원'],['💻','정보처리기사',''],['💻','컴퓨터활용능력 1급',''],['💻','워드프로세서',''],['📊','사회조사분석사 2급',''],['📜','한국사능력검정시험 2급',''],['🔤','TOEIC 최고 775점',''],['🏆','2016 지역기업 청년 희망이음 프로젝트 경진대회 대상','산업통상자원부 장관상'],['🥇','2017 지역기업 청년 희망이음 프로젝트 경진대회 금상','산업통상자원부 장관상'],['🏃','2019 제주감귤국제마라톤 10km 기록증','01:22:38.32'],['🩸','헌혈유공장 은장','헌혈 167회 · 대한적십자사']];
+const CT=[['🧠','멘사 (Mensa International)','IQ 156 · Percentile 99% · 준회원'],['💻','정보처리기사',''],['💻','컴퓨터활용능력 1급',''],['💻','워드프로세서',''],['📊','사회조사분석사 2급',''],['📜','한국사능력검정시험 2급',''],['🔤','TOEIC 최고 775점',''],['🏆','2016 지역기업 청년 희망이음 프로젝트 경진대회 대상','산업통상자원부 장관상'],['🥇','2017 같은 대회 금상','산업통상자원부 장관상'],['🏃','2019 제주감귤국제마라톤 10km 기록증','01:22:38.32'],['🩸','헌혈유공장 은장','헌혈 167회 · 대한적십자사']];
 function showCerts(){if(busy)return;openM('<h3>📜 증명서 & 뱃지 전시</h3><p style="font-size:12px;opacity:.8">🔒 개인정보는 가림(마스킹) 처리됩니다.</p>'+CT.map(c=>`<div class="cd"><b>${c[0]} ${c[1]}</b>${c[2]?`<small>${c[2]}</small>`:''}<div class="mk">생년월일 <span class="bl">0000.00.00</span> · 문서번호 <span class="bl">XXXX-0000</span></div></div>`).join(''))}
 
 const BR=[
@@ -601,7 +553,7 @@ function updateHUD(){
  if($('#qSports'))$('#qSports').textContent=(visited.has('sports')||visited.has('gym'))?'완료':'미발견';
  if($('#qCommunity'))$('#qCommunity').textContent=(visited.has('coast')||visited.has('vc'))?'완료':'미발견';
  
- updateMiniMapOverlay(); // [추가] 미니맵 오버레이 실시간 갱신 연동
+ updateMiniMapOverlay();
 }
 
 function showPortfolio(){
@@ -627,7 +579,33 @@ function showQuestLog(){
 
 function press(d){if(dlg&&dlg.s=='m'){dlg.sel=(dlg.sel+(d==1?-1:d==0?1:0)+dlg.keys.length)%dlg.keys.length;menu()}else held=d}
 const KM={ArrowDown:0,s:0,ArrowUp:1,w:1,ArrowLeft:2,a:2,ArrowRight:3,d:3};
-addEventListener('keydown',e=>{const k=KM[e.key];if(k!=null){e.preventDefault();if(!e.repeat||!dlg)press(k);return}if(['z','Z','Enter',' '].includes(e.key)){e.preventDefault();act()}if(['x','X','Escape'].includes(e.key))cancel()});
+
+/* 첫 화면에서 스페이스바/엔터 키 입력 시 게임 시작 연동 */
+addEventListener('keydown',e=>{
+  const st = $('#st');
+  const isStarted = st && st.style.display === 'none';
+
+  if (!isStarted) {
+    if ([' ', 'Enter', 'z', 'Z'].includes(e.key)) {
+      e.preventDefault();
+      startGame();
+      return;
+    }
+  }
+
+  const k=KM[e.key];
+  if(k!=null){
+    e.preventDefault();
+    if(!e.repeat||!dlg) press(k);
+    return;
+  }
+  if(['z','Z','Enter',' '].includes(e.key)){
+    e.preventDefault();
+    act();
+  }
+  if(['x','X','Escape'].includes(e.key)) cancel();
+});
+
 addEventListener('keyup',e=>{const k=KM[e.key];if(k!=null&&held===k)held=null});
 
 document.querySelectorAll('.dp button').forEach(b=>{const d=+b.dataset.d;b.addEventListener('pointerdown',e=>{e.preventDefault();press(d)});['pointerup','pointerleave','pointercancel'].forEach(t=>b.addEventListener(t,()=>{if(held===d)held=null}))});
